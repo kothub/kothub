@@ -12,7 +12,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="onLoginClick"
-            android:text="Button"
+            android:text="@string/login"
             tools:layout_editor_absoluteX="104dp"
             tools:layout_editor_absoluteY="16dp" />
 
