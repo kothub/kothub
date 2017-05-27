@@ -14,6 +14,22 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+
+
+        if (project.hasProperty("kothub_github_client")) {
+            resValue "string", "github_client", kothub_github_client
+        }
+        else {
+            resValue "string", "github_client", "dummy client"
+        }
+
+        if (project.hasProperty("kothub_github_secret")) {
+            resValue "string", "github_secret", kothub_github_secret
+        }
+        else {
+            resValue "string", "github_secret", "dummy secret"
+        }
     }
     buildTypes {
         release {
