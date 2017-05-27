@@ -19,15 +19,13 @@ android {
 
         if (project.hasProperty("kothub_github_client")) {
             resValue "string", "github_client", kothub_github_client
-        }
-        else {
+        } else {
             resValue "string", "github_client", "dummy client"
         }
 
         if (project.hasProperty("kothub_github_secret")) {
             resValue "string", "github_secret", kothub_github_secret
-        }
-        else {
+        } else {
             resValue "string", "github_secret", "dummy secret"
         }
     }
