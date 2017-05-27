@@ -34,4 +34,10 @@ class MainActivity : AppCompatActivity() {
         initOAuth()
         startActivity(Intent(this, LoginActivity::class.java))
     }
+
+    override fun onStart() {
+        super.onStart()
+        initOAuth()
+        startActivity(Intent(this, LoginActivity::class.java))
+    }
 }
