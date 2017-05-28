@@ -21,7 +21,9 @@ fun userSummary (callback: (FuelError?, UserSummary?) -> Unit) {
                 company
                 location
                 followers { totalCount }
+                following { totalCount }
                 starredRepositories { totalCount }
+                repositories { totalCount }
                 name
                 websiteUrl
                 url

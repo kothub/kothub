@@ -23,6 +23,17 @@ class User(override val level: Int): ActorFields {
         )
     }
 
+    fun following(first: Int? = null, body: UserConnection.() -> Unit) {
+
+        val connection = UserConnection(nextLevel())
+        connection.body()
+
+        val pagination = paginationData(first)
+        addField(
+                Node("following${args(pagination)}", connection.fields)
+        )
+    }
+
     fun starredRepositories(first: Int? = null, body: UserConnection.() -> Unit) {
 
         val connection = UserConnection(nextLevel())
@@ -31,6 +42,17 @@ class User(override val level: Int): ActorFields {
         val pagination = paginationData(first)
         addField(
                 Node("starredRepositories${args(pagination)}", connection.fields)
+        )
+    }
+
+    fun repositories(first: Int? = null, body: UserConnection.() -> Unit) {
+
+        val connection = UserConnection(nextLevel())
+        connection.body()
+
+        val pagination = paginationData(first)
+        addField(
+                Node("repositories${args(pagination)}", connection.fields)
         )
     }
 
