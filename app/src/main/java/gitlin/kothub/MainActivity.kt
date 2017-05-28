@@ -36,7 +36,9 @@ class MainActivity : AppCompatActivity() {
         super.onStart()
         initOAuth()
 		Log.d("MainActivity", OAuthValues.isLoggedIn.toString())
-		if (!OAuthValues.isLoggedIn)
-        	startActivity(Intent(this, LoginActivity::class.java))
+		if (!OAuthValues.isLoggedIn) {
+			startActivity(Intent(this, LoginActivity::class.java))
+			finish()
+		}
     }
 }
