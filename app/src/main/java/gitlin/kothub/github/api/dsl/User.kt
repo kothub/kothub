@@ -1,5 +1,7 @@
 package gitlin.kothub.github.api.dsl
 
+import android.util.Log
+
 
 class User(override val level: Int): ActorFields {
 
@@ -44,7 +46,7 @@ class User(override val level: Int): ActorFields {
     }
 
     fun pinnedRepositories (
-            first: Int,
+            first: Int?,
             after: String? = null,
             last: Int? = null,
             before: String? = null,
@@ -58,8 +60,10 @@ class User(override val level: Int): ActorFields {
         connection.body()
 
         val pagination = paginationData(first, after, last, before)
+        Log.d("PAGINATION", pagination)
+        Log.d("PAGINATION?", args(pagination, arg("privacy", privacy)))
         addField(
-                Node("pinnedRepositories${args(pagination, arg("privacy", privacy.toString()))}", connection.fields)
+            Node("pinnedRepositories${args(pagination, arg("privacy", privacy))}", connection.fields)
         )
     }
 }
