@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Github / Kotlin</string>
-    <string name="oauth_github_token">oauth_github_token</string>
-    <string name="login">Login</string>
+	<string name="app_name">Github / Kotlin</string>
+	<string name="oauth_github_token">oauth_github_token</string>
+	<string name="login">Login</string>
 </resources>

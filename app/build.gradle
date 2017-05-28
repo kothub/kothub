@@ -50,4 +50,5 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile "com.github.kittinunf.fuel:fuel-android:$fuel_version" //for Android
+	compile 'com.android.support:design:25.3.1'
 }
