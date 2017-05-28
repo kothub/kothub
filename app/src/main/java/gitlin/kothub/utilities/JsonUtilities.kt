@@ -5,7 +5,7 @@ import org.json.JSONObject
 import kotlin.reflect.KProperty
 
 operator fun <T> JSONObject.getValue(thisRef: Any, prop: KProperty<*>): T {
-    return this.get(prop.toString()) as T
+    return this.get(prop.name) as T
 }
 
 operator fun JSONObject.contains(property: String) = this.has(property)

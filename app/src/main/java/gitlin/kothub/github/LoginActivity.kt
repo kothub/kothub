@@ -10,6 +10,7 @@ import android.view.View
 import gitlin.kothub.R
 import gitlin.kothub.github.api.userSummary
 import gitlin.kothub.utilities.editSharedPreferences
+import gitlin.kothub.utilities.set
 
 
 class LoginActivity: AppCompatActivity() {
@@ -41,8 +42,8 @@ class LoginActivity: AppCompatActivity() {
                     OAuthValues.isLoggedIn = true
                     OAuthValues.GITHUB_TOKEN = token!!
 
-                    editSharedPreferences {
-                        getString(R.string.oauth_github_token) to token
+                    editSharedPreferences(getString(R.string.github_preferences_file)) {
+                        set(getString(R.string.oauth_github_token) to token)
                     }
 
                     userSummary { error, summary ->
@@ -52,6 +53,7 @@ class LoginActivity: AppCompatActivity() {
                         }
                         else {
                             Log.d("USERSUMMARY", summary.toString())
+                            Log.d("USERSUMMARY", summary.location)
                         }
                     }
                 } else {

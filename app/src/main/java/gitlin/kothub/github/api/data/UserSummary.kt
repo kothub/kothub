@@ -5,18 +5,21 @@ import org.json.JSONArray
 import org.json.JSONObject
 
 
-data class UserSummary(val json: JSONObject): RateLimit(json.obj("rateLimit")!!) {
-    val avatarUrl: String by json
-    val login: String by json
-    val name: String by json
-    val websiteUrl: String by json
-    val bio: String by json
-    val url: String by json
-    val company: String by json
-    val location: String by json
-    val followers: Int by json.obj("totalCount")
+data class UserSummary(private val json: JSONObject): RateLimit(json.obj("rateLimit")!!) {
+
+    private val viewer = json.obj("viewer")!!
+
+    val avatarUrl: String by viewer
+    val login: String by viewer
+    val name: String by viewer
+    val websiteUrl: String by viewer
+    val bio: String by viewer
+    val url: String by viewer
+    val company: String by viewer
+    val location: String by viewer
+    val followers: Int by viewer.obj("totalCount")
     val pinnedRepositories =
-            json.obj("pinnedRepositories")?.arr("nodes")?.map<JSONObject, PinnedRepository> { PinnedRepository(it) }
+            viewer.obj("pinnedRepositories")?.arr("nodes")?.map<JSONObject, PinnedRepository> { PinnedRepository(it) }
             ?: arrayListOf()
 }
 
