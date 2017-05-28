@@ -25,13 +25,6 @@ class LoginWebView(val context: LoginWebViewActivity): WebViewClient() {
         return if (result) result else  super.shouldOverrideUrlLoading(view, request)
     }
 
-
-    override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?): Boolean {
-
-        val result = shouldOverrideUrlLoading(view, request?.url)
-        return if (result) result else super.shouldOverrideUrlLoading(view, request)
-    }
-
     fun shouldOverrideUrlLoading(view: WebView?, url: Uri?): Boolean {
         if (url != null) {
             if (url.scheme == "oauth" && url.host == "kothub") {

@@ -67,6 +67,7 @@ class LoginActivity: AppCompatActivity() {
     }
 
     fun onLoginClick (view: View) {
+		Log.d("LoginActivity", "openWebView")
         openWebView()
     }
 }
