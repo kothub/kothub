@@ -30,13 +30,13 @@ class LoginWebView(val context: LoginWebViewActivity): WebViewClient() {
     override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
 
         val result = shouldOverrideUrlLoading(view, Uri.parse(url))
-        return if (result) result else  super.shouldOverrideUrlLoading(view, url)
+        return if (result) result else super.shouldOverrideUrlLoading(view, url)
     }
 
     override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?): Boolean {
 
         val result = shouldOverrideUrlLoading(view, request?.url)
-        return if (result) result else  super.shouldOverrideUrlLoading(view, request)
+        return if (result) result else super.shouldOverrideUrlLoading(view, request)
     }
 
     fun shouldOverrideUrlLoading(view: WebView?, url: Uri?): Boolean {
