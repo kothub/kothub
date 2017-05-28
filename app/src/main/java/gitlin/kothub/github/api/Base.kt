@@ -9,9 +9,6 @@ import gitlin.kothub.github.api.dsl.Query
 
 fun post(query: Query): Request {
 
-    Log.d("query", query.toString())
-    Log.d("query", OAuthValues.GITHUB_TOKEN)
-
     return Fuel.post("https://api.github.com/graphql")
         .header(Pair("Authorization", "Bearer ${OAuthValues.GITHUB_TOKEN}"))
         .body("{ \"query\": \"$query\" }")
