@@ -2,7 +2,6 @@ package gitlin.kothub.github.api.dsl
 
 
 interface ActorFields: Element {
-
     val avatarUrl: Unit
         get() = addField("avatarUrl")
 

@@ -1,5 +1,6 @@
 package gitlin.kothub.github.api.dsl
 
+
 import android.util.Log
 
 
@@ -24,7 +25,6 @@ class User(override val level: Int): ActorFields {
         )
     }
 
-
     fun contributedRepositories (
             first: Int,
             after: String? = null,
@@ -41,6 +41,7 @@ class User(override val level: Int): ActorFields {
 
         val pagination = paginationData(first, after, last, before)
         addField(
+
             Node("contributedRepositories${args(pagination, arg("privacy", privacy.toString()))}", connection.fields)
         )
     }
@@ -85,3 +86,4 @@ class UserEdge(override val level: Int): Edges(level) {
         addField(Node(fields = issue.fields))
     }
 }
+

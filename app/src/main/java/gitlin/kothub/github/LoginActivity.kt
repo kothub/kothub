@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
 import gitlin.kothub.R
+
 import gitlin.kothub.github.api.userSummary
 import gitlin.kothub.utilities.editSharedPreferences
 
@@ -39,6 +40,7 @@ class LoginActivity: AppCompatActivity() {
                 if (error == null) {
                     Log.d("OAuthToken", token)
                     OAuthValues.isLoggedIn = true
+
                     OAuthValues.GITHUB_TOKEN = token!!
 
                     editSharedPreferences {
@@ -54,6 +56,7 @@ class LoginActivity: AppCompatActivity() {
                             Log.d("USERSUMMARY", summary.toString())
                         }
                     }
+
                 } else {
                     // Handle error
                 }
