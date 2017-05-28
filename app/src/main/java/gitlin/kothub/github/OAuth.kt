@@ -11,6 +11,7 @@ object OAuthValues {
     lateinit var GITHUB_CLIENT: String
     lateinit var GITHUB_SECRET: String
     lateinit var REDIRECT_URL: String
+    lateinit var GITHUB_TOKEN: String
 
 
     operator fun component1() = GITHUB_CLIENT

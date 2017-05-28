@@ -4,31 +4,17 @@ import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
+import android.util.Log
 import android.webkit.WebResourceRequest
+import android.webkit.WebResourceResponse
 import android.webkit.WebView
 import android.webkit.WebViewClient
 
 
 class LoginWebView(val context: LoginWebViewActivity): WebViewClient() {
 
-    // dialog = ProgressDialog(context)
-
-    init {
-        //  dialog.setTitle("Loading...")
-        //dialog.progress = 0
-    }
-
-    override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
-        //dialog.show()
-    }
-
-    override fun onPageFinished(view: WebView?, url: String?) {
-        //dialog.dismiss()
-    }
-
 
     override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
-
         val result = shouldOverrideUrlLoading(view, Uri.parse(url))
         return if (result) result else super.shouldOverrideUrlLoading(view, url)
     }

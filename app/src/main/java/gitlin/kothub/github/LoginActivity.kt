@@ -9,6 +9,9 @@ import android.util.Log
 import android.view.View
 import gitlin.kothub.R
 
+import gitlin.kothub.github.api.userSummary
+import gitlin.kothub.utilities.editSharedPreferences
+import gitlin.kothub.utilities.set
 
 
 class LoginActivity: AppCompatActivity() {
@@ -38,10 +41,24 @@ class LoginActivity: AppCompatActivity() {
                 if (error == null) {
                     Log.d("OAuthToken", token)
                     OAuthValues.isLoggedIn = true
-                    val sharedPref = getPreferences(Context.MODE_PRIVATE)
-                    val editor = sharedPref.edit()
-                    editor.putString(getString(R.string.oauth_github_token), token)
-                    editor.commit()
+
+                    OAuthValues.GITHUB_TOKEN = token!!
+
+                    editSharedPreferences(getString(R.string.github_preferences_file)) {
+                        set(getString(R.string.oauth_github_token) to token)
+                    }
+
+                    userSummary { error, summary ->
+                        if (summary == null) {
+                            Log.d("USERSUMMARY", "ERROR")
+                            Log.d("USERSUMMARY", error?.response?.httpResponseMessage ?: "NO ERROR??")
+                        }
+                        else {
+                            Log.d("USERSUMMARY", summary.toString())
+                            Log.d("USERSUMMARY", summary.location)
+                        }
+                    }
+
                 } else {
                     // Handle error
                 }
@@ -52,6 +69,7 @@ class LoginActivity: AppCompatActivity() {
     }
 
     fun onLoginClick (view: View) {
+		Log.d("LoginActivity", "openWebView")
         openWebView()
     }
 }
