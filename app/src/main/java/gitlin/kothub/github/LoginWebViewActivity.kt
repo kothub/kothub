@@ -6,9 +6,7 @@ import android.view.View
 import android.view.Window
 import android.webkit.WebView
 
-/**
- * Created by Florian on 27/05/2017.
- */
+
 class LoginWebViewActivity: AppCompatActivity() {
 
     lateinit var webview: WebView
