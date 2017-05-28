@@ -10,31 +10,6 @@ import gitlin.kothub.github.api.dsl.query
 import gitlin.kothub.utilities.obj
 
 
-fun getLogin (token: String) {
-
-    val body =
-        """
-            {
-                "query": "query { viewer { login } }"
-
-            }
-        """
-
-    Fuel.post("https://api.github.com/graphql")
-        .header(Pair("Authorization", "Bearer $token"))
-        .body(body)
-        .responseString { request, response, result ->
-            when (result) {
-                is Result.Failure -> {
-                    Log.d("error", response.toString())
-                }
-                is Result.Success -> {
-                    val (data) = result
-                    Log.d("success", data)
-                }
-            }
-    }
-}
 
 fun userSummary (callback: (FuelError?, UserSummary?) -> Unit) {
     post(
@@ -57,12 +32,5 @@ fun userSummary (callback: (FuelError?, UserSummary?) -> Unit) {
                }
             }
         }
-    )
-    .responseJson { request, response, result ->
-        when (result) {
-            is Result.Failure -> callback(result.error, null)
-            is Result.Success -> callback(null, UserSummary(result.value.obj().obj("data")!!))
-        }
-    }
-
+    ) { error, result -> callback(error, if (result == null) null else UserSummary(result) ) }
 }
