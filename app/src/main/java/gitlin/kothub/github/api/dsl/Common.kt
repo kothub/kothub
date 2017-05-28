@@ -28,6 +28,7 @@ fun paginationData(
     }
 
     return if (result.isEmpty()) null else result.joinToString(", ")
+
 }
 
 fun arg(key: String, value: Any?): String? {
@@ -49,5 +50,4 @@ fun args(vararg values: String?): String {
     Log.d("ARGUMENTS$", "($arguments)")
 
     return if (arguments.isEmpty()) "" else "($arguments)"
-
 }

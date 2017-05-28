@@ -12,6 +12,7 @@ class Repository(override val level: Int): Element {
     val description: Unit get() = addField("description")
     val name: Unit get() = addField("name")
 
+
     fun issues(first: Int = 10, body: IssueConnection.() -> Unit) {
         val connection = IssueConnection(nextLevel())
         connection.body()
@@ -33,6 +34,7 @@ class RepositoryConnection(override val level: Int) : Connection<Repository>(lev
         repo.body()
         addField(Node("nodes", repo.fields))
     }
+
 }
 
 

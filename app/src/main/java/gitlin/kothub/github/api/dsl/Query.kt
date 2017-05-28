@@ -1,8 +1,8 @@
 package gitlin.kothub.github.api.dsl
 
 
-class Query(withRateLimit: Boolean = true): Element {
 
+class Query(withRateLimit: Boolean = true): Element {
     override val level = 0
     override val fields = arrayListOf<Field>()
 
@@ -20,6 +20,7 @@ class Query(withRateLimit: Boolean = true): Element {
         }
     }
 
+
     fun repository(owner: String, name: String, body: Repository.() -> Unit) {
         val repo = Repository(nextLevel())
         repo.body()
@@ -33,7 +34,6 @@ class Query(withRateLimit: Boolean = true): Element {
     }
 
 
-
     fun prettyPrint(): String {
         return "query {\n" + fields.fold("") { acc, value -> acc + value.prettyPrint() } + "}"
     }
@@ -44,7 +44,9 @@ class Query(withRateLimit: Boolean = true): Element {
 }
 
 
+
 fun query (withRateLimit: Boolean = true, body: Query.() -> Unit): Query {
+
     val query = Query()
     query.body()
     return query

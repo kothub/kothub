@@ -31,12 +31,15 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(activity_main)
-        tv_hello.text = "Github / Kotlin"
+        tv_hello.text = "Kothub"
     }
 
     override fun onStart() {
         super.onStart()
         initOAuth()
-        startActivity(Intent(this, LoginActivity::class.java))
+		Log.d("MainActivity", OAuthValues.isLoggedIn.toString())
+		if (!OAuthValues.isLoggedIn) {
+			startActivity(Intent(this, LoginActivity::class.java))
+		}
     }
 }

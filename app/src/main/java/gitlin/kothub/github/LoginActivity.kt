@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
 import gitlin.kothub.R
+
 import gitlin.kothub.github.api.userSummary
 import gitlin.kothub.utilities.editSharedPreferences
 import gitlin.kothub.utilities.set
@@ -40,6 +41,7 @@ class LoginActivity: AppCompatActivity() {
                 if (error == null) {
                     Log.d("OAuthToken", token)
                     OAuthValues.isLoggedIn = true
+
                     OAuthValues.GITHUB_TOKEN = token!!
 
                     editSharedPreferences(getString(R.string.github_preferences_file)) {
@@ -56,6 +58,7 @@ class LoginActivity: AppCompatActivity() {
                             Log.d("USERSUMMARY", summary.location)
                         }
                     }
+
                 } else {
                     // Handle error
                 }
@@ -66,6 +69,7 @@ class LoginActivity: AppCompatActivity() {
     }
 
     fun onLoginClick (view: View) {
+		Log.d("LoginActivity", "openWebView")
         openWebView()
     }
 }
