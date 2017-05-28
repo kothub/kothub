@@ -7,8 +7,10 @@ enum class RepositoryPrivacy (val value: String){
 
 class Repository(override val level: Int): Element {
 
-
     override val fields = arrayListOf<Field>()
+
+    val description: Unit get() = addField("description")
+    val name: Unit get() = addField("name")
 
     fun issues(first: Int = 10, body: IssueConnection.() -> Unit) {
         val connection = IssueConnection(nextLevel())
@@ -25,13 +27,19 @@ class RepositoryConnection(override val level: Int) : Connection<Repository>(lev
         edges.body()
         addField(Node("edges", edges.fields))
     }
+
+    fun nodes (body: Repository.() -> Unit) {
+        val repo = Repository(nextLevel())
+        repo.body()
+        addField(Node("nodes", repo.fields))
+    }
 }
 
 
 class RepositoryEdge(override val level: Int): Edges(level) {
     fun node (body: Repository.() -> Unit) {
-        val issue = Repository(nextLevel())
-        issue.body()
-        addField(Node(fields = issue.fields))
+        val repo = Repository(nextLevel())
+        repo.body()
+        addField(Node(fields = repo.fields))
     }
 }

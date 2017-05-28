@@ -8,7 +8,7 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
 import gitlin.kothub.R
-
+import gitlin.kothub.utilities.editSharedPreferences
 
 
 class LoginActivity: AppCompatActivity() {
@@ -38,10 +38,11 @@ class LoginActivity: AppCompatActivity() {
                 if (error == null) {
                     Log.d("OAuthToken", token)
                     OAuthValues.isLoggedIn = true
-                    val sharedPref = getPreferences(Context.MODE_PRIVATE)
-                    val editor = sharedPref.edit()
-                    editor.putString(getString(R.string.oauth_github_token), token)
-                    editor.commit()
+                    OAuthValues.GITHUB_TOKEN = token!!
+
+                    editSharedPreferences {
+                        getString(R.string.oauth_github_token) to token
+                    }
                 } else {
                     // Handle error
                 }
