@@ -23,6 +23,17 @@ class User(override val level: Int): ActorFields {
         )
     }
 
+    fun starredRepositories(first: Int? = null, body: UserConnection.() -> Unit) {
+
+        val connection = UserConnection(nextLevel())
+        connection.body()
+
+        val pagination = paginationData(first)
+        addField(
+                Node("starredRepositories${args(pagination)}", connection.fields)
+        )
+    }
+
     fun contributedRepositories (
             first: Int,
             after: String? = null,

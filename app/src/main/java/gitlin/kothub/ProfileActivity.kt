@@ -28,6 +28,7 @@ class ProfileActivity : AppCompatActivity(), AnkoLogger {
                 username.text = summary.login
                 description.text = summary.bio
                 followers.text = summary.followers?.toString()
+                stars.text = summary.starredRepositories?.toString()
             }
         }
     }
