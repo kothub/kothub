@@ -24,8 +24,10 @@ class MainActivity : AppCompatActivity() {
         OAuthValues.GITHUB_SECRET = getString(R.string.github_secret)
 
         val token: String? = getOAuthToken()
-        Log.d(TAG, token)
-        OAuthValues.isLoggedIn = token != null
+        if (token != null) {
+            OAuthValues.GITHUB_TOKEN = token
+            OAuthValues.isLoggedIn = true
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
