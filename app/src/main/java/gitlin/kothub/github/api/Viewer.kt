@@ -32,12 +32,5 @@ fun userSummary (callback: (FuelError?, UserSummary?) -> Unit) {
                }
             }
         }
-    )
-    .responseJson { request, response, result ->
-        when (result) {
-            is Result.Failure -> callback(result.error, null)
-            is Result.Success -> callback(null, UserSummary(result.value.obj().obj("data")!!))
-        }
-    }
-
+    ) { error, result -> callback(error, if (result == null) null else UserSummary(result) ) }
 }

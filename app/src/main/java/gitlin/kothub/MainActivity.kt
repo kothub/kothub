@@ -15,7 +15,7 @@ import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.debug
 
 class MainActivity : AppCompatActivity(), AnkoLogger {
-    
+
     fun initOAuth () {
         OAuthValues.REDIRECT_URL = "oauth://kothub"
         OAuthValues.GITHUB_CLIENT = getString(R.string.github_client)
