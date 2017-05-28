@@ -3,15 +3,11 @@ package gitlin.kothub.github
 
 import android.content.Context
 import android.content.Intent
-import android.net.Credentials
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
 import gitlin.kothub.R
-import android.R.id.edit
-import android.content.SharedPreferences
-
 
 
 
@@ -46,11 +42,12 @@ class LoginActivity: AppCompatActivity() {
                     val editor = sharedPref.edit()
                     editor.putString(getString(R.string.oauth_github_token), token)
                     editor.commit()
-                }
-                else {
+                } else {
                     // Handle error
                 }
             })
+
+
         }
     }
 
