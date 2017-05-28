@@ -11,13 +11,11 @@ import gitlin.kothub.github.LoginActivity
 import gitlin.kothub.github.OAuthValues
 import gitlin.kothub.utilities.getOAuthToken
 import kotlinx.android.synthetic.main.activity_main.*
+import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.debug
 
-class MainActivity : AppCompatActivity() {
-
-    companion object {
-        val TAG = "MainActivity"
-    }
-
+class MainActivity : AppCompatActivity(), AnkoLogger {
+    
     fun initOAuth () {
         OAuthValues.REDIRECT_URL = "oauth://kothub"
         OAuthValues.GITHUB_CLIENT = getString(R.string.github_client)
@@ -39,7 +37,8 @@ class MainActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         initOAuth()
-		Log.d("MainActivity", OAuthValues.isLoggedIn.toString())
+
+        debug(OAuthValues.isLoggedIn)
 		if (!OAuthValues.isLoggedIn) {
 			startActivity(Intent(this, LoginActivity::class.java))
 		}
