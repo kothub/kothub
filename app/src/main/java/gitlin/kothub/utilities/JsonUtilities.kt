@@ -9,7 +9,7 @@ operator fun <T> JSONObject.getValue(thisRef: Any, prop: KProperty<*>): T? {
         return null
     }
     else {
-        return this.get(prop.name) as T
+        return this.get(prop.name) as T?
     }
 }
 
