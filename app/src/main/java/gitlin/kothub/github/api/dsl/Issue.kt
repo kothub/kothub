@@ -13,3 +13,21 @@ class Issue(override val level: Int): CommentFields {
 
 }
 
+class IssueEdges(override val level: Int): Edges(level) {
+    fun node (body: Issue.() -> Unit) {
+        val issue = Issue(nextLevel())
+        issue.body()
+        addField(Node(fields = issue.fields))
+    }
+}
+
+
+class IssueConnection(override val level: Int) : Connection<Issue>(level) {
+    fun edges (body: IssueEdges.() -> Unit) {
+        val edges = IssueEdges(nextLevel())
+        edges.body()
+        addField(Node("edges", edges.fields))
+    }
+}
+
+

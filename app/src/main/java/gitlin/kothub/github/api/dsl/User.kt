@@ -21,7 +21,7 @@ class User(override val level: Int): ActorFields {
 
         val pagination = paginationData(first, after, last, before)
         addField(
-            Node("contributedRepositories(${args(pagination, arg("privacy", privacy))})", connection.fields)
+            Node("contributedRepositories(${args(pagination, arg("privacy", privacy.toString()))})", connection.fields)
         )
     }
 }

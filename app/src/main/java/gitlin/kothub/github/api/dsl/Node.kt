@@ -1,16 +1,22 @@
 package gitlin.kothub.github.api.dsl
 
 class Node(name: String = "node", val fields: MutableList<Field>): Field(name) {
+
     override fun toString(): String {
-        val spaces = (0..level).fold("") { acc, _ -> acc + "  "}
+        return "$name{" + fields.fold("") { acc, value -> acc + value.toString() } + "}"
+    }
+
+    override fun prettyPrint(): String {
+        val numberOfSpaces = level * 2
+        val spaces = (1..numberOfSpaces).fold("") { acc, _ -> acc + " "}
 
         var result = "$spaces$name {\n"
 
         fields.forEach { field ->
-            result += field.toString()
+            result += field.prettyPrint()
         }
 
-        result += "}\n"
+        result += "$spaces}\n"
         return result
     }
 }
