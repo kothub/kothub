@@ -7,6 +7,16 @@
     tools:context="gitlin.kothub.github.LoginActivity"
     android:orientation="vertical">
 
+        <!--<android.support.v7.widget.Toolbar-->
+            <!--android:id="@+id/appToolbar"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="?attr/actionBarSize"-->
+            <!--android:background="@color/colorPrimary"-->
+            <!--android:elevation="4dp"-->
+            <!--android:theme="@style/ThemeOverlay.AppCompat.ActionBar"-->
+            <!--app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>-->
+
+
         <Button
             android:id="@+id/button"
             android:layout_width="match_parent"

@@ -1,5 +1,6 @@
 package gitlin.kothub
 
+import android.app.Activity
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.support.v7.app.AppCompatActivity

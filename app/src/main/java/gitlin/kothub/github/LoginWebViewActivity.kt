@@ -1,5 +1,6 @@
 package gitlin.kothub.github
 
+import android.app.Activity
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
@@ -7,7 +8,7 @@ import android.view.Window
 import android.webkit.WebView
 
 
-class LoginWebViewActivity: AppCompatActivity() {
+class LoginWebViewActivity: Activity() {
 
     lateinit var webview: WebView
 

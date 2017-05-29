@@ -1,5 +1,7 @@
 package gitlin.kothub
 
+import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -31,9 +33,8 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(activity_main)
+        setSupportActionBar(appToolbar)
         tv_hello.text = "Kothub"
-
-        ImageLoader.getInstance().init(ImageLoaderConfiguration.createDefault(this))
     }
 
     override fun onStart() {
@@ -45,6 +46,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
             startActivity(Intent(this, ProfileActivity::class.java))
         } else {
             startActivity(Intent(this, LoginActivity::class.java))
+
         }
     }
 }
