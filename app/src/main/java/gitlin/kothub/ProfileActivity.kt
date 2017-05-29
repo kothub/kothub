@@ -15,7 +15,6 @@ import com.squareup.picasso.Picasso
 import gitlin.kothub.adapters.PinnedRepositoryAdapter
 import gitlin.kothub.ui.AppDrawer
 import kotlinx.android.synthetic.main.toolbar.*
-import org.jetbrains.anko.info
 
 
 class ProfileActivity : AppCompatActivity(), AnkoLogger {

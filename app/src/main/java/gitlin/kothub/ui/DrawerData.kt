@@ -4,8 +4,6 @@ import gitlin.kothub.github.api.data.DrawerInfo
 import gitlin.kothub.github.api.drawerInfo
 import io.reactivex.subjects.BehaviorSubject
 import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.debug
-import org.jetbrains.anko.info
 
 
 class DrawerData {

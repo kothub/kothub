@@ -17,12 +17,8 @@ import android.widget.ImageView
 import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader
 import com.mikepenz.materialdrawer.util.DrawerImageLoader
 import com.squareup.picasso.Picasso
-import gitlin.kothub.github.api.data.DrawerInfo
-import io.reactivex.Observer
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.debug
-import org.jetbrains.anko.info
-import java.util.function.Consumer
 
 
 class AppDrawer(activity: AppCompatActivity, toolbar: Toolbar): AnkoLogger {

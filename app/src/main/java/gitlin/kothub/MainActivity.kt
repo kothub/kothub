@@ -7,7 +7,6 @@ import android.os.Bundle
 import gitlin.kothub.R.layout.activity_main
 import gitlin.kothub.github.LoginActivity
 import gitlin.kothub.github.OAuthValues
-import gitlin.kothub.ui.AppDrawer
 import gitlin.kothub.utilities.getOAuthToken
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.toolbar.*
@@ -32,7 +31,6 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
         super.onCreate(savedInstanceState)
         setContentView(activity_main)
         setSupportActionBar(toolbar)
-//        AppDrawer(this, toolbar)
         tv_hello.text = "Kothub"
     }
 
