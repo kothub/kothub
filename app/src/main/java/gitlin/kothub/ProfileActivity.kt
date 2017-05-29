@@ -19,7 +19,7 @@ class ProfileActivity : AppCompatActivity(), AnkoLogger {
 
     fun initProfile() {
         userSummary { error, summary ->
-            if (summary == null) {
+            if (error != null || summary == null) {
                 debug("ERROR")
                 debug(error?.response?.httpResponseMessage ?: "NO ERROR??")
             } else {
@@ -28,10 +28,10 @@ class ProfileActivity : AppCompatActivity(), AnkoLogger {
                 username.text = summary.login
                 description.text = summary.bio
 
-                followers.text = summary.followers?.toString()
-                stars.text = summary.starredRepositories?.toString()
-                repos.text = summary.repositories?.toString()
-                following.text = summary.following?.toString()
+                followers.text = summary.toString(summary.followers)
+                stars.text = summary.toString(summary.starredRepositories)
+                repos.text = summary.toString(summary.repositories)
+                following.text = summary.toString(summary.following)
             }
         }
     }
