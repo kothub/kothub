@@ -3,6 +3,8 @@ package gitlin.kothub
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import com.nostra13.universalimageloader.core.ImageLoader
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration
 
 import gitlin.kothub.R.layout.activity_main
 import gitlin.kothub.github.LoginActivity
@@ -30,6 +32,8 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
         super.onCreate(savedInstanceState)
         setContentView(activity_main)
         tv_hello.text = "Kothub"
+
+        ImageLoader.getInstance().init(ImageLoaderConfiguration.createDefault(this))
     }
 
     override fun onStart() {

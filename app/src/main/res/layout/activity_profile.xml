@@ -26,6 +26,7 @@
 		<LinearLayout
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
+
 			android:orientation="vertical"
 			android:paddingLeft="8dp"
 			android:textAlignment="center">
@@ -152,8 +153,8 @@
 			android:id="@+id/textView2"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:text="@string/pinned_repositories"
 			android:textSize="18sp"
+			android:text="Pinned Repositories"
 			android:textStyle="bold"/>
 
 		<ListView
