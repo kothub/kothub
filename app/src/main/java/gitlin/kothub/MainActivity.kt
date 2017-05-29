@@ -3,8 +3,6 @@ package gitlin.kothub
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import com.nostra13.universalimageloader.core.ImageLoader
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration
 
 import gitlin.kothub.R.layout.activity_main
 import gitlin.kothub.github.LoginActivity

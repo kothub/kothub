@@ -9,8 +9,6 @@ import gitlin.kothub.utilities.*
 
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.debug
-import com.nostra13.universalimageloader.core.ImageLoader
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration
 import android.view.Gravity
 import android.widget.*
 import com.squareup.picasso.Picasso
