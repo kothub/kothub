@@ -1,12 +1,8 @@
 package gitlin.kothub
 
-import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import com.nostra13.universalimageloader.core.ImageLoader
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration
 
 import gitlin.kothub.R.layout.activity_main
 import gitlin.kothub.github.LoginActivity
@@ -34,8 +30,6 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
         super.onCreate(savedInstanceState)
         setContentView(activity_main)
         tv_hello.text = "Kothub"
-
-        ImageLoader.getInstance().init(ImageLoaderConfiguration.createDefault(this))
     }
 
     override fun onStart() {
@@ -43,8 +37,10 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
         initOAuth()
 
         debug(OAuthValues.isLoggedIn)
-		//if (!OAuthValues.isLoggedIn) {
-			startActivity(Intent(this, ProfileActivity::class.java))
-		//}
+        if (OAuthValues.isLoggedIn) {
+            startActivity(Intent(this, ProfileActivity::class.java))
+        } else {
+            startActivity(Intent(this, LoginActivity::class.java))
+        }
     }
 }
