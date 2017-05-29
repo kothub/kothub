@@ -10,5 +10,5 @@ fun TextView.setText(value: Int?) {
 var TextView.value: Any?
     get() = text
     set(value) {
-        text = value.toString()
+        text = value?.toString() ?: ""
     }
