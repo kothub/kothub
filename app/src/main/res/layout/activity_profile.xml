@@ -11,7 +11,7 @@
 
 	<LinearLayout
 		android:layout_width="match_parent"
-		android:layout_height="40dp"
+		android:layout_height="wrap_content"
 		android:orientation="horizontal"
 		android:layout_margin="16dp"
 		android:textAlignment="center">
@@ -24,8 +24,8 @@
 			app:srcCompat="@android:drawable/btn_star" />
 
 		<LinearLayout
-			android:layout_width="314dp"
-			android:layout_height="93dp"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
 			android:orientation="vertical"
 			android:paddingLeft="8dp"
 			android:textAlignment="center">
@@ -36,10 +36,9 @@
 				android:layout_height="wrap_content"
 				android:paddingLeft="8dp"
 				android:paddingRight="8dp"
-				android:paddingBottom="4dp"
 				android:layout_gravity="top"
 				android:textSize="16sp"
-				android:text="RandomGuy1337"
+				android:text="Unknown"
 				android:textStyle="bold" />
 
 			<TextView
@@ -49,8 +48,7 @@
 				android:paddingLeft="8dp"
 				android:paddingRight="8dp"
 				android:layout_gravity="bottom"
-				android:textSize="14sp"
-				android:text="A random guy on the internet" />
+				android:textSize="14sp" />
 
 		</LinearLayout>
 
@@ -73,7 +71,7 @@
 			android:layout_column="0"
 			android:layout_row="0"
 			android:gravity="center"
-			android:text="42"/>
+			android:text="0"/>
 
 		<TextView
 			android:layout_width="0dp"
@@ -82,7 +80,7 @@
 			android:layout_column="0"
 			android:layout_row="1"
 			android:gravity="center"
-			android:text="followers"/>
+			android:text="@string/followers"/>
 
 		<TextView
 			android:id="@+id/stars"
@@ -92,7 +90,7 @@
 			android:layout_column="1"
 			android:layout_row="0"
 			android:gravity="center"
-			android:text="42"/>
+			android:text="0"/>
 
 		<TextView
 			android:layout_width="0dp"
@@ -101,7 +99,7 @@
 			android:layout_column="1"
 			android:layout_row="1"
 			android:gravity="center"
-			android:text="stars"/>
+			android:text="@string/stars"/>
 
 		<TextView
 			android:id="@+id/repos"
@@ -111,7 +109,7 @@
 			android:layout_column="2"
 			android:layout_row="0"
 			android:gravity="center"
-			android:text="42"/>
+			android:text="0"/>
 
 		<TextView
 			android:layout_width="0dp"
@@ -120,7 +118,7 @@
 			android:layout_column="2"
 			android:layout_row="1"
 			android:gravity="center"
-			android:text="repos"/>
+			android:text="@string/repos"/>
 
 		<TextView
 			android:id="@+id/following"
@@ -130,7 +128,7 @@
 			android:layout_column="3"
 			android:layout_row="0"
 			android:gravity="center"
-			android:text="42"/>
+			android:text="0"/>
 
 		<TextView
 			android:layout_width="0dp"
@@ -139,7 +137,7 @@
 			android:layout_column="3"
 			android:layout_row="1"
 			android:gravity="center"
-			android:text="following"/>
+			android:text="@string/following"/>
 
 	</GridLayout>
 
@@ -154,8 +152,8 @@
 			android:id="@+id/textView2"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:text="Pinned Repositories"
-			android:textSize="18dp"
+			android:text="@string/pinned_repositories"
+			android:textSize="18sp"
 			android:textStyle="bold"/>
 
 		<ListView
