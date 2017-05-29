@@ -1,20 +1,20 @@
 package gitlin.kothub.github
 
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.View
 import gitlin.kothub.R
 
 import gitlin.kothub.github.api.userSummary
 import gitlin.kothub.utilities.editSharedPreferences
 import gitlin.kothub.utilities.set
+import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.debug
 
 
-class LoginActivity: AppCompatActivity() {
+class LoginActivity: AppCompatActivity(), AnkoLogger {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,7 +39,7 @@ class LoginActivity: AppCompatActivity() {
 
             requestAccessToken(code, { error, token ->
                 if (error == null) {
-                    Log.d("OAuthToken", token)
+                    debug(token)
                     OAuthValues.isLoggedIn = true
 
                     OAuthValues.GITHUB_TOKEN = token!!
@@ -50,12 +50,12 @@ class LoginActivity: AppCompatActivity() {
 
                     userSummary { error, summary ->
                         if (summary == null) {
-                            Log.d("USERSUMMARY", "ERROR")
-                            Log.d("USERSUMMARY", error?.response?.httpResponseMessage ?: "NO ERROR??")
+                            debug("Error")
+                            debug(error?.response?.httpResponseMessage)
                         }
                         else {
-                            Log.d("USERSUMMARY", summary.toString())
-                            Log.d("USERSUMMARY", summary.location)
+                            debug(summary)
+                            debug(summary.location)
                         }
                     }
 
@@ -69,7 +69,6 @@ class LoginActivity: AppCompatActivity() {
     }
 
     fun onLoginClick (view: View) {
-		Log.d("LoginActivity", "openWebView")
         openWebView()
     }
 }

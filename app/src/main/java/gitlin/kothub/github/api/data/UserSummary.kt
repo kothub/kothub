@@ -9,15 +9,19 @@ data class UserSummary(private val json: JSONObject): RateLimit(json.obj("rateLi
 
     private val viewer = json.obj("viewer")!!
 
-    val avatarUrl: String by viewer
-    val login: String by viewer
-    val name: String by viewer
-    val websiteUrl: String by viewer
-    val bio: String by viewer
-    val url: String by viewer
-    val company: String by viewer
-    val location: String by viewer
-    val followers: Int by viewer.obj("totalCount")
+    val avatarUrl: String? by viewer
+    val login: String? by viewer
+    val name: String? by viewer
+    val websiteUrl: String? by viewer
+    val bio: String? by viewer
+    val url: String? by viewer
+    val company: String? by viewer
+    val location: String? by viewer
+    //val followers: Int? by viewer.obj("totalCount")
+    val followers : Int? = viewer.totalCount("followers")
+    val following : Int? = viewer.totalCount("following")
+    val starredRepositories : Int? = viewer.totalCount("starredRepositories")
+    val repositories : Int? = viewer.totalCount("repositories")
     val pinnedRepositories =
             viewer.obj("pinnedRepositories")?.arr("nodes")?.map<JSONObject, PinnedRepository> { PinnedRepository(it) }
             ?: arrayListOf()
@@ -25,7 +29,7 @@ data class UserSummary(private val json: JSONObject): RateLimit(json.obj("rateLi
 
 
 data class PinnedRepository(val json: JSONObject) {
-    val name: String by json
-    val description: String by json
+    val name: String? by json
+    val description: String? by json
 }
 

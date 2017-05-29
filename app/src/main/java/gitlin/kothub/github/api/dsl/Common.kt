@@ -46,8 +46,5 @@ fun args(vararg values: String?): String {
         }
     }
 
-    Log.d("ARGUMENTS", arguments)
-    Log.d("ARGUMENTS$", "($arguments)")
-
     return if (arguments.isEmpty()) "" else "($arguments)"
 }

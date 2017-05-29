@@ -1,8 +1,6 @@
 package gitlin.kothub.github.api.dsl
 
 
-import android.util.Log
-
 
 class User(override val level: Int): ActorFields {
 
@@ -22,6 +20,39 @@ class User(override val level: Int): ActorFields {
         val pagination = paginationData(first)
         addField(
             Node("followers${args(pagination)}", connection.fields)
+        )
+    }
+
+    fun following(first: Int? = null, body: UserConnection.() -> Unit) {
+
+        val connection = UserConnection(nextLevel())
+        connection.body()
+
+        val pagination = paginationData(first)
+        addField(
+                Node("following${args(pagination)}", connection.fields)
+        )
+    }
+
+    fun starredRepositories(first: Int? = null, body: UserConnection.() -> Unit) {
+
+        val connection = UserConnection(nextLevel())
+        connection.body()
+
+        val pagination = paginationData(first)
+        addField(
+                Node("starredRepositories${args(pagination)}", connection.fields)
+        )
+    }
+
+    fun repositories(first: Int? = null, body: UserConnection.() -> Unit) {
+
+        val connection = UserConnection(nextLevel())
+        connection.body()
+
+        val pagination = paginationData(first)
+        addField(
+                Node("repositories${args(pagination)}", connection.fields)
         )
     }
 
@@ -61,8 +92,6 @@ class User(override val level: Int): ActorFields {
         connection.body()
 
         val pagination = paginationData(first, after, last, before)
-        Log.d("PAGINATION", pagination)
-        Log.d("PAGINATION?", args(pagination, arg("privacy", privacy)))
         addField(
             Node("pinnedRepositories${args(pagination, arg("privacy", privacy))}", connection.fields)
         )
