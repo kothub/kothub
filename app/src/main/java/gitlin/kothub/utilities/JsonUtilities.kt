@@ -22,3 +22,5 @@ fun JSONObject.arr(property: String): JSONArray? = if (property in this) this.ge
 fun <T, V> JSONArray.map(mapper: (T) -> V): MutableList<V> {
     return (0..length() - 1).mapTo(arrayListOf<V>()) { mapper(get(it) as T) }
 }
+
+fun JSONObject.totalCount(name: String): Int? = obj(name)?.getInt("totalCount")

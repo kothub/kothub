@@ -18,15 +18,13 @@ data class UserSummary(private val json: JSONObject): RateLimit(json.obj("rateLi
     val company: String? by viewer
     val location: String? by viewer
     //val followers: Int? by viewer.obj("totalCount")
-    val followers : Int? = totalCount(viewer, "followers")
-    val following : Int? = totalCount(viewer, "following")
-    val starredRepositories : Int? = totalCount(viewer, "starredRepositories")
-    val repositories : Int? = totalCount(viewer, "repositories")
+    val followers : Int? = viewer.totalCount("followers")
+    val following : Int? = viewer.totalCount("following")
+    val starredRepositories : Int? = viewer.totalCount("starredRepositories")
+    val repositories : Int? = viewer.totalCount("repositories")
     val pinnedRepositories =
             viewer.obj("pinnedRepositories")?.arr("nodes")?.map<JSONObject, PinnedRepository> { PinnedRepository(it) }
             ?: arrayListOf()
-
-    fun totalCount(jsonObj: JSONObject, name: String): Int? = jsonObj.obj(name)?.getInt("totalCount")
 }
 
 
