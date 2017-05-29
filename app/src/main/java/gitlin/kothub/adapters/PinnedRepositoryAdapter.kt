@@ -9,6 +9,7 @@ import android.widget.TextView
 import gitlin.kothub.R
 import gitlin.kothub.github.api.data.PinnedRepository
 import gitlin.kothub.utilities.value
+import kotlinx.android.synthetic.main.repository_list_view.view.*
 
 class PinnedRepositoryAdapter(context: Context, list: MutableList<PinnedRepository>): ArrayAdapter<PinnedRepository>(context, 0, list) {
 
@@ -23,8 +24,8 @@ class PinnedRepositoryAdapter(context: Context, list: MutableList<PinnedReposito
                 val inflater = LayoutInflater.from(context)
                 val view = inflater.inflate(R.layout.repository_list_view, parent, false)
 
-                val name = view.findViewById(R.id.repository) as TextView
-                val description = view.findViewById(R.id.description) as TextView
+                val name = view.repository
+                val description = view.description
                 val viewHolder = ViewHolder(name, description)
 
                 view.tag = viewHolder
