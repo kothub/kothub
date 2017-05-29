@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:id="@+id/pinnedLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/repository"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:textSize="16dip"
+        android:textStyle="bold" >
+    </TextView>
+
+    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/description"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:textSize="12dip" >
+    </TextView>
+
+</LinearLayout>
