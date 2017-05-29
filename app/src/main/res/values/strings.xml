@@ -1,6 +1,11 @@
 <resources>
-    <string name="app_name">Github / Kotlin</string>
+    <string name="app_name">Kothub</string>
     <string name="oauth_github_token">oauth_github_token</string>
     <string name="login">Login</string>
     <string name="github_preferences_file">github_preferences_files</string>
+    <string name="pinned_repositories">Pinned Repositories</string>
+    <string name="followers">followers</string>
+    <string name="stars">stars</string>
+    <string name="repos">repos</string>
+    <string name="following">following</string>
 </resources>

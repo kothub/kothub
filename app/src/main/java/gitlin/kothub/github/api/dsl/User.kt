@@ -45,9 +45,9 @@ class User(override val level: Int): ActorFields {
         )
     }
 
-    fun repositories(first: Int? = null, body: UserConnection.() -> Unit) {
+    fun repositories(first: Int? = null, body: RepositoryConnection.() -> Unit) {
 
-        val connection = UserConnection(nextLevel())
+        val connection = RepositoryConnection(nextLevel())
         connection.body()
 
         val pagination = paginationData(first)
