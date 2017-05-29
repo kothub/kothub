@@ -12,7 +12,9 @@ import gitlin.kothub.R.layout.activity_main
 import gitlin.kothub.github.LoginActivity
 import gitlin.kothub.github.OAuthValues
 import gitlin.kothub.utilities.getOAuthToken
+import gitlin.kothub.utilities.setupDrawer
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.toolbar.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.debug
 
@@ -33,7 +35,8 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(activity_main)
-        setSupportActionBar(appToolbar)
+        setSupportActionBar(toolbar)
+        setupDrawer(this, toolbar)
         tv_hello.text = "Kothub"
     }
 

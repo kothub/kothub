@@ -58,6 +58,10 @@ dependencies {
     compile "org.jetbrains.anko:anko-commons:$anko_version"
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
     compile 'com.android.support:design:25.3.1'
+    compile('com.mikepenz:materialdrawer:5.9.2@aar') {
+        transitive = true
+    }
+    compile 'com.mikepenz:google-material-typeface:3.0.1.0.original@aar'
 }
 
 task copyClasses(type: Copy) {

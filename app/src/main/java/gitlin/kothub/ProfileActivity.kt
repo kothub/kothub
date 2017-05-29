@@ -23,6 +23,7 @@ import android.view.ViewGroup
 import android.widget.*
 import gitlin.kothub.adapters.PinnedRepositoryAdapter
 import gitlin.kothub.github.api.data.PinnedRepository
+import kotlinx.android.synthetic.main.toolbar.*
 
 
 class ProfileActivity : AppCompatActivity(), AnkoLogger {
@@ -48,6 +49,8 @@ class ProfileActivity : AppCompatActivity(), AnkoLogger {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
+        setSupportActionBar(toolbar)
+        setupDrawer(this, toolbar)
         ImageLoader.getInstance().init(ImageLoaderConfiguration.createDefault(this))
 
         val progressBar = ProgressBar(this)

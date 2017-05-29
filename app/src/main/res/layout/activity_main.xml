@@ -6,14 +6,7 @@
     android:layout_height="match_parent"
     tools:context="gitlin.kothub.MainActivity">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/appToolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorPrimary"
-        android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+    <include layout="@layout/toolbar"/>
 
     <TextView
         android:id="@+id/tv_hello"

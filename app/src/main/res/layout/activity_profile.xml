@@ -9,6 +9,8 @@
 	android:background="@color/grey95"
 	tools:context="gitlin.kothub.ProfileActivity">
 
+	<include layout="@layout/toolbar"/>
+
 	<LinearLayout
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"

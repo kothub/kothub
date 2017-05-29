@@ -10,9 +10,8 @@
         <item name="android:colorPrimaryDark">@color/colorPrimaryDark</item>
 
         <item name="android:colorAccent">@color/colorAccent</item>
-        <item name="android:textColor">@color/colorPrimaryText</item>
-        <item name="android:textColorPrimary">@color/colorText</item>
-        <item name="actionMenuTextColor">@color/colorText</item>
+        <item name="android:textColor">@color/colorText</item>
+        <item name="android:textColorPrimary">@color/colorPrimaryText</item>
         <item name="android:textColorSecondary">@color/colorSecondaryText</item>
         <item name="android:windowBackground">@color/grey95</item>
         <item name="android:statusBarColor">@color/colorPrimaryDark</item>
@@ -21,5 +20,11 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+
+    <style name="AppToolbar" parent="ThemeOverlay.AppCompat.ActionBar">
+        <item name="android:textColor">@color/colorText</item>
+        <item name="android:textColorPrimary">@color/colorText</item>
+    </style>
 
 </resources>
