@@ -5,6 +5,8 @@ enum class RepositoryPrivacy (val value: String){
     PRIVATE("PRIVATE")
 }
 
+
+
 class Repository(override val level: Int): Element {
 
     override val fields = arrayListOf<Field>()
@@ -13,12 +15,12 @@ class Repository(override val level: Int): Element {
     val name: Unit get() = addField("name")
 
 
-    fun issues(first: Int = 10, body: IssueConnection.() -> Unit) {
+    fun issues(first: Int? = null, states: IssueState? = null, body: IssueConnection.() -> Unit) {
         val connection = IssueConnection(nextLevel())
         connection.body()
 
         val pagination = paginationData(first)
-        addField(Node("issues($pagination)", connection.fields))
+        addField(Node("issues${args(pagination, arg("states", states))}", connection.fields))
     }
 }
 

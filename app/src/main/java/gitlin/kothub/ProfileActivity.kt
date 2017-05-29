@@ -1,8 +1,5 @@
 package gitlin.kothub
 
-import android.app.Activity
-import android.graphics.drawable.Drawable
-import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import gitlin.kothub.github.api.data.UserSummary
@@ -12,18 +9,15 @@ import gitlin.kothub.utilities.*
 
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.debug
-import java.net.URL
-import kotlin.properties.Delegates
 import com.nostra13.universalimageloader.core.ImageLoader
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration
 import android.view.Gravity
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.*
+import com.squareup.picasso.Picasso
 import gitlin.kothub.adapters.PinnedRepositoryAdapter
-import gitlin.kothub.github.api.data.PinnedRepository
+import gitlin.kothub.ui.AppDrawer
 import kotlinx.android.synthetic.main.toolbar.*
+import org.jetbrains.anko.info
 
 
 class ProfileActivity : AppCompatActivity(), AnkoLogger {
@@ -38,8 +32,8 @@ class ProfileActivity : AppCompatActivity(), AnkoLogger {
                 stars.value = value.starredRepositories
                 repos.value = value.repositories
                 following.value = value.following
-                val imageLoader = ImageLoader.getInstance()
-                imageLoader.displayImage(value.avatarUrl, imageView)
+
+                Picasso.with(imageView.context).load(value.avatarUrl).into(imageView)
 
                 pinned.adapter = PinnedRepositoryAdapter(this, value.pinnedRepositories)
             }
@@ -50,8 +44,8 @@ class ProfileActivity : AppCompatActivity(), AnkoLogger {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
         setSupportActionBar(toolbar)
-        setupDrawer(this, toolbar)
-        ImageLoader.getInstance().init(ImageLoaderConfiguration.createDefault(this))
+
+        AppDrawer(this, toolbar)
 
         val progressBar = ProgressBar(this)
 

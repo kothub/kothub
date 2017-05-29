@@ -55,13 +55,15 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile "com.github.kittinunf.fuel:fuel-android:$fuel_version" //for Android
+    compile "com.github.kittinunf.fuel:fuel-rxjava:$fuel_version"
     compile "org.jetbrains.anko:anko-commons:$anko_version"
-    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
+    compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.android.support:design:25.3.1'
     compile('com.mikepenz:materialdrawer:5.9.2@aar') {
         transitive = true
     }
     compile 'com.mikepenz:google-material-typeface:3.0.1.0.original@aar'
+    compile 'io.reactivex.rxjava2:rxkotlin:2.0.0'
 }
 
 task copyClasses(type: Copy) {

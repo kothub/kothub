@@ -1,7 +1,5 @@
 package gitlin.kothub
 
-import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -11,8 +9,8 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration
 import gitlin.kothub.R.layout.activity_main
 import gitlin.kothub.github.LoginActivity
 import gitlin.kothub.github.OAuthValues
+import gitlin.kothub.ui.AppDrawer
 import gitlin.kothub.utilities.getOAuthToken
-import gitlin.kothub.utilities.setupDrawer
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.toolbar.*
 import org.jetbrains.anko.AnkoLogger
@@ -36,7 +34,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
         super.onCreate(savedInstanceState)
         setContentView(activity_main)
         setSupportActionBar(toolbar)
-        setupDrawer(this, toolbar)
+//        AppDrawer(this, toolbar)
         tv_hello.text = "Kothub"
     }
 

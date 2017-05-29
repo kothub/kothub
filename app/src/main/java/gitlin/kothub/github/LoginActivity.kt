@@ -1,15 +1,14 @@
 package gitlin.kothub.github
 
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.ActivityCompat.startActivityForResult
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import gitlin.kothub.R
 import gitlin.kothub.utilities.editSharedPreferences
 import gitlin.kothub.utilities.set
-import gitlin.kothub.utilities.setupDrawer
 import kotlinx.android.synthetic.main.toolbar.*
 
 import org.jetbrains.anko.AnkoLogger
@@ -23,7 +22,6 @@ class LoginActivity: AppCompatActivity(), AnkoLogger {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         setSupportActionBar(toolbar)
-        setupDrawer(this, toolbar)
     }
 
     fun openWebView () {
