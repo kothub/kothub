@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import gitlin.kothub.github.api.userSummary
 import kotlinx.android.synthetic.main.activity_profile.*
+import gitlin.kothub.utilities.*
 
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.debug
@@ -28,10 +29,10 @@ class ProfileActivity : AppCompatActivity(), AnkoLogger {
                 username.text = summary.login
                 description.text = summary.bio
 
-                followers.text = summary.toString(summary.followers)
-                stars.text = summary.toString(summary.starredRepositories)
-                repos.text = summary.toString(summary.repositories)
-                following.text = summary.toString(summary.following)
+                followers.setText(summary.followers)
+                stars.setText(summary.starredRepositories)
+                repos.setText(summary.repositories)
+                following.setText(summary.following)
             }
         }
     }

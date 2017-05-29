@@ -27,8 +27,6 @@ data class UserSummary(private val json: JSONObject): RateLimit(json.obj("rateLi
             ?: arrayListOf()
 
     fun totalCount(jsonObj: JSONObject, name: String): Int? = jsonObj.obj(name)?.getInt("totalCount")
-
-    fun toString(value: Int?): String = value?.toString() ?: ""
 }
 
 
