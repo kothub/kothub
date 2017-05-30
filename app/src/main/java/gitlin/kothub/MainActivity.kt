@@ -9,6 +9,7 @@ import gitlin.kothub.github.LoginActivity
 import gitlin.kothub.github.OAuthValues
 import gitlin.kothub.utilities.getOAuthToken
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.toolbar.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.debug
 
@@ -29,6 +30,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(activity_main)
+        setSupportActionBar(toolbar)
         tv_hello.text = "Kothub"
     }
 
@@ -41,6 +43,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
             startActivity(Intent(this, ProfileActivity::class.java))
         } else {
             startActivity(Intent(this, LoginActivity::class.java))
+
         }
     }
 }

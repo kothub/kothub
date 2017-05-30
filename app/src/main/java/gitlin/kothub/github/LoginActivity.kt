@@ -6,10 +6,10 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import gitlin.kothub.R
-
-import gitlin.kothub.github.api.userSummary
 import gitlin.kothub.utilities.editSharedPreferences
 import gitlin.kothub.utilities.set
+import kotlinx.android.synthetic.main.toolbar.*
+
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.debug
 
@@ -20,6 +20,7 @@ class LoginActivity: AppCompatActivity(), AnkoLogger {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+        setSupportActionBar(toolbar)
     }
 
     fun openWebView () {
@@ -48,17 +49,7 @@ class LoginActivity: AppCompatActivity(), AnkoLogger {
                         set(getString(R.string.oauth_github_token) to token)
                     }
 
-                    userSummary { error, summary ->
-                        if (summary == null) {
-                            debug("Error")
-                            debug(error?.response?.httpResponseMessage)
-                        }
-                        else {
-                            debug(summary)
-                            debug(summary.location)
-                        }
-                    }
-
+                    finish()
                 } else {
                     // Handle error
                 }

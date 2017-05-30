@@ -11,6 +11,7 @@ class User(override val level: Int): ActorFields {
     val location: Unit get() = addField("location")
     val name: Unit get() = addField("name")
     val websiteUrl: Unit get() = addField("websiteUrl")
+    val email: Unit get() = addField("email")
 
     fun followers(first: Int? = null, body: UserConnection.() -> Unit) {
 

@@ -7,6 +7,8 @@
     tools:context="gitlin.kothub.github.LoginActivity"
     android:orientation="vertical">
 
+        <include layout="@layout/toolbar"/>
+
         <Button
             android:id="@+id/button"
             android:layout_width="match_parent"
