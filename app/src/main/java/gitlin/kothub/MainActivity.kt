@@ -1,5 +1,6 @@
 package gitlin.kothub
 
+import android.app.Activity
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -7,6 +8,7 @@ import android.os.Bundle
 import gitlin.kothub.R.layout.activity_main
 import gitlin.kothub.github.LoginActivity
 import gitlin.kothub.github.OAuthValues
+import gitlin.kothub.github.OAuthValues.isLoggedIn
 import gitlin.kothub.utilities.getOAuthToken
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.toolbar.*
@@ -23,7 +25,6 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
         val token: String? = getOAuthToken()
         if (token != null) {
             OAuthValues.GITHUB_TOKEN = token
-            OAuthValues.isLoggedIn = true
         }
     }
 
@@ -31,19 +32,20 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
         super.onCreate(savedInstanceState)
         setContentView(activity_main)
         setSupportActionBar(toolbar)
-        tv_hello.text = "Kothub"
+
+
+
+        tv_hello.text = "This will be the feed"
     }
 
     override fun onStart() {
         super.onStart()
         initOAuth()
 
-        debug(OAuthValues.isLoggedIn)
         if (OAuthValues.isLoggedIn) {
             startActivity(Intent(this, ProfileActivity::class.java))
         } else {
             startActivity(Intent(this, LoginActivity::class.java))
-
         }
     }
 }

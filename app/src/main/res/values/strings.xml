@@ -15,4 +15,13 @@
     <string name="settings">Settings</string>
     <string name="feed">Feed</string>
     <string name="issues">Issues</string>
+    <string name="pulls">Pull Requests</string>
+    <string name="rate_limit">Rate Limit</string>
+    <string name="login_explainer">
+        This application uses the <b>GitHub</b> GraphQL API, to be able to use it you need to login to your <b>GitHub</b> account.
+        The application will ask your permission to read your <b>GitHub</b> public data, and some private ones. Note that we do
+        not store any private data on any servers.
+
+        Keep in mind that this is not an official <b>GitHub</b> application.
+    </string>
 </resources>

@@ -40,7 +40,7 @@ fun userSummary (callback: (FuelError?, UserSummary?) -> Unit) {
                }
             }
         }
-    ) { error, result -> callback(error, if (result == null) null else UserSummary(result) ) }
+    ) { error, result -> callback(error, if (result == null) null else UserSummary(result.obj("viewer")) ) }
 }
 
 
@@ -85,6 +85,7 @@ fun drawerInfo (callback: (FuelError?, DrawerInfo?) -> Unit) {
                 login
                 email
                 avatarUrl
+                name
                 repositories(first = 30) {
                     pageInfo {
                         hasNextPage
@@ -101,6 +102,6 @@ fun drawerInfo (callback: (FuelError?, DrawerInfo?) -> Unit) {
     ) {
         error, result ->
 
-        callback(error, if (result == null) null else DrawerInfo(result))
+        callback(error, if (result == null) null else DrawerInfo(result.obj("viewer")))
     }
 }

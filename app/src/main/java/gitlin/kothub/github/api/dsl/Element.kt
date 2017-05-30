@@ -1,9 +1,9 @@
 package gitlin.kothub.github.api.dsl
 
-//@DslMarker
-//annotation class ElementMarker()
+@DslMarker
+annotation class ElementMarker
 
-//@ElementMarker
+@ElementMarker
 interface Element {
     val fields: MutableList<Field>
     val level: Int
