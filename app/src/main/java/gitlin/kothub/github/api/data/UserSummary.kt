@@ -17,7 +17,6 @@ data class UserSummary(private val json: JSONObject): RateLimit(json.obj("rateLi
     val url: String? by viewer
     val company: String? by viewer
     val location: String? by viewer
-    //val followers: Int? by viewer.obj("totalCount")
     val followers : Int? = viewer.totalCount("followers")
     val following : Int? = viewer.totalCount("following")
     val starredRepositories : Int? = viewer.totalCount("starredRepositories")
