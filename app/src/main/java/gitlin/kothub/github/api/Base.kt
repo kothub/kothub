@@ -1,5 +1,6 @@
 package gitlin.kothub.github.api
 
+import android.util.Log
 import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.android.extension.responseJson
 import com.github.kittinunf.fuel.core.FuelError
@@ -19,7 +20,14 @@ fun post(query: Query, callback: (FuelError?, JSONObject?) -> Unit): Request {
         .responseJson { request, response, result ->
             when (result) {
                 is Result.Failure -> callback(result.error, null)
-                is Result.Success -> callback(null, result.value.obj().obj("data")!!)
+                is Result.Success -> {
+                    if (result.value.obj().isNull("data")) {
+                        callback(null, null)
+                    }
+                    else {
+                        callback(null, result.value.obj().obj("data")!!)
+                    }
+                }
             }
         }
 }

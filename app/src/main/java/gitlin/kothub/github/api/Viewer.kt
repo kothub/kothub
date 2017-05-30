@@ -85,6 +85,17 @@ fun drawerInfo (callback: (FuelError?, DrawerInfo?) -> Unit) {
                 login
                 email
                 avatarUrl
+                repositories(first = 30) {
+                    pageInfo {
+                        hasNextPage
+                        endCursor
+                    }
+                    nodes {
+                        issues(states = IssueState.OPEN) {
+                            totalCount
+                        }
+                    }
+                }
             }
         }
     ) {
