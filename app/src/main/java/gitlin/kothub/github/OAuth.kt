@@ -20,7 +20,13 @@ object OAuthValues {
     operator fun component4() = scopes.joinToString(" ")
 
 
-    val scopes = arrayOf("user")
+    val scopes = arrayOf(
+            "user",
+            "repo",
+            "notifications",
+            "gist",
+            "read:org"
+    )
 }
 
 fun isLoggedIn () = OAuthValues.isLoggedIn
