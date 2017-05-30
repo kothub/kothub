@@ -43,7 +43,6 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
             startActivity(Intent(this, ProfileActivity::class.java))
         } else {
             startActivity(Intent(this, LoginActivity::class.java))
-
         }
     }
 }
