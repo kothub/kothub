@@ -26,23 +26,27 @@ import org.jetbrains.anko.debug
 
 class AppDrawer(activity: AppCompatActivity, toolbar: Toolbar): AnkoLogger {
 
-    val badgeStyle = BadgeStyle().withTextColor(Color.WHITE).withColorRes(R.color.md_red_600)
+    private val badgeStyle = BadgeStyle().withTextColor(Color.WHITE).withColorRes(R.color.md_red_600)
 
-    val profile = ProfileDrawerItem().withIdentifier(1)
+    val profile: ProfileDrawerItem = ProfileDrawerItem().withIdentifier(1)
 
-    val feed = PrimaryDrawerItem().withName("Feed")
-        .withIcon(GoogleMaterial.Icon.gmd_rss_feed).withIdentifier(2)
+    val feed: PrimaryDrawerItem = PrimaryDrawerItem()
+            .withName(R.string.feed)
+            .withIcon(GoogleMaterial.Icon.gmd_rss_feed)
+            .withIdentifier(2)
 
-    val issues = PrimaryDrawerItem()
-            .withName("Issues")
+    val issues: PrimaryDrawerItem = PrimaryDrawerItem()
+            .withName(R.string.issues)
             .withBadge("0")
             .withBadgeStyle(badgeStyle)
             .withIcon(GoogleMaterial.Icon.gmd_bug_report)
             .withIdentifier(3)
 
 
-    val settings = SecondaryDrawerItem().withName("Settings")
-            .withIcon(GoogleMaterial.Icon.gmd_settings).withIdentifier(4)
+    val settings: SecondaryDrawerItem = SecondaryDrawerItem()
+            .withName(R.string.settings)
+            .withIcon(GoogleMaterial.Icon.gmd_settings)
+            .withIdentifier(4)
 
     init {
 
