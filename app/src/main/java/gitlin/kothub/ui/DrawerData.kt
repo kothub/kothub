@@ -1,7 +1,9 @@
 package gitlin.kothub.ui
 
+import android.util.Log
 import gitlin.kothub.github.api.data.DrawerInfo
 import gitlin.kothub.github.api.drawerInfo
+import gitlin.kothub.github.api.feeds
 import io.reactivex.subjects.BehaviorSubject
 import org.jetbrains.anko.AnkoLogger
 
@@ -23,6 +25,16 @@ class DrawerData {
                         else {
                             info.onError(error)
                         }
+                }
+
+                feeds {
+                    error, result ->
+                    if (error == null && result != null) {
+                        Log.d("DELETE_ME", error)
+                    }
+                    else {
+                        info.onError(error)
+                    }
                 }
             }
         }

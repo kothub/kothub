@@ -23,4 +23,7 @@ fun <T, V> JSONArray.map(mapper: (T) -> V): MutableList<V> {
     return (0..length() - 1).mapTo(arrayListOf<V>()) { mapper(get(it) as T) }
 }
 
+operator fun JSONArray.iterator(): Iterator<JSONObject>
+        = (0 until length()).asSequence().map { get(it) as JSONObject }.iterator()
+
 fun JSONObject.totalCount(name: String): Int? = obj(name)?.getInt("totalCount")
