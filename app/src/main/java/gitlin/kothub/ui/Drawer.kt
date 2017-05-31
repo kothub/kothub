@@ -137,10 +137,13 @@ class AppDrawer(private val activity: AppCompatActivity, toolbar: Toolbar): Anko
         drawer.setSelection(item)
     }
 
+
+
     private inline fun <reified T: Any> navigateTo (): Boolean {
 
         with(activity) {
-            val intent = intentFor<T>().singleTop()
+            val intent = intentFor<T>().singleTop().noHistory()
+
             startActivity(intent)
         }
 
