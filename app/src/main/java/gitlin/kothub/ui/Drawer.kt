@@ -21,14 +21,11 @@ import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader
 import com.mikepenz.materialdrawer.util.DrawerImageLoader
 import com.mikepenz.octicons_typeface_library.Octicons
 import com.squareup.picasso.Picasso
-import gitlin.kothub.NotificationActivity
 import gitlin.kothub.ProfileActivity
 import gitlin.kothub.github.api.ApiRateLimit
 import gitlin.kothub.github.api.data.RateLimit
 import org.jetbrains.anko.*
-import java.text.DateFormat
 import java.text.SimpleDateFormat
-import java.util.*
 
 
 class AppDrawer(private val activity: AppCompatActivity, toolbar: Toolbar): AnkoLogger {
@@ -127,7 +124,7 @@ class AppDrawer(private val activity: AppCompatActivity, toolbar: Toolbar): Anko
             .withActionBarDrawerToggle(true)
             .withCloseOnClick(true)
             .withDelayDrawerClickEvent(250)
-            .addDrawerItems(feed, issues, pulls, notifs, DividerDrawerItem(), settings, DividerDrawerItem(), rate)
+            .addDrawerItems(feed, issues, pulls, DividerDrawerItem(), notifs, DividerDrawerItem(), settings, DividerDrawerItem(), rate)
             .withOnDrawerItemClickListener { _, _, item ->
                 when (item.identifier) {
                     issues.identifier -> navigateTo<IssuesActivity>()

@@ -28,12 +28,7 @@ fun <T, V> JSONArray?.map(mapper: (T) -> V): MutableList<V> {
 
 
 operator fun <T> JsonObject.getValue(thisRef: Any, prop: KProperty<*>): T? {
-    if (prop.name == null) {
-        return null
-    }
-    else {
-        return this.get(prop.name) as T?
-    }
+    return this.get(prop.name) as T?
 }
 
 fun <T, V> JsonArray.map(mapper: (T) -> V): MutableList<V> {
