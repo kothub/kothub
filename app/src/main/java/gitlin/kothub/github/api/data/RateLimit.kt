@@ -4,7 +4,7 @@ import gitlin.kothub.utilities.getValue
 import org.json.JSONObject
 
 
-abstract class RateLimit(json: JSONObject) {
+data class RateLimit(private val json: JSONObject) {
     val remaining: Int? by json
     val cost: Int? by json
     val limit: Int? by json

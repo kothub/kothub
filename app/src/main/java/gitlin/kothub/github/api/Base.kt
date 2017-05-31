@@ -7,6 +7,7 @@ import com.github.kittinunf.fuel.core.FuelError
 import com.github.kittinunf.fuel.core.Request
 import com.github.kittinunf.result.Result
 import gitlin.kothub.github.OAuthValues
+import gitlin.kothub.github.api.data.RateLimit
 import gitlin.kothub.github.api.dsl.Query
 import gitlin.kothub.utilities.obj
 import org.json.JSONObject
@@ -21,11 +22,18 @@ fun post(query: Query, callback: (FuelError?, JSONObject?) -> Unit): Request {
             when (result) {
                 is Result.Failure -> callback(result.error, null)
                 is Result.Success -> {
-                    if (result.value.obj().isNull("data")) {
+                    val obj = result.value.obj()
+                    if (obj.isNull("data")) {
                         callback(null, null)
                     }
                     else {
-                        callback(null, result.value.obj().obj("data")!!)
+                        val rate = obj.obj("data").obj("rateLimit")
+                        Log.i("TEST", rate.toString())
+                        if (rate != null) {
+                            ApiRateLimit.updateRate(RateLimit(rate))
+                        }
+
+                        callback(null, obj.obj("data")!!)
                     }
                 }
             }

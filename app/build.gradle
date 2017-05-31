@@ -49,6 +49,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    compile 'com.android.support:gridlayout-v7:25.3.1'
     compile 'com.android.support:appcompat-v7:25.3.1'
     testCompile "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
     testCompile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
@@ -63,6 +64,7 @@ dependencies {
         transitive = true
     }
     compile 'com.mikepenz:google-material-typeface:3.0.1.0.original@aar'
+    compile 'com.mikepenz:octicons-typeface:3.2.0.2@aar'
     compile 'io.reactivex.rxjava2:rxkotlin:2.0.0'
 }
 
