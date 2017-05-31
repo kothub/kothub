@@ -9,6 +9,7 @@ import com.mikepenz.materialdrawer.DrawerBuilder
 import gitlin.kothub.R
 import android.graphics.drawable.Drawable
 import android.net.Uri
+import android.os.Handler
 import android.view.View
 import android.widget.ImageView
 import com.mikepenz.materialdrawer.AccountHeader
@@ -50,9 +51,6 @@ class AppDrawer(private val activity: AppCompatActivity, toolbar: Toolbar): Anko
             .withBadgeStyle(redStyle)
             .withIcon(Octicons.Icon.oct_issue_opened)
             .withIdentifier(id++)
-            .withOnDrawerItemClickListener { _, _, _ ->
-                navigateTo<IssuesActivity>()
-            }
 
     val pulls: PrimaryDrawerItem = PrimaryDrawerItem()
             .withName(R.string.pulls)
@@ -60,7 +58,6 @@ class AppDrawer(private val activity: AppCompatActivity, toolbar: Toolbar): Anko
             .withBadgeStyle(blueStyle)
             .withIcon(Octicons.Icon.oct_git_pull_request)
             .withIdentifier(id++)
-            .withOnDrawerItemClickListener { _, _, _ -> navigateTo<PullRequestsActivity>() }
 
     val rate: SecondaryDrawerItem = SecondaryDrawerItem()
             .withName(R.string.rate_limit)
@@ -95,13 +92,11 @@ class AppDrawer(private val activity: AppCompatActivity, toolbar: Toolbar): Anko
 
     inner class ProfileImageListener: AccountHeader.OnAccountHeaderProfileImageListener {
         override fun onProfileImageClick(p0: View?, p1: IProfile<*>?, p2: Boolean): Boolean {
+            Handler().postDelayed({
+                this@AppDrawer.navigateTo<ProfileActivity>()
+            }, 300)
 
-            with(this@AppDrawer.activity) {
-                val intent = intentFor<ProfileActivity>().singleTop()
-                startActivity(intent)
-            }
-
-            return true
+            return false
         }
 
         override fun onProfileImageLongClick(p0: View?, p1: IProfile<*>?, p2: Boolean) = false
@@ -122,7 +117,16 @@ class AppDrawer(private val activity: AppCompatActivity, toolbar: Toolbar): Anko
             .withToolbar(toolbar)
             .withAccountHeader(header)
             .withActionBarDrawerToggle(true)
+            .withCloseOnClick(true)
+            .withDelayDrawerClickEvent(250)
             .addDrawerItems(feed, issues, pulls, DividerDrawerItem(), settings, DividerDrawerItem(), rate)
+            .withOnDrawerItemClickListener { _, _, item ->
+                when (item.identifier) {
+                    issues.identifier -> navigateTo<IssuesActivity>()
+                    pulls.identifier -> navigateTo<PullRequestsActivity>()
+                    else -> false
+                }
+            }
             .build()
 
     fun update (item: AbstractDrawerItem<*, *>) {
@@ -140,7 +144,7 @@ class AppDrawer(private val activity: AppCompatActivity, toolbar: Toolbar): Anko
             startActivity(intent)
         }
 
-        return true
+        return false
     }
 
     init {
