@@ -3,10 +3,9 @@ package gitlin.kothub.github
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.widget.TextViewCompat
 import android.support.v7.app.AppCompatActivity
 import android.view.View
-import gitlin.kothub.ProfileActivity
+import gitlin.kothub.ui.ProfileActivity
 import gitlin.kothub.R
 import gitlin.kothub.utilities.editSharedPreferences
 import gitlin.kothub.utilities.set

@@ -1,22 +1,22 @@
 package gitlin.kothub.github.api.data
 
-import gitlin.kothub.utilities.*
-import org.json.JSONArray
-import org.json.JSONObject
+import com.github.salomonbrys.kotson.array
+import com.github.salomonbrys.kotson.byNullableString
+import com.github.salomonbrys.kotson.byString
+import com.github.salomonbrys.kotson.get
+import com.google.gson.JsonObject
 
 
-data class DrawerInfo(private val viewer: JSONObject?) {
+data class DrawerInfo(private val json: JsonObject) {
 
-    val avatarUrl: String? by viewer
-    val login: String? by viewer
-    val email: String? by viewer
-    val name: String? by viewer
+    val avatarUrl: String by json.byString
+    val login: String by json.byString
+    val email: String? by json.byNullableString
+    val name: String? by json.byNullableString
 
-    val issues: Int =
-            viewer?.obj("repositories")?.arr("nodes")
-                ?.map<JSONObject, Int> {
-                    it.totalCount("issues") ?: 0
-                }?.sum() ?: 0
+    val issues: Int = json["repositories"]["nodes"].array.map {
+        it["issues"]["totalCount"].asInt
+    }.sum()
 }
 
 

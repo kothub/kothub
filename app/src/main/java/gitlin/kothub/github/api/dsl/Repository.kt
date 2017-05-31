@@ -22,6 +22,24 @@ class Repository(override val level: Int): Element {
         val pagination = paginationData(first)
         addField(Node("issues${args(pagination, arg("states", states))}", connection.fields))
     }
+
+    fun stargazers(body: UserConnection.() -> Unit) {
+        val connection = UserConnection(nextLevel())
+        connection.body()
+        addField(Node("stargazers", connection.fields))
+    }
+
+    fun forks(body: UserConnection.() -> Unit) {
+        val connection = UserConnection(nextLevel())
+        connection.body()
+        addField(Node("forks", connection.fields))
+    }
+
+    fun primaryLanguage(body: Language.() -> Unit) {
+        val language = Language(nextLevel())
+        language.body()
+        addField(Node("primaryLanguage", language.fields))
+    }
 }
 
 class RepositoryConnection(override val level: Int) : Connection<Repository>(level) {

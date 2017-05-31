@@ -35,47 +35,25 @@ fun userSummary (callback: (FuelError?, UserSummary?) -> Unit) {
                     nodes {
                         name
                         description
+                        stargazers { totalCount }
+                        forks { totalCount }
+                        primaryLanguage {
+                            color
+                            name
+                        }
                     }
                }
-            }
-        }
-    ) { error, result -> callback(error, if (result == null) null else UserSummary(result.obj("viewer")) ) }
-}
-
-
-typealias ApiCall = (FuelError?, Any?) -> Unit
-
-// TODO: pagination
-fun issueNumber (callback: (FuelError?, Int?) -> Unit) {
-    post(
-        query {
-            viewer {
-                repositories(first = 30) {
-                    pageInfo {
-                        hasNextPage
-                        endCursor
-                    }
+                organizations(first = 10) {
                     nodes {
-                        issues(states = IssueState.OPEN) {  }
+                        name
+                        avatarUrl
                     }
                 }
             }
         }
-    ) { error, result ->
-
-        if (error == null && result != null) {
-            val nodes = result.obj("viewer")?.obj("repositories")?.arr("nodes")
-            val count: Int = nodes?.map<JSONObject, Int> {
-              it.totalCount("issues") ?: 0
-            }?.sum() ?: 0
-
-            callback(error, count)
-        }
-        else {
-            callback(error, null)
-        }
-    }
+    ) { error, result -> callback(error, if (result == null) null else UserSummary(result["viewer"].asJsonObject)) }
 }
+
 
 fun drawerInfo (callback: (FuelError?, DrawerInfo?) -> Unit) {
     post(
@@ -99,7 +77,7 @@ fun drawerInfo (callback: (FuelError?, DrawerInfo?) -> Unit) {
             }
         }
     ) {
-        error, result -> callback(error, if (result == null) null else DrawerInfo(result.obj("viewer")))
+        error, result -> callback(error, if (result == null) null else DrawerInfo(result["viewer"].asJsonObject))
     }
 }
 

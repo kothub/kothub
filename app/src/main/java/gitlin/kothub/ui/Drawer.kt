@@ -21,7 +21,6 @@ import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader
 import com.mikepenz.materialdrawer.util.DrawerImageLoader
 import com.mikepenz.octicons_typeface_library.Octicons
 import com.squareup.picasso.Picasso
-import gitlin.kothub.ProfileActivity
 import gitlin.kothub.github.api.ApiRateLimit
 import gitlin.kothub.github.api.data.RateLimit
 import org.jetbrains.anko.*

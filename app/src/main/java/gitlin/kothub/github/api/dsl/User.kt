@@ -97,6 +97,22 @@ class User(override val level: Int): ActorFields {
             Node("pinnedRepositories${args(pagination, arg("privacy", privacy))}", connection.fields)
         )
     }
+
+    fun organizations (
+            first: Int?,
+            after: String? = null,
+            last: Int? = null,
+            before: String? = null,
+            body: OrganizationConnection.() -> Unit
+    ) {
+        val connection = OrganizationConnection(nextLevel())
+        connection.body()
+
+        val pagination = paginationData(first, after, last, before)
+        addField(
+            Node("organizations${args(pagination)}", connection.fields)
+        )
+    }
 }
 
 
