@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
 
         debug(OAuthValues.isLoggedIn)
         if (OAuthValues.isLoggedIn) {
-            startActivity(Intent(this, NotificationActivity::class.java))
+            startActivity(Intent(this, ProfileActivity::class.java))
         } else {
             startActivity(Intent(this, LoginActivity::class.java))
         }
