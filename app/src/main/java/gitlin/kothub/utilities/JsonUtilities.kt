@@ -26,10 +26,6 @@ fun <T, V> JSONArray.map(mapper: (T) -> V): MutableList<V> {
     return (0..length() - 1).mapTo(arrayListOf<V>()) { mapper(get(it) as T) }
 }
 
-operator fun JSONArray.iterator(): Iterator<JSONObject>
-        = (0 until length()).asSequence().map { get(it) as JSONObject }.iterator()
-
-
 operator fun <T> JsonObject.getValue(thisRef: Any, prop: KProperty<*>): T? {
     if (prop.name == null) {
         return null
@@ -42,8 +38,5 @@ operator fun <T> JsonObject.getValue(thisRef: Any, prop: KProperty<*>): T? {
 fun <T, V> JsonArray.map(mapper: (T) -> V): MutableList<V> {
     return (0..size() - 1).mapTo(arrayListOf<V>()) { mapper(get(it) as T) }
 }
-
-operator fun JsonArray.iterator(): Iterator<JsonObject>
-        = (0 until size()).asSequence().map { get(it) as JsonObject }.iterator()
 
 fun JSONObject.totalCount(name: String): Int? = obj(name)?.getInt("totalCount")

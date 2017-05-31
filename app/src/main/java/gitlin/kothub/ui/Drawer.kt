@@ -60,9 +60,11 @@ class AppDrawer(activity: AppCompatActivity, toolbar: Toolbar): AnkoLogger {
                                 .withIcon(GoogleMaterial.Icon.gmd_rss_feed).withIdentifier(2),
                     PrimaryDrawerItem().withName("Issues")
                             .withIcon(GoogleMaterial.Icon.gmd_bug_report).withIdentifier(3),
+                    PrimaryDrawerItem().withName("Notifications")
+                            .withIcon(GoogleMaterial.Icon.gmd_notifications).withIdentifier(4),
                     DividerDrawerItem(),
                     SecondaryDrawerItem().withName("Settings")
-                            .withIcon(GoogleMaterial.Icon.gmd_settings).withIdentifier(4)
+                            .withIcon(GoogleMaterial.Icon.gmd_settings).withIdentifier(5)
                 )
                 .build()
 

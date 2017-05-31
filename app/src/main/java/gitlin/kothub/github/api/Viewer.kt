@@ -1,6 +1,8 @@
 package gitlin.kothub.github.api
 
 import com.github.kittinunf.fuel.core.FuelError
+import com.google.gson.JsonArray
+import com.google.gson.JsonParser
 import gitlin.kothub.github.api.data.DrawerInfo
 import gitlin.kothub.github.api.data.UserSummary
 import gitlin.kothub.github.api.data.Notifications
@@ -91,6 +93,12 @@ fun drawerInfo (callback: (FuelError?, DrawerInfo?) -> Unit) {
 
 fun notifications (callback: (FuelError?, Notifications?) -> Unit) {
     get("notifications") {
-        error, result -> callback(error, if (result == null) null else Notifications(result))
+        error, result -> callback(error,
+            if (result == null)
+                null
+            else {
+                val json: JsonArray = JsonParser().parse(result).asJsonArray
+                Notifications(json)
+            })
     }
 }
