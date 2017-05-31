@@ -99,7 +99,7 @@ fun drawerInfo (callback: (FuelError?, DrawerInfo?) -> Unit) {
             }
         }
     ) {
-        error, result -> callback(error, if (result == null) null else DrawerInfo(result))
+        error, result -> callback(error, if (result == null) null else DrawerInfo(result.obj("viewer")))
     }
 }
 

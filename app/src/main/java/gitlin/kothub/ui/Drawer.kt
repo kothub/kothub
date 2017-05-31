@@ -21,6 +21,7 @@ import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader
 import com.mikepenz.materialdrawer.util.DrawerImageLoader
 import com.mikepenz.octicons_typeface_library.Octicons
 import com.squareup.picasso.Picasso
+import gitlin.kothub.NotificationActivity
 import gitlin.kothub.ProfileActivity
 import gitlin.kothub.github.api.ApiRateLimit
 import gitlin.kothub.github.api.data.RateLimit
@@ -57,6 +58,13 @@ class AppDrawer(private val activity: AppCompatActivity, toolbar: Toolbar): Anko
             .withBadge("0")
             .withBadgeStyle(blueStyle)
             .withIcon(Octicons.Icon.oct_git_pull_request)
+            .withIdentifier(id++)
+
+    val notifs: PrimaryDrawerItem = PrimaryDrawerItem()
+            .withName(R.string.notifs)
+            .withBadge("0")
+            .withBadgeStyle(blueStyle)
+            .withIcon(Octicons.Icon.oct_bell)
             .withIdentifier(id++)
 
     val rate: SecondaryDrawerItem = SecondaryDrawerItem()
@@ -119,11 +127,12 @@ class AppDrawer(private val activity: AppCompatActivity, toolbar: Toolbar): Anko
             .withActionBarDrawerToggle(true)
             .withCloseOnClick(true)
             .withDelayDrawerClickEvent(250)
-            .addDrawerItems(feed, issues, pulls, DividerDrawerItem(), settings, DividerDrawerItem(), rate)
+            .addDrawerItems(feed, issues, pulls, notifs, DividerDrawerItem(), settings, DividerDrawerItem(), rate)
             .withOnDrawerItemClickListener { _, _, item ->
                 when (item.identifier) {
                     issues.identifier -> navigateTo<IssuesActivity>()
                     pulls.identifier -> navigateTo<PullRequestsActivity>()
+                    notifs.identifier -> navigateTo<NotificationActivity>()
                     else -> false
                 }
             }
