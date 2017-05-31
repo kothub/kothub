@@ -32,10 +32,6 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
         super.onCreate(savedInstanceState)
         setContentView(activity_main)
         setSupportActionBar(toolbar)
-
-
-
-        tv_hello.text = "This will be the feed"
     }
 
     override fun onStart() {
