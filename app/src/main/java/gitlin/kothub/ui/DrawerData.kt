@@ -1,5 +1,6 @@
 package gitlin.kothub.ui
 
+import android.util.Log
 import gitlin.kothub.github.api.data.DrawerInfo
 import gitlin.kothub.github.api.drawerInfo
 import io.reactivex.subjects.BehaviorSubject

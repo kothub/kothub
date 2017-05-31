@@ -1,12 +1,11 @@
 package gitlin.kothub.github.api
 
-import android.util.Log
-import com.github.kittinunf.fuel.Fuel
-import com.github.kittinunf.fuel.android.extension.responseJson
 import com.github.kittinunf.fuel.core.FuelError
-import com.github.kittinunf.result.Result
+import com.google.gson.JsonArray
+import com.google.gson.JsonParser
 import gitlin.kothub.github.api.data.DrawerInfo
 import gitlin.kothub.github.api.data.UserSummary
+import gitlin.kothub.github.api.data.Notifications
 import gitlin.kothub.github.api.dsl.IssueState
 import gitlin.kothub.github.api.dsl.query
 import gitlin.kothub.utilities.arr
@@ -100,8 +99,18 @@ fun drawerInfo (callback: (FuelError?, DrawerInfo?) -> Unit) {
             }
         }
     ) {
-        error, result ->
+        error, result -> callback(error, if (result == null) null else DrawerInfo(result.obj("viewer")))
+    }
+}
 
-        callback(error, if (result == null) null else DrawerInfo(result.obj("viewer")))
+fun notifications (callback: (FuelError?, Notifications?) -> Unit) {
+    get("notifications") {
+        error, result -> callback(error,
+            if (result == null)
+                null
+            else {
+                val json: JsonArray = JsonParser().parse(result).asJsonArray
+                Notifications(json)
+            })
     }
 }

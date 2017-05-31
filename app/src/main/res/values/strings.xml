@@ -16,6 +16,7 @@
     <string name="feed">Feed</string>
     <string name="issues">Issues</string>
     <string name="pulls">Pull Requests</string>
+    <string name="notifs">Notifications</string>
     <string name="rate_limit">Rate Limit</string>
     <string name="login_explainer">
         This application uses the <b>GitHub</b> GraphQL API, to be able to use it you need to login to your <b>GitHub</b> account.
