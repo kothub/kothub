@@ -8,7 +8,6 @@ import android.os.Bundle
 import gitlin.kothub.R.layout.activity_main
 import gitlin.kothub.github.LoginActivity
 import gitlin.kothub.github.OAuthValues
-import gitlin.kothub.github.OAuthValues.isLoggedIn
 import gitlin.kothub.utilities.getOAuthToken
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.toolbar.*
@@ -25,6 +24,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
         val token: String? = getOAuthToken()
         if (token != null) {
             OAuthValues.GITHUB_TOKEN = token
+            OAuthValues.isLoggedIn = true
         }
     }
 

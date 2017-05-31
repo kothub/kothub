@@ -1,12 +1,10 @@
 package gitlin.kothub.ui
 
-import android.content.Intent
 import android.graphics.Color
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import com.mikepenz.google_material_typeface_library.GoogleMaterial
 import com.mikepenz.materialdrawer.AccountHeaderBuilder
-import com.mikepenz.materialdrawer.Drawer
 import com.mikepenz.materialdrawer.DrawerBuilder
 import gitlin.kothub.R
 import android.graphics.drawable.Drawable
@@ -15,8 +13,8 @@ import android.view.View
 import android.widget.ImageView
 import com.mikepenz.materialdrawer.AccountHeader
 import com.mikepenz.materialdrawer.holder.BadgeStyle
-import com.mikepenz.materialdrawer.holder.StringHolder
 import com.mikepenz.materialdrawer.model.*
+import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.IProfile
 import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader
 import com.mikepenz.materialdrawer.util.DrawerImageLoader
@@ -24,16 +22,20 @@ import com.mikepenz.octicons_typeface_library.Octicons
 import com.squareup.picasso.Picasso
 import gitlin.kothub.ProfileActivity
 import gitlin.kothub.github.api.ApiRateLimit
-import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.debug
-import org.jetbrains.anko.info
+import gitlin.kothub.github.api.data.RateLimit
+import org.jetbrains.anko.*
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class AppDrawer(private val activity: AppCompatActivity, toolbar: Toolbar): AnkoLogger {
 
     private val redStyle = BadgeStyle().withTextColor(Color.WHITE).withColorRes(R.color.md_red_600)
     private val blueStyle = BadgeStyle().withTextColor(Color.WHITE).withColorRes(R.color.md_blue_600)
+    private val greenStyle = BadgeStyle().withTextColor(Color.WHITE).withColorRes(R.color.md_green_600)
     private var id = 0L
+    private var currentRateLimit: RateLimit? = null
 
     val profile: ProfileDrawerItem = ProfileDrawerItem().withIdentifier(id++)
 
@@ -48,6 +50,9 @@ class AppDrawer(private val activity: AppCompatActivity, toolbar: Toolbar): Anko
             .withBadgeStyle(redStyle)
             .withIcon(Octicons.Icon.oct_issue_opened)
             .withIdentifier(id++)
+            .withOnDrawerItemClickListener { _, _, _ ->
+                navigateTo<IssuesActivity>()
+            }
 
     val pulls: PrimaryDrawerItem = PrimaryDrawerItem()
             .withName(R.string.pulls)
@@ -55,13 +60,31 @@ class AppDrawer(private val activity: AppCompatActivity, toolbar: Toolbar): Anko
             .withBadgeStyle(blueStyle)
             .withIcon(Octicons.Icon.oct_git_pull_request)
             .withIdentifier(id++)
+            .withOnDrawerItemClickListener { _, _, _ -> navigateTo<PullRequestsActivity>() }
 
     val rate: SecondaryDrawerItem = SecondaryDrawerItem()
             .withName(R.string.rate_limit)
             .withBadge("5000")
-            .withBadgeStyle(blueStyle)
+            .withBadgeStyle(greenStyle)
             .withIcon(GoogleMaterial.Icon.gmd_network_locked)
             .withIdentifier(id++)
+            .withSelectable(false)
+            .withOnDrawerItemClickListener { _, _, _ ->
+
+                if (currentRateLimit == null) {
+                    false
+                }
+
+                val date = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'").parse(currentRateLimit?.resetAt)
+                val hour = SimpleDateFormat("HH:mm").format(date)
+
+                activity.alert("The rate limit is the number of points remaining on your API account. " +
+                               "It resets every hour. If you somehow reach zero, you will not be able to use the application until $hour GMT+00:00") {
+                    okButton {  }
+                }.show()
+
+                true
+            }
 
 
     val settings: SecondaryDrawerItem = SecondaryDrawerItem()
@@ -73,18 +96,15 @@ class AppDrawer(private val activity: AppCompatActivity, toolbar: Toolbar): Anko
     inner class ProfileImageListener: AccountHeader.OnAccountHeaderProfileImageListener {
         override fun onProfileImageClick(p0: View?, p1: IProfile<*>?, p2: Boolean): Boolean {
 
-            val drawer = this@AppDrawer
-            if (drawer.activity.localClassName == ProfileActivity::class.java.simpleName) {
-                return false
+            with(this@AppDrawer.activity) {
+                val intent = intentFor<ProfileActivity>().singleTop()
+                startActivity(intent)
             }
 
-            val intent = Intent(drawer.activity, ProfileActivity::class.java)
-            drawer.activity.startActivity(intent)
             return true
         }
 
         override fun onProfileImageLongClick(p0: View?, p1: IProfile<*>?, p2: Boolean) = false
-
     }
 
     val header = AccountHeaderBuilder()
@@ -109,6 +129,20 @@ class AppDrawer(private val activity: AppCompatActivity, toolbar: Toolbar): Anko
         drawer.updateItem(item)
     }
 
+    fun select (item: IDrawerItem<*, *>) {
+        drawer.setSelection(item)
+    }
+
+    private inline fun <reified T: Any> navigateTo (): Boolean {
+
+        with(activity) {
+            val intent = intentFor<T>().singleTop()
+            startActivity(intent)
+        }
+
+        return true
+    }
+
     init {
 
         DrawerImageLoader.init(object : AbstractDrawerImageLoader() {
@@ -120,8 +154,6 @@ class AppDrawer(private val activity: AppCompatActivity, toolbar: Toolbar): Anko
                 Picasso.with(imageView.context).cancelRequest(imageView)
             }
         })
-
-
 
 
 
@@ -144,9 +176,8 @@ class AppDrawer(private val activity: AppCompatActivity, toolbar: Toolbar): Anko
         // TODO: unsubscribe
         ApiRateLimit.observable().subscribe {
 
-            info("IS IT CALLED?")
-
-            rate.withBadge("${it.remaining}")
+            this.currentRateLimit = it
+            rate.withBadge("${it.remaining}/${it.limit}")
             update(rate)
         }
 

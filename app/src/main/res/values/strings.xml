@@ -24,4 +24,5 @@
 
         Keep in mind that this is not an official <b>GitHub</b> application.
     </string>
+    <string name="title_activity_issues">IssuesActivity</string>
 </resources>
