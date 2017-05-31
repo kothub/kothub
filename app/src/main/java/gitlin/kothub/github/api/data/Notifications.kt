@@ -1,42 +1,48 @@
 package gitlin.kothub.github.api.data
 
-import gitlin.kothub.utilities.getValue
-import gitlin.kothub.utilities.obj
-import org.json.JSONObject
-import org.json.JSONArray
+import com.github.salomonbrys.kotson.*
+import com.google.gson.*
 
 import gitlin.kothub.utilities.*
 
-data class Notifications(private val json: JSONArray) {
-    val x = json.map<JSONObject, Notification> { Notification(it) }
+private val gson = Gson()
+
+class Notifications(private val json: String) {
+    private val arr: JsonArray = JsonParser().parse(json).asJsonArray
+
+    val notifications = arr.map<JsonObject, Notification> { Notification(it) }
 }
 
-data class Notification(val json: JSONObject) {
-    val id: String? by json
+data class Notification(private val json: JsonObject) {
+    var id: String by json.byString
 
-    val repository = Repository(json.obj("repository"))
-    val subject = Subject(json.obj("subject"))
+    val repository: Repository = Repository(json)
+    val subject: Subject = Subject(json)
 
-    val reason: String? by json
-    val unread: Boolean? by json
-    val updated_at: String? by json
-    val last_read_at: String? by json
-    val url: String? by json
+    val reason: String by json.byString
+    val unread: Boolean by json.byBool
+    val updated_at: String by json.byString
+    val last_read_at: String by json.byString
+    val url: String by json.byString
 }
 
-data class Repository(val json: JSONObject?) {
-    val name: String? by json
-    val full_name: String? by json
-    val description: String? by json
-    val private: Boolean? by json
-    val fork: Boolean? by json
-    val url: String? by json
-    val html_url: String? by json
+data class Repository(private val json: JsonObject) {
+    private val repository: JsonObject = json.getAsJsonObject("repository")
+
+    val name: String by repository.byString
+    val full_name: String by repository.byString
+    val description: String by repository.byString
+    val private: Boolean by repository.byBool
+    val fork: Boolean by repository.byBool
+    val url: String by repository.byString
+    val html_url: String by repository.byString
 }
 
-data class Subject(val json: JSONObject?) {
-    val title: String? by json
-    val url: String? by json
-    val latest_comment_url: String? by json
-    val type: String? by json
+data class Subject(private val json: JsonObject) {
+    private val subject: JsonObject = json.getAsJsonObject("subject")
+
+    val title: String by subject.byString
+    val url: String by subject.byString
+    val latest_comment_url: String by subject.byString
+    val type: String by subject.byString
 }

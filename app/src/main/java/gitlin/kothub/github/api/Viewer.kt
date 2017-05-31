@@ -3,7 +3,6 @@ package gitlin.kothub.github.api
 import com.github.kittinunf.fuel.core.FuelError
 import gitlin.kothub.github.api.data.DrawerInfo
 import gitlin.kothub.github.api.data.UserSummary
-import gitlin.kothub.github.api.data.Feeds
 import gitlin.kothub.github.api.data.Notifications
 import gitlin.kothub.github.api.dsl.IssueState
 import gitlin.kothub.github.api.dsl.query
@@ -86,24 +85,12 @@ fun drawerInfo (callback: (FuelError?, DrawerInfo?) -> Unit) {
             }
         }
     ) {
-        error, result ->
-
-        callback(error, if (result == null) null else DrawerInfo(result))
+        error, result -> callback(error, if (result == null) null else DrawerInfo(result))
     }
 }
 
-fun feeds (callback: (FuelError?, Feeds?) -> Unit) {
-    getObj("feeds", {
-        error, result ->
-
-        callback(error, if (result == null) null else Feeds(result))
-    } )
-}
-
 fun notifications (callback: (FuelError?, Notifications?) -> Unit) {
-    getArr("notifications", {
-        error, result ->
-
-        callback(error, if (result == null) null else Notifications(result))
-    } )
+    get("notifications") {
+        error, result -> callback(error, if (result == null) null else Notifications(result))
+    }
 }

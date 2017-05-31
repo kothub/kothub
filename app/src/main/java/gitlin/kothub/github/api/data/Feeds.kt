@@ -1,14 +1,20 @@
 package gitlin.kothub.github.api.data
 
-import gitlin.kothub.utilities.*
-import org.json.JSONObject
+import com.github.salomonbrys.kotson.*
+import com.google.gson.Gson
+import com.google.gson.JsonObject
+import com.google.gson.JsonParser
 
-data class Feeds(private val json: JSONObject) {
-    val timeline_url: String? by json
-    val user_url: String? by json
-    val current_user_public_url: String? by json
+private val gson = Gson()
 
-    private val links = json.obj("_links")!!
-    private val timeline = links.obj("timeline")!!
-    val href: String? by timeline
+data class Feeds(private val json: String) {
+    private val obj: JsonObject = JsonParser().parse(json).asJsonObject
+
+    val timeline_url: String by obj.byString
+    val user_url: String by obj.byString
+    val current_user_public_url: String by obj.byString
+
+//    private val links = json.obj("_links")!!
+//    private val timeline = links.obj("timeline")!!
+//    val href: String? by timeline
 }

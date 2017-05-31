@@ -25,26 +25,19 @@ fun post(query: Query, callback: (FuelError?, JSONObject?) -> Unit): Request {
         }
 }
 
-fun getObj(query: String, callback: (FuelError?, JSONObject?) -> Unit): Request {
+fun header(query: String): Request {
 
     return Fuel.get("https://api.github.com/$query")
             .header(Pair("Authorization", "token $GITHUB_TOKEN"))
-            .responseJson { request, response, result ->
-                when (result) {
-                    is Result.Failure -> callback(result.error, null)
-                    is Result.Success -> callback(null, result.value.obj())
-                }
-            }
 }
 
-fun getArr(query: String, callback: (FuelError?, JSONArray?) -> Unit): Request {
+fun get(query: String, callback: (FuelError?, String?) -> Unit): Request {
 
-    return Fuel.get("https://api.github.com/$query")
-            .header(Pair("Authorization", "token $GITHUB_TOKEN"))
-            .responseJson { request, response, result ->
+    return header(query)
+            .responseString { request, response, result ->
                 when (result) {
                     is Result.Failure -> callback(result.error, null)
-                    is Result.Success -> callback(null, result.value.array())
+                    is Result.Success -> callback(null, result.value)
                 }
             }
 }

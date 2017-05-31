@@ -23,6 +23,7 @@
         <activity android:name=".github.LoginActivity" />
         <activity android:name=".github.LoginWebViewActivity" />
         <activity android:name=".ProfileActivity" />
+        <activity android:name=".NotificationActivity" />
     </application>
 
 </manifest>
