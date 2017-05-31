@@ -5,9 +5,7 @@ import org.json.JSONArray
 import org.json.JSONObject
 
 
-data class UserSummary(private val json: JSONObject): RateLimit(json.obj("rateLimit")!!) {
-
-    private val viewer = json.obj("viewer")!!
+data class UserSummary(private val viewer: JSONObject?) {
 
     val avatarUrl: String? by viewer
     val login: String? by viewer

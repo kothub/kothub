@@ -7,26 +7,23 @@ import io.reactivex.subjects.BehaviorSubject
 import org.jetbrains.anko.AnkoLogger
 
 
-class DrawerData {
+object DrawerData {
 
-    companion object: AnkoLogger {
-        val info: BehaviorSubject<DrawerInfo> = BehaviorSubject.create()
+    val info: BehaviorSubject<DrawerInfo> = BehaviorSubject.create()
 
-        fun drawerInfo () = info
+    fun drawerInfo () = info
 
-        fun fetch () {
-            if (!info.hasValue()) {
-                drawerInfo {
-                    error, result ->
-                        if (error == null && result != null) {
-                            info.onNext(result)
-                        }
-                        else {
-                            info.onError(error)
-                        }
-                }
+    fun fetch () {
+        if (!info.hasValue()) {
+            drawerInfo {
+                error, result ->
+                    if (error == null && result != null) {
+                        info.onNext(result)
+                    }
+                    else {
+                        info.onError(error)
+                    }
             }
         }
-
     }
 }

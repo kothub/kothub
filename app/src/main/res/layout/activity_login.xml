@@ -7,16 +7,50 @@
     tools:context="gitlin.kothub.github.LoginActivity"
     android:orientation="vertical">
 
-        <include layout="@layout/toolbar"/>
+        <include layout="@layout/toolbar" />
 
-        <Button
-            android:id="@+id/button"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="onLoginClick"
-            android:text="@string/login"
-            tools:layout_editor_absoluteX="104dp"
-            tools:layout_editor_absoluteY="16dp" />
+            android:layout_height="match_parent">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                        <com.mikepenz.iconics.view.IconicsImageView
+                            android:id="@+id/iconicsImageView"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:layout_centerHorizontal="true"
+                            app:iiv_icon="oct_logo_github" />
+                </RelativeLayout>
+
+
+                <TextView
+                    android:id="@+id/loginExplainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-condensed"
+                    android:padding="20dp"
+                    android:text="@string/login_explainer"
+                    android:typeface="monospace"
+                    android:layout_above="@+id/button"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginBottom="54dp" />
+
+                <Button
+                    android:id="@+id/button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/ripple"
+                    android:elevation="2dp"
+                    android:onClick="onLoginClick"
+                    android:text="@string/login"
+                    android:textColor="@color/white" />
+        </RelativeLayout>
 
 
 </LinearLayout>

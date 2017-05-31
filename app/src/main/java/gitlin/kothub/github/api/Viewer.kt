@@ -39,7 +39,7 @@ fun userSummary (callback: (FuelError?, UserSummary?) -> Unit) {
                }
             }
         }
-    ) { error, result -> callback(error, if (result == null) null else UserSummary(result) ) }
+    ) { error, result -> callback(error, if (result == null) null else UserSummary(result.obj("viewer")) ) }
 }
 
 
@@ -84,6 +84,18 @@ fun drawerInfo (callback: (FuelError?, DrawerInfo?) -> Unit) {
                 login
                 email
                 avatarUrl
+                name
+                repositories(first = 30) {
+                    pageInfo {
+                        hasNextPage
+                        endCursor
+                    }
+                    nodes {
+                        issues(states = IssueState.OPEN) {
+                            totalCount
+                        }
+                    }
+                }
             }
         }
     ) {

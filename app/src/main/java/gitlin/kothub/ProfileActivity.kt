@@ -19,6 +19,7 @@ import kotlinx.android.synthetic.main.toolbar.*
 
 class ProfileActivity : AppCompatActivity(), AnkoLogger {
 
+    lateinit var drawer: AppDrawer
 
     var summary: UserSummary? = null
         set(value) {
@@ -42,7 +43,7 @@ class ProfileActivity : AppCompatActivity(), AnkoLogger {
         setContentView(R.layout.activity_profile)
         setSupportActionBar(toolbar)
 
-        AppDrawer(this, toolbar)
+        drawer = AppDrawer(this, toolbar)
 
         val progressBar = ProgressBar(this)
 
@@ -53,6 +54,11 @@ class ProfileActivity : AppCompatActivity(), AnkoLogger {
         pinned.emptyView = progressBar
         listLayout.addView(progressBar)
         initProfile()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        drawer.select(drawer.profile)
     }
 
     fun initProfile() {

@@ -1,6 +1,7 @@
 package gitlin.kothub.github
 
 import android.app.Activity
+import android.graphics.Color
 import android.os.Bundle
 import android.webkit.WebView
 
@@ -17,6 +18,8 @@ class LoginWebViewActivity: Activity() {
         webview.loadUrl(intent.getStringExtra("url"))
         webview.setWebViewClient(LoginWebView(this))
         setContentView(webview)
+
+        window.statusBarColor = Color.BLACK
     }
 
     override fun onDestroy() {

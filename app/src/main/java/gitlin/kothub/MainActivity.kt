@@ -1,5 +1,6 @@
 package gitlin.kothub
 
+import android.app.Activity
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -31,14 +32,12 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
         super.onCreate(savedInstanceState)
         setContentView(activity_main)
         setSupportActionBar(toolbar)
-        tv_hello.text = "Kothub"
     }
 
     override fun onStart() {
         super.onStart()
         initOAuth()
 
-        debug(OAuthValues.isLoggedIn)
         if (OAuthValues.isLoggedIn) {
             startActivity(Intent(this, ProfileActivity::class.java))
         } else {

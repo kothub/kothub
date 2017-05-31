@@ -13,7 +13,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar">
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MainActivity"
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,7 +25,18 @@
         <activity android:name=".github.LoginActivity" />
         <activity android:name=".github.LoginWebViewActivity" />
         <activity android:name=".ProfileActivity" />
-        <activity android:name=".NotificationActivity" />
+        <activity
+              android:name=".NotificationActivity"
+              android:label="@string/notifs"
+              android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar"></activity>
+          <activity
+              android:name=".ui.IssuesActivity"
+              android:label="@string/title_activity_issues"
+              android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar"></activity>
+          <activity
+              android:name=".ui.PullRequestsActivity"
+              android:label="@string/pulls"
+              android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar"></activity>
     </application>
 
 </manifest>

@@ -18,13 +18,14 @@ operator fun <T> JSONObject.getValue(thisRef: Any, prop: KProperty<*>): T? {
 
 operator fun JSONObject.contains(property: String) = this.has(property)
 
-fun JSONObject.obj(property: String): JSONObject? = if (property in this) this.getJSONObject(property) else null
-fun JSONObject.arr(property: String): JSONArray? = if (property in this) this.getJSONArray(property) else null
+fun JSONObject?.obj(property: String): JSONObject? = if (this != null && property in this && !isNull(property)) this.getJSONObject(property) else null
+fun JSONObject?.arr(property: String): JSONArray? = if (this != null && property in this && !isNull(property)) this.getJSONArray(property) else null
 
 
-fun <T, V> JSONArray.map(mapper: (T) -> V): MutableList<V> {
-    return (0..length() - 1).mapTo(arrayListOf<V>()) { mapper(get(it) as T) }
+fun <T, V> JSONArray?.map(mapper: (T) -> V): MutableList<V> {
+    return if (this == null) arrayListOf<V>() else (0..length() - 1).mapTo(arrayListOf<V>()) { mapper(get(it) as T) }
 }
+
 
 operator fun <T> JsonObject.getValue(thisRef: Any, prop: KProperty<*>): T? {
     if (prop.name == null) {
@@ -39,4 +40,4 @@ fun <T, V> JsonArray.map(mapper: (T) -> V): MutableList<V> {
     return (0..size() - 1).mapTo(arrayListOf<V>()) { mapper(get(it) as T) }
 }
 
-fun JSONObject.totalCount(name: String): Int? = obj(name)?.getInt("totalCount")
+fun JSONObject?.totalCount(name: String): Int? = obj(name)?.getInt("totalCount") ?: 0
