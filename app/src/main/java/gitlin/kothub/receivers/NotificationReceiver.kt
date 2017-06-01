@@ -1,41 +1,26 @@
 package gitlin.kothub.receivers
 
+import android.app.Activity.RESULT_CANCELED
+import android.app.Activity.RESULT_OK
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
-import gitlin.kothub.services.NotificationService
+import android.util.Log
+import android.widget.Toast
+import gitlin.kothub.services.NotificationService.Companion.GITHUB_STATUS
+import gitlin.kothub.services.NotificationService.Companion.RESULT_CODE
+
 
 class NotificationReceiver: BroadcastReceiver() {
-    companion object {
-        var REQUEST_CODE = 12345
-        val ACTION = "gitlin.kothub.receivers.alarm"
-    }
 
     override fun onReceive(context: Context?, intent: Intent?) {
-        val i = Intent(context, NotificationService::class.java)
-        i.putExtra("foo", "bar")
-        context?.startService(i)
+
+        val resultCode = intent?.getIntExtra(RESULT_CODE, RESULT_CANCELED)
+        if (resultCode == RESULT_OK) {
+            val status = intent.getStringExtra(GITHUB_STATUS)
+
+            Log.d("NotificationReceiver", status)
+            Toast.makeText(context, status, Toast.LENGTH_LONG).show()
+        }
     }
-
-}
-
-//class NotificationReceiver(private val init: (Context?, Intent?) -> Unit): BroadcastReceiver() {
-//
-//    private var receiver: Receiver
-//        get() = receiver
-//        set(value) { this.receiver = value }
-//
-//    override fun onReceive(context: Context?, intent: Intent?) {
-//        init(context, intent)
-//    }
-//
-//    fun onReceiveResult(resultCode: Int, resultData: Bundle) {
-//        receiver.onReceiveResult(resultCode, resultData)
-//    }
-//
-//}
-
-interface Receiver {
-    fun onReceiveResult(resultCode: Int, resultData: Bundle)
 }

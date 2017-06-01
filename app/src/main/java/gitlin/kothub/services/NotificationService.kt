@@ -1,27 +1,26 @@
 package gitlin.kothub.services
 
+import android.app.Activity
 import android.app.IntentService
 import android.content.Intent
+import android.support.v4.content.LocalBroadcastManager
 import android.util.Log
 import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.result.Result
 import com.github.salomonbrys.kotson.byString
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
-import android.support.v4.content.LocalBroadcastManager
-
 
 
 class NotificationService: IntentService("notification-service") {
 
     companion object {
 
-        // Defines a custom Intent action
         val BROADCAST_ACTION = "gitlin.kothub.services.BROADCAST"
 
-        // Defines the key for the status "extra" in an Intent
         val GITHUB_STATUS = "gitlin.kothub.services.STATUS"
 
+        val RESULT_CODE = "gitlin.kothub.services.CODE"
     }
 
     override fun onHandleIntent(intent: Intent?) {
@@ -43,19 +42,15 @@ class NotificationService: IntentService("notification-service") {
                         }
                     }
                 }
-
-
-
     }
 
     fun broadcast(status: String) {
-        val localIntent = Intent(BROADCAST_ACTION)
-                // Puts the status into the Intent
+        val localIntent: Intent = Intent(BROADCAST_ACTION)
+                .putExtra(RESULT_CODE, Activity.RESULT_OK)
                 .putExtra(GITHUB_STATUS, status)
-        // Broadcasts the Intent to receivers in this app.
+
         LocalBroadcastManager.getInstance(this).sendBroadcast(localIntent)
     }
-
 }
 
 
