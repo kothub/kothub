@@ -13,6 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar">
+
         <activity
             android:name=".MainActivity"
             android:noHistory="true">
@@ -37,6 +38,15 @@
               android:name=".ui.PullRequestsActivity"
               android:label="@string/pulls"
               android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar"></activity>
+
+        <receiver
+            android:name=".receivers.NotificationReceiver"
+            android:process=":remote" >
+        </receiver>
+
+        <service
+            android:name=".services.NotificationService"
+            android:exported="false"/>
     </application>
 
 </manifest>
