@@ -9,11 +9,11 @@ data class UserSummary(private val json: JsonObject) {
     val avatarUrl: String by json.byString
     val login: String by json.byString
     val name: String by json.byString
-    val websiteUrl: String? by json.byNullableString
-    val bio: String? by json.byNullableString
-    val url: String? by json.byNullableString
-    val company: String? by json.byNullableString
-    val location: String? by json.byNullableString
+    val websiteUrl: String? = json["websiteUrl"].nullString
+    val bio: String? = json["bio"].nullString
+    val url: String? = json["url"].nullString
+    val company: String? = json["company"].nullString
+    val location: String? = json["location"].nullString
     val followers : Int = json["followers"]["totalCount"].asInt
     val following: Int = json["following"]["totalCount"].asInt
     val starredRepositories: Int = json["starredRepositories"]["totalCount"].asInt
@@ -30,7 +30,7 @@ data class Language(val json: JsonObject) {
 
 data class PinnedRepository(val json: JsonObject) {
     val name: String by json.byString
-    val description: String? by json.byNullableString
+    val description: String? = json["description"].nullString
     val stargazers: Int = json["stargazers"]["totalCount"].asInt
     val forks: Int = json["forks"]["totalCount"].asInt
     val language: Language? = if (json["primaryLanguage"].isJsonNull) null else Language(json["primaryLanguage"].asJsonObject)
