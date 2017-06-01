@@ -10,25 +10,22 @@ import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.debug
 import android.view.Gravity
 import android.widget.*
+import com.github.kittinunf.fuel.core.FuelError
 import com.squareup.picasso.Picasso
 import gitlin.kothub.R
 import gitlin.kothub.adapters.PinnedRepositoryAdapter
 import gitlin.kothub.utilities.value
 import kotlinx.android.synthetic.main.activity_profile.*
 import kotlinx.android.synthetic.main.toolbar.*
-import android.support.v7.widget.LinearSnapHelper
-import android.support.v7.widget.PagerSnapHelper
-import android.support.v7.widget.SnapHelper
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper
 import gitlin.kothub.adapters.OrganizationSummaryAdapter
-import jp.wasabeef.recyclerview.animators.SlideInRightAnimator
-import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
-import org.jetbrains.anko.info
+import gitlin.kothub.github.api.viewerSummary
 
 
 class ProfileActivity : AppCompatActivity(), AnkoLogger {
 
     lateinit var drawer: AppDrawer
+    var user: String? = null
 
     var summary: UserSummary? = null
         set(value) {
@@ -48,11 +45,13 @@ class ProfileActivity : AppCompatActivity(), AnkoLogger {
                 pinned.adapter = PinnedRepositoryAdapter(this, value.pinnedRepositories)
                 pinned.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
-                val snapOrg = GravitySnapHelper(Gravity.START)
-                snapOrg.attachToRecyclerView(organizations)
-                organizations.setHasFixedSize(true)
-                organizations.adapter = OrganizationSummaryAdapter(this, value.organizations)
-                organizations.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+                if (user == null) {
+                    val snapOrg = GravitySnapHelper(Gravity.START)
+                    snapOrg.attachToRecyclerView(organizations)
+                    organizations.setHasFixedSize(true)
+                    organizations.adapter = OrganizationSummaryAdapter(this, value.organizations)
+                    organizations.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+                }
             }
         }
 
@@ -61,6 +60,11 @@ class ProfileActivity : AppCompatActivity(), AnkoLogger {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
         setSupportActionBar(toolbar)
+
+        user = getProfileName()
+        if (user != null) {
+            organizationsTitle.visibility = TextView.INVISIBLE
+        }
 
         drawer = AppDrawer(this, toolbar)
 
@@ -73,14 +77,20 @@ class ProfileActivity : AppCompatActivity(), AnkoLogger {
     }
 
     fun initProfile() {
-        userSummary { error, summary ->
-            if (error != null || summary == null) {
-                debug("ERROR")
-                debug(error?.response?.httpResponseMessage ?: "NO ERROR??")
-            } else {
-                debug(summary)
-                this.summary = summary
-            }
+
+        if (user == null) {
+            viewerSummary { error, userSummary -> handleResult(error, userSummary) }
+        }
+        else {
+            userSummary(user!!) { error, userSummary -> handleResult(error, userSummary)}
+        }
+    }
+
+    fun handleResult (error: FuelError?, summary: UserSummary?) {
+        if (error != null || summary == null) {
+            debug(error?.response?.httpResponseMessage ?: "NO ERROR??")
+        } else {
+            this.summary = summary
         }
     }
 }

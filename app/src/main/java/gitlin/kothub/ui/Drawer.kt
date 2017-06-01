@@ -97,7 +97,7 @@ class AppDrawer(private val activity: AppCompatActivity, toolbar: Toolbar): Anko
     inner class ProfileImageListener: AccountHeader.OnAccountHeaderProfileImageListener {
         override fun onProfileImageClick(p0: View?, p1: IProfile<*>?, p2: Boolean): Boolean {
             Handler().postDelayed({
-                this@AppDrawer.navigateTo<ProfileActivity>()
+                ActivityLauncher.startProfileActivity(activity, profile.name.toString())
             }, 300)
 
             return false
@@ -144,11 +144,10 @@ class AppDrawer(private val activity: AppCompatActivity, toolbar: Toolbar): Anko
 
 
 
-    private inline fun <reified T: Any> navigateTo (): Boolean {
+    private inline fun <reified T: Any> navigateTo (vararg params: Pair<String, Any?>): Boolean {
 
         with(activity) {
-            val intent = intentFor<T>().singleTop().noHistory()
-
+            val intent = intentFor<T>(*params).singleTop().noHistory()
             startActivity(intent)
         }
 

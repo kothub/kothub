@@ -8,7 +8,7 @@ data class UserSummary(private val json: JsonObject) {
 
     val avatarUrl: String by json.byString
     val login: String by json.byString
-    val name: String by json.byString
+    val name: String? = json["name"].nullString
     val websiteUrl: String? = json["websiteUrl"].nullString
     val bio: String? = json["bio"].nullString
     val url: String? = json["url"].nullString
@@ -20,7 +20,11 @@ data class UserSummary(private val json: JsonObject) {
     val repositories: Int = json["repositories"]["totalCount"].asInt
 
     val pinnedRepositories = json["pinnedRepositories"]["nodes"].array.map { PinnedRepository(it.asJsonObject) }
-    val organizations = json["organizations"]["nodes"].array.map { Organization(it.asJsonObject) }
+    val organizations =
+            if ("organizations" in json)
+                json["organizations"]["nodes"].array.map { Organization(it.asJsonObject) }
+            else
+                arrayListOf()
 }
 
 data class Language(val json: JsonObject) {

@@ -1,8 +1,14 @@
 package gitlin.kothub.github.api.dsl
 
+enum class Type(val value: String) {
+    INT("Int!"),
+    STRING("String!");
+    // Add more here...
 
+    operator fun invoke(key: String): String = "$$key: $value"
+}
 
-class Query(withRateLimit: Boolean = true): Element {
+class Query(val variablesDeclarations: List<String>, withRateLimit: Boolean = true): Element {
     override val level = 0
     override val fields = arrayListOf<Field>()
 
@@ -21,10 +27,16 @@ class Query(withRateLimit: Boolean = true): Element {
     }
 
 
-    fun repository(owner: String, name: String, body: Repository.() -> Unit) {
+    fun repository(owner: Variable<String>, name: Variable<String>, body: Repository.() -> Unit) {
         val repo = Repository(nextLevel())
         repo.body()
-        addField(Node("repository(owner: \"$owner\", name: \"$name\")", repo.fields))
+        addField(Node("repository", repo.fields, variables("owner" to owner, "name" to name)))
+    }
+
+    fun user(login: Variable<String>, body: User.() -> Unit) {
+        val user = User(nextLevel())
+        user.body()
+        addField(Node("user", user.fields, variables("login" to login)))
     }
 
     fun viewer(body: User.() -> Unit) {
@@ -35,19 +47,27 @@ class Query(withRateLimit: Boolean = true): Element {
 
 
     fun prettyPrint(): String {
-        return "query {\n" + fields.fold("") { acc, value -> acc + value.prettyPrint() } + "}"
+        return "query${queryArgs()} {\n" + fields.fold("") { acc, value -> acc + value.prettyPrint() } + "}"
     }
 
     override fun toString(): String {
-        return "query{" + fields.fold("") { acc, value -> acc + value.toString() } + "}"
+        return "query${queryArgs()}{" + fields.fold("") { acc, value -> acc + value.toString() } + "}"
+    }
+
+    private fun queryArgs (): String {
+        if (variablesDeclarations.isEmpty()) {
+            return ""
+        }
+
+        return "(${variablesDeclarations.joinToString(", ")})"
     }
 }
 
 
 
-fun query (withRateLimit: Boolean = true, body: Query.() -> Unit): Query {
+fun query (vararg variables: String = arrayOf(), withRateLimit: Boolean = true, body: Query.() -> Unit): Query {
 
-    val query = Query()
+    val query = Query(variables.toList())
     query.body()
     return query
 }

@@ -7,8 +7,6 @@ class Organization(override val level: Int): Element {
 
     val name: Unit get() = addField("name")
     val avatarUrl: Unit get() = addField("avatarUrl")
-
-
 }
 
 class OrganizationEdges(override val level: Int): Edges(level) {

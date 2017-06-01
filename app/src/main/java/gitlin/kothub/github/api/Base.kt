@@ -7,6 +7,7 @@ import com.github.kittinunf.fuel.core.Request
 import com.github.kittinunf.result.Result
 import com.github.salomonbrys.kotson.get
 import com.github.salomonbrys.kotson.obj
+import com.google.gson.GsonBuilder
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import gitlin.kothub.github.OAuthValues.GITHUB_TOKEN
@@ -14,11 +15,14 @@ import gitlin.kothub.github.api.data.RateLimit
 import gitlin.kothub.github.api.dsl.Query
 
 
-fun post(query: Query, callback: (FuelError?, JsonObject?) -> Unit): Request {
+fun post(query: Query, variables: Map<String, Any> = mapOf<String, Any>(), callback: (FuelError?, JsonObject?) -> Unit): Request {
+
+
+    val jsonVariables = GsonBuilder().create().toJson(variables)
 
     return Fuel.post("https://api.github.com/graphql")
         .header(Pair("Authorization", "Bearer $GITHUB_TOKEN"))
-        .body("{ \"query\": \"$query\" }")
+        .body("{ \"query\": \"$query\", \"variables\": $jsonVariables }")
         .responseString { _, _, result ->
             when (result) {
                 is Result.Failure -> callback(result.error, null)
