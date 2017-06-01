@@ -1,11 +1,15 @@
 package gitlin.kothub.github.api.dsl
 
-enum class Type(val value: String) {
+enum class Type(val type: String) {
     INT("Int!"),
     STRING("String!");
     // Add more here...
 
-    operator fun invoke(key: String): String = "$$key: $value"
+    private fun default (default: Any?): String {
+        return if (default == null) "" else " = $default"
+    }
+
+    operator fun invoke(key: String, default: Any? = null): String = "$$key: $type${default(default)}"
 }
 
 class Query(val variablesDeclarations: List<String>, withRateLimit: Boolean = true): Element {
@@ -25,7 +29,6 @@ class Query(val variablesDeclarations: List<String>, withRateLimit: Boolean = tr
             addField(rateLimit)
         }
     }
-
 
     fun repository(owner: Variable<String>, name: Variable<String>, body: Repository.() -> Unit) {
         val repo = Repository(nextLevel())
@@ -54,6 +57,8 @@ class Query(val variablesDeclarations: List<String>, withRateLimit: Boolean = tr
         return "query${queryArgs()}{" + fields.fold("") { acc, value -> acc + value.toString() } + "}"
     }
 
+    fun build(): String = toString()
+
     private fun queryArgs (): String {
         if (variablesDeclarations.isEmpty()) {
             return ""
@@ -65,9 +70,10 @@ class Query(val variablesDeclarations: List<String>, withRateLimit: Boolean = tr
 
 
 
-fun query (vararg variables: String = arrayOf(), withRateLimit: Boolean = true, body: Query.() -> Unit): Query {
+fun query (vararg variables: String = arrayOf(), withRateLimit: Boolean = true, body: Query.() -> Unit): String {
 
     val query = Query(variables.toList())
     query.body()
-    return query
+    return query.toString()
 }
+

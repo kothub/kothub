@@ -8,7 +8,6 @@ import gitlin.kothub.R.layout.activity_main
 import gitlin.kothub.github.LoginActivity
 import gitlin.kothub.github.OAuthValues
 import gitlin.kothub.ui.ActivityLauncher
-import gitlin.kothub.ui.ProfileActivity
 import gitlin.kothub.utilities.getOAuthToken
 import kotlinx.android.synthetic.main.toolbar.*
 import org.jetbrains.anko.AnkoLogger
@@ -38,7 +37,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
         initOAuth()
 
         if (OAuthValues.isLoggedIn) {
-            ActivityLauncher.startProfileActivity(this, "Astalaseven")
+            ActivityLauncher.startUserProfileActivity(this, "Astalaseven")
         } else {
             startActivity(Intent(this, LoginActivity::class.java))
         }

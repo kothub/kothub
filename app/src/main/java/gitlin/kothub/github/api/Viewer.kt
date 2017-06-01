@@ -1,6 +1,5 @@
 package gitlin.kothub.github.api
 
-import android.util.Log
 import com.github.kittinunf.fuel.core.FuelError
 import com.google.gson.JsonArray
 import com.google.gson.JsonParser
@@ -8,11 +7,6 @@ import gitlin.kothub.github.api.data.DrawerInfo
 import gitlin.kothub.github.api.data.UserSummary
 import gitlin.kothub.github.api.data.Notifications
 import gitlin.kothub.github.api.dsl.*
-import gitlin.kothub.utilities.arr
-import gitlin.kothub.utilities.map
-import gitlin.kothub.utilities.obj
-import gitlin.kothub.utilities.totalCount
-import org.json.JSONObject
 
 
 val userFragment: User.() -> Unit =
@@ -68,6 +62,7 @@ val userSummaryQuery =
                 fragment(userFragment)
             }
         }
+
 
 fun viewerSummary (callback: (FuelError?, UserSummary?) -> Unit) {
     post(viewerSummaryQuery) { error, result -> callback(error, if (result == null) null else UserSummary(result["viewer"].asJsonObject)) }

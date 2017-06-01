@@ -16,7 +16,10 @@ import gitlin.kothub.github.api.dsl.Query
 
 
 fun post(query: Query, variables: Map<String, Any> = mapOf<String, Any>(), callback: (FuelError?, JsonObject?) -> Unit): Request {
+    return post(query.toString(), variables, callback)
+}
 
+fun post(query: String, variables: Map<String, Any> = mapOf<String, Any>(), callback: (FuelError?, JsonObject?) -> Unit): Request {
 
     val jsonVariables = GsonBuilder().create().toJson(variables)
 

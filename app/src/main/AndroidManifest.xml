@@ -24,7 +24,8 @@
         </activity>
         <activity android:name=".github.LoginActivity" />
         <activity android:name=".github.LoginWebViewActivity" />
-        <activity android:name=".ui.ProfileActivity" />
+        <activity android:name=".ui.ViewerProfileActivity" />
+        <activity android:name=".ui.UserProfileActivity" />
         <activity
               android:name=".ui.NotificationActivity"
               android:label="@string/notifs"

@@ -26,12 +26,29 @@ import gitlin.kothub.github.api.data.RateLimit
 import org.jetbrains.anko.*
 import java.text.SimpleDateFormat
 
+inline fun BadgeStyle.whiteText () = this.withTextColor(Color.WHITE)!!
+
+class ProfileImageListener(val onClick: () -> Unit): AccountHeader.OnAccountHeaderProfileImageListener {
+    override fun onProfileImageClick(p0: View?, p1: IProfile<*>?, p2: Boolean): Boolean {
+        onClick()
+        return false
+    }
+
+    override fun onProfileImageLongClick(p0: View?, p1: IProfile<*>?, p2: Boolean) = false
+}
+
+
+fun AccountHeaderBuilder.withProfileImageClick (onClick: () -> Unit): AccountHeaderBuilder {
+    this.withOnAccountHeaderProfileImageListener(ProfileImageListener(onClick))
+    return this
+}
+
 
 class AppDrawer(private val activity: AppCompatActivity, toolbar: Toolbar): AnkoLogger {
 
-    private val redStyle = BadgeStyle().withTextColor(Color.WHITE).withColorRes(R.color.md_red_600)
-    private val blueStyle = BadgeStyle().withTextColor(Color.WHITE).withColorRes(R.color.md_blue_600)
-    private val greenStyle = BadgeStyle().withTextColor(Color.WHITE).withColorRes(R.color.md_green_600)
+    private val redStyle = BadgeStyle().whiteText().withColorRes(R.color.md_red_600)
+    private val blueStyle = BadgeStyle().whiteText().withColorRes(R.color.md_blue_600)
+    private val greenStyle = BadgeStyle().whiteText().withColorRes(R.color.md_green_600)
     private var id = 0L
     private var currentRateLimit: RateLimit? = null
 
@@ -94,17 +111,17 @@ class AppDrawer(private val activity: AppCompatActivity, toolbar: Toolbar): Anko
             .withIdentifier(id++)
 
 
-    inner class ProfileImageListener: AccountHeader.OnAccountHeaderProfileImageListener {
-        override fun onProfileImageClick(p0: View?, p1: IProfile<*>?, p2: Boolean): Boolean {
-            Handler().postDelayed({
-                ActivityLauncher.startProfileActivity(activity, profile.name.toString())
-            }, 300)
-
-            return false
-        }
-
-        override fun onProfileImageLongClick(p0: View?, p1: IProfile<*>?, p2: Boolean) = false
-    }
+//    inner class ProfileImageListener: AccountHeader.OnAccountHeaderProfileImageListener {
+//        override fun onProfileImageClick(p0: View?, p1: IProfile<*>?, p2: Boolean): Boolean {
+//            Handler().postDelayed({
+//                ActivityLauncher.startProfileActivity(activity, profile.name.toString())
+//            }, 300)
+//
+//            return false
+//        }
+//
+//        override fun onProfileImageLongClick(p0: View?, p1: IProfile<*>?, p2: Boolean) = false
+//    }
 
     val header = AccountHeaderBuilder()
             .withActivity(activity)
@@ -112,7 +129,12 @@ class AppDrawer(private val activity: AppCompatActivity, toolbar: Toolbar): Anko
             .withCompactStyle(true)
             .withAlternativeProfileHeaderSwitching(false)
             .addProfiles(profile)
-            .withOnAccountHeaderProfileImageListener(ProfileImageListener())
+            .withProfileImageClick {
+                Handler().postDelayed({
+                   ActivityLauncher.startViewerProfileActivity(activity)
+                }, 300)
+            }
+//            .withOnAccountHeaderProfileImageListener(ProfileImageListener())
             .build()
 
 
