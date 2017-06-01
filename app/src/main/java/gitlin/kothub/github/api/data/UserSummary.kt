@@ -30,7 +30,7 @@ data class Language(val json: JsonObject) {
 
 data class PinnedRepository(val json: JsonObject) {
     val name: String by json.byString
-    val description: String? by json.byNullableString
+    val description: String? = json["description"].nullString
     val stargazers: Int = json["stargazers"]["totalCount"].asInt
     val forks: Int = json["forks"]["totalCount"].asInt
     val language: Language? = if (json["primaryLanguage"].isJsonNull) null else Language(json["primaryLanguage"].asJsonObject)

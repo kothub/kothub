@@ -2,9 +2,6 @@ package gitlin.kothub.adapters
 
 import android.content.Context
 import android.graphics.Color
-import android.graphics.PorterDuff
-import android.graphics.PorterDuffColorFilter
-import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.GradientDrawable
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -33,7 +30,7 @@ class PinnedRepositoryAdapter(
 
 
     override fun onBindViewHolder(vh: ViewHolder, position: Int) {
-        val repository = repositories[position]
+        val repository: PinnedRepository = repositories[position]
 
         vh.name.value = repository.name
         vh.description.value = repository.description
