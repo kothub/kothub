@@ -74,7 +74,7 @@ class AppDrawer(private val activity: AppCompatActivity, toolbar: Toolbar): Anko
             .withIdentifier(id++)
 
     val notifs: PrimaryDrawerItem = PrimaryDrawerItem()
-            .withName(R.string.notifs)
+            .withName(R.string.title_notifications)
             .withBadge("0")
             .withBadgeStyle(blueStyle)
             .withIcon(Octicons.Icon.oct_bell)
