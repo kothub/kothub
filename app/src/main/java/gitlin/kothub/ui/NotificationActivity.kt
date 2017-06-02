@@ -34,15 +34,7 @@ class NotificationActivity : AppCompatActivity(), AnkoLogger {
         setSupportActionBar(toolbar)
 
         AppDrawer(this, toolbar)
-
-//        val progressBar = ProgressBar(this)
-//
-//        progressBar.layoutParams = AbsListView.LayoutParams(AbsListView.LayoutParams.WRAP_CONTENT,
-//                AbsListView.LayoutParams.WRAP_CONTENT, Gravity.CENTER)
-//        progressBar.isIndeterminate = true
-//
-//        notifs.emptyView = progressBar
-//        listLayout.addView(progressBar)
+        
         initProfile()
     }
 
