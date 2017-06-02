@@ -11,7 +11,7 @@ import gitlin.kothub.github.api.data.Notification
 import gitlin.kothub.utilities.value
 import kotlinx.android.synthetic.main.notification_list_view.view.*
 
-class NotificationAdapter(context: Context, list: MutableList<Notification>): ArrayAdapter<Notification>(context, 0, list) {
+class NotificationAdapter(context: Context, list: List<Notification>): ArrayAdapter<Notification>(context, 0, list) {
 
 
     private class ViewHolder(val name: TextView, val subject: TextView)

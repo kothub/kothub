@@ -11,10 +11,10 @@ class Issue(override val level: Int): CommentFields {
 
     override val fields = arrayListOf<Field>()
 
-    fun comments(first: Int = 10, body: IssueCommentConnection.() -> Unit) {
+    fun comments(first: Variable<Int>? = null, body: IssueCommentConnection.() -> Unit) {
         val connection = IssueCommentConnection(nextLevel())
         connection.body()
-        addField(Node("comments", connection.fields))
+        addField(Node("comments", connection.fields, variables("first" to first)))
     }
 
 }

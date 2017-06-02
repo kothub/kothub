@@ -18,7 +18,7 @@ fun SharedPreferences.Editor.set(pair: Pair<String, Any?>) {
     }
 }
 
-fun Activity.editSharedPreferences(file: String, body: SharedPreferences.Editor.() -> Unit) {
+inline fun Activity.editSharedPreferences(file: String, body: SharedPreferences.Editor.() -> Unit) {
     val sharedPref = getSharedPreferences(file, Context.MODE_PRIVATE)
     val editor = sharedPref.edit()
     body(editor)

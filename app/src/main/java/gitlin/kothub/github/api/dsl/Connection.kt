@@ -43,3 +43,10 @@ abstract class Connection<out T>(override val level: Int) : Element {
         }
     }
 }
+
+//inline fun <reified T: Element> Connection<T>.edges (body: Edges2<T>.() -> Unit) {
+//    val edges = Edges2<T>(nextLevel())
+//    edges.body()
+//    addField(Node("edges", edges.fields))
+//}
+//

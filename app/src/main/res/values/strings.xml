@@ -16,7 +16,7 @@
     <string name="feed">Feed</string>
     <string name="issues">Issues</string>
     <string name="pulls">Pull Requests</string>
-    <string name="notifs">Notifications</string>
+    <string name="title_notifications">Notifications</string>
     <string name="rate_limit">Rate Limit</string>
     <string name="login_explainer">
         This application uses the <b>GitHub</b> GraphQL API, to be able to use it you need to login to your <b>GitHub</b> account.
@@ -26,4 +26,9 @@
         Keep in mind that this is not an official <b>GitHub</b> application.
     </string>
     <string name="title_activity_issues">IssuesActivity</string>
+    <string name="profile_intent_login">PROFILE_NAME</string>
+
+    <string name="title_pinned_repositories">Pinned repositories</string>
+    <string name="title_organizations">Organizations</string>
+    <string name="title_profile">Profile</string>
 </resources>

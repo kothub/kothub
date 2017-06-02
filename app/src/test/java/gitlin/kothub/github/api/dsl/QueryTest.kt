@@ -8,8 +8,8 @@ class QueryTest {
     @Test
     fun testQuery() {
         val q = query {
-            repository("fknop", "angular-pipes") {
-                issues(first = 10) {
+            repository(value("fknop"), value("angular-pipes")) {
+                issues(first = value(10)) {
                     edges {
                         node {
                             author {
