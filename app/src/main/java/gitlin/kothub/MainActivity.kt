@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.os.SystemClock
 import android.support.v4.content.LocalBroadcastManager
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import gitlin.kothub.R.layout.activity_main
 import gitlin.kothub.github.LoginActivity
 import gitlin.kothub.github.OAuthValues
@@ -45,7 +46,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
 
         val filter = IntentFilter(NotificationService.BROADCAST_ACTION)
 
-        val notificationReceiver = NotificationReceiver()
+        val notificationReceiver = NotificationReceiver
         LocalBroadcastManager.getInstance(this).registerReceiver(notificationReceiver, filter)
     }
 
@@ -59,20 +60,16 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
             startActivity(Intent(this, LoginActivity::class.java))
         }
 
-        //launchNotificationService()
         scheduleAlarm()
     }
 
-    fun launchNotificationService() {
-        val intent = Intent(applicationContext, NotificationService::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
-        startService(intent)
-    }
 
     fun scheduleAlarm() {
         val intent = applicationContext.intentFor<NotificationService>()
         val pendingIntent = PendingIntent.getService(this@MainActivity, 0, intent, 0)
         val alarm = getAlarmManager()
+        pendingIntent.cancel()
+        alarm.cancel(pendingIntent)
         alarm.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 60000, pendingIntent)
     }
 }

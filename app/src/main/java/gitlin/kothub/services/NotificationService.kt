@@ -64,5 +64,7 @@ data class Status(private val json: JsonObject) {
 enum class GithubStatus(val status: String) {
     GOOD("good"),
     MINOR("minor"),
-    MAJOR("major")
+    MAJOR("major");
+
 }
+

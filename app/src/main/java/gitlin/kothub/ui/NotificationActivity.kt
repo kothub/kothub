@@ -1,5 +1,8 @@
 package gitlin.kothub.ui
 
+import android.arch.lifecycle.LifecycleOwner
+import android.arch.lifecycle.LifecycleRegistry
+import android.arch.lifecycle.LifecycleRegistryOwner
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 
@@ -14,8 +17,12 @@ import kotlinx.android.synthetic.main.toolbar.*
 import kotlinx.android.synthetic.main.activity_notifs.*
 import gitlin.kothub.github.api.*
 
-class NotificationActivity : AppCompatActivity(), AnkoLogger {
+class NotificationActivity : AppCompatActivity(), AnkoLogger, LifecycleRegistryOwner {
 
+    private val registry = LifecycleRegistry(this)
+    override fun getLifecycle() = registry
+
+    lateinit var drawer: AppDrawer
 
     var notifications: Notifications? = null
         set(value) {
@@ -31,7 +38,9 @@ class NotificationActivity : AppCompatActivity(), AnkoLogger {
         setContentView(R.layout.activity_notifs)
         setSupportActionBar(toolbar)
 
-        AppDrawer(this, toolbar)
+        drawer = AppDrawer(this, toolbar)
+        lifecycle.addObserver(drawer)
+        drawer.select(drawer.notifs)
 
         val progressBar = ProgressBar(this)
 

@@ -1,5 +1,7 @@
 package gitlin.kothub.ui
 
+import android.arch.lifecycle.LifecycleRegistry
+import android.arch.lifecycle.LifecycleRegistryOwner
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -23,7 +25,10 @@ import gitlin.kothub.github.api.viewerSummary
 import gitlin.kothub.utilities.createFragment
 
 
-open class UserProfileActivity : AppCompatActivity(), AnkoLogger {
+class UserProfileActivity : AppCompatActivity(), AnkoLogger, LifecycleRegistryOwner {
+
+    private val registry = LifecycleRegistry(this)
+    override fun getLifecycle() = registry
 
     lateinit var drawer: AppDrawer
 
@@ -36,7 +41,9 @@ open class UserProfileActivity : AppCompatActivity(), AnkoLogger {
             UserProfileFragment.newInstance(getProfileName())
         }
 
+
         drawer = AppDrawer(this, toolbar)
+        lifecycle.addObserver(drawer)
     }
 
     override fun onResume() {

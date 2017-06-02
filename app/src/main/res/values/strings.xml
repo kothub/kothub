@@ -31,4 +31,8 @@
     <string name="title_pinned_repositories">Pinned repositories</string>
     <string name="title_organizations">Organizations</string>
     <string name="title_profile">Profile</string>
+
+    <string name="github_status_good">Good</string>
+    <string name="github_status_minor">Minor outage</string>
+    <string name="github_status_major">Major outage</string>
 </resources>
