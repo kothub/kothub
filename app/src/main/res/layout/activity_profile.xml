@@ -9,10 +9,14 @@
 
 	<include layout="@layout/toolbar"/>
 
-	<FrameLayout
-		android:id="@+id/user_profile_fragment"
+	<ScrollView
 		android:layout_width="match_parent"
 		android:layout_height="match_parent">
-	</FrameLayout>
+		<FrameLayout
+			android:id="@+id/user_profile_fragment"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent">
+		</FrameLayout>
+	</ScrollView>
 
 </LinearLayout>
