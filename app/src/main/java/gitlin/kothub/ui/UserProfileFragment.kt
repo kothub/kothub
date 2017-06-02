@@ -1,9 +1,7 @@
 package gitlin.kothub.ui
 
-import android.content.Context
-import android.net.Uri
+import android.arch.lifecycle.*
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -20,19 +18,50 @@ import gitlin.kothub.adapters.PinnedRepositoryAdapter
 import gitlin.kothub.github.api.data.UserSummary
 import gitlin.kothub.github.api.userSummary
 import gitlin.kothub.github.api.viewerSummary
+import gitlin.kothub.utilities.get
 import gitlin.kothub.utilities.value
 import kotlinx.android.synthetic.main.fragment_user_profile.*
 import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.debug
 
+class UserViewModel: ViewModel() {
 
-class UserProfileFragment : Fragment(), AnkoLogger {
-
+    val summary = MutableLiveData<UserSummary>()
     var user: String? = null
+
+
+    fun loadUser() {
+
+        if (summary.value != null) {
+            return
+        }
+
+        if (user == null) {
+            viewerSummary { error, userSummary -> handleResult(error, userSummary) }
+        }
+        else {
+            userSummary(user!!) { error, userSummary -> handleResult(error, userSummary)}
+        }
+    }
+
+    private fun handleResult (error: FuelError?, summary: UserSummary?) {
+        if (error != null || summary == null) {
+        } else {
+            this.summary.value = summary
+        }
+    }
+
+}
+
+
+class UserProfileFragment : LifecycleFragment(), AnkoLogger {
+
+    lateinit var model: UserViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        user = arguments[LOGIN] as? String
+        model = ViewModelProviders.of(activity).get<UserViewModel>()
+        model.user = arguments[LOGIN] as? String
+        model.loadUser()
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
@@ -42,13 +71,13 @@ class UserProfileFragment : Fragment(), AnkoLogger {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (user != null) {
+        if (model.user != null) {
             organizationsTitle.visibility = TextView.INVISIBLE
         }
-        initProfile()
     }
 
-    fun updateView (summary: UserSummary) {
+    private fun updateView (summary: UserSummary) {
+
         username.value = summary.login
         description.value = summary.bio
         followers.value = summary.followers
@@ -64,7 +93,7 @@ class UserProfileFragment : Fragment(), AnkoLogger {
         pinned.adapter = PinnedRepositoryAdapter(context, summary.pinnedRepositories)
         pinned.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
-        if (user == null) {
+        if (model.user == null) {
             val snapOrg = GravitySnapHelper(Gravity.START)
             snapOrg.attachToRecyclerView(organizations)
             organizations.setHasFixedSize(true)
@@ -73,24 +102,10 @@ class UserProfileFragment : Fragment(), AnkoLogger {
         }
     }
 
-    private fun initProfile() {
-
-        if (user == null) {
-            viewerSummary { error, userSummary -> handleResult(error, userSummary) }
-        }
-        else {
-            userSummary(user!!) { error, userSummary -> handleResult(error, userSummary)}
-        }
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        model.summary.observe(this, Observer { if (it != null) updateView(it) })
     }
-
-    private fun handleResult (error: FuelError?, summary: UserSummary?) {
-        if (error != null || summary == null) {
-            debug(error?.response?.httpResponseMessage ?: "NO ERROR??")
-        } else {
-            this.updateView(summary)
-        }
-    }
-
 
     companion object {
 
