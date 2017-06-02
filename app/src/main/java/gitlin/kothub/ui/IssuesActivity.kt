@@ -7,12 +7,10 @@ import android.arch.lifecycle.LifecycleRegistryOwner
 import android.support.v7.app.AppCompatActivity
 import gitlin.kothub.R
 import gitlin.kothub.ui.AppDrawer
+import gitlin.kothub.utilities.LifecycleAppCompatActivity
 import kotlinx.android.synthetic.main.toolbar.*
 
-class IssuesActivity : AppCompatActivity(), LifecycleRegistryOwner {
-
-    private val registry = LifecycleRegistry(this)
-    override fun getLifecycle() = registry
+class IssuesActivity : LifecycleAppCompatActivity() {
 
     lateinit var drawer: AppDrawer
 

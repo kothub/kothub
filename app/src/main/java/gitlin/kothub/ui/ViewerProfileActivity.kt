@@ -1,18 +1,14 @@
 package gitlin.kothub.ui
 
-import android.arch.lifecycle.*
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import org.jetbrains.anko.AnkoLogger
 import gitlin.kothub.R
+import gitlin.kothub.utilities.LifecycleAppCompatActivity
 import kotlinx.android.synthetic.main.toolbar.*
 import gitlin.kothub.utilities.createFragment
 
 
-class ViewerProfileActivity : AppCompatActivity(), AnkoLogger, LifecycleRegistryOwner {
-
-    private val registry = LifecycleRegistry(this)
-    override fun getLifecycle() = registry
+class ViewerProfileActivity : LifecycleAppCompatActivity(), AnkoLogger {
 
     lateinit var drawer: AppDrawer
 

@@ -1,18 +1,11 @@
 package gitlin.kothub.ui
 
 import android.os.Bundle
-import android.app.Activity
-import android.arch.lifecycle.LifecycleRegistry
-import android.arch.lifecycle.LifecycleRegistryOwner
-import android.support.v7.app.AppCompatActivity
 import gitlin.kothub.R
-import gitlin.kothub.ui.AppDrawer
+import gitlin.kothub.utilities.LifecycleAppCompatActivity
 import kotlinx.android.synthetic.main.toolbar.*
 
-class PullRequestsActivity : AppCompatActivity(), LifecycleRegistryOwner {
-
-    private val registry = LifecycleRegistry(this)
-    override fun getLifecycle() = registry
+class PullRequestsActivity : LifecycleAppCompatActivity() {
 
     lateinit var drawer: AppDrawer
 

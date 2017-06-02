@@ -2,7 +2,6 @@ package gitlin.kothub.ui
 
 import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleObserver
-import android.arch.lifecycle.Observer
 import android.arch.lifecycle.OnLifecycleEvent
 import android.graphics.Color
 import android.support.v7.app.AppCompatActivity
@@ -14,7 +13,6 @@ import gitlin.kothub.R
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Handler
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import com.mikepenz.materialdrawer.AccountHeader
@@ -31,7 +29,6 @@ import gitlin.kothub.github.api.data.RateLimit
 import gitlin.kothub.receivers.NotificationReceiver
 import gitlin.kothub.services.GithubStatus
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.disposables.Disposable
 import io.reactivex.rxkotlin.addTo
 import org.jetbrains.anko.*
 import java.text.SimpleDateFormat
@@ -53,13 +50,13 @@ fun AccountHeaderBuilder.withProfileImageClick (onClick: () -> Unit): AccountHea
     return this
 }
 
+val redStyle = BadgeStyle().whiteText().withColorRes(R.color.md_red_600)
+val yellowStyle = BadgeStyle().whiteText().withColorRes(R.color.md_yellow_900)
+val blueStyle = BadgeStyle().whiteText().withColorRes(R.color.md_blue_600)
+val greenStyle = BadgeStyle().whiteText().withColorRes(R.color.md_green_600)
 
 class AppDrawer(private val activity: AppCompatActivity, toolbar: Toolbar): LifecycleObserver, AnkoLogger {
 
-    private val redStyle = BadgeStyle().whiteText().withColorRes(R.color.md_red_600)
-    private val yellowStyle = BadgeStyle().whiteText().withColorRes(R.color.md_yellow_900)
-    private val blueStyle = BadgeStyle().whiteText().withColorRes(R.color.md_blue_600)
-    private val greenStyle = BadgeStyle().whiteText().withColorRes(R.color.md_green_600)
     private var id = 0L
     private var currentRateLimit: RateLimit? = null
     private var disposables = CompositeDisposable()

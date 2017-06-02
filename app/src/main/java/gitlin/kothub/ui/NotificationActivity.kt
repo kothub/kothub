@@ -1,9 +1,5 @@
 package gitlin.kothub.ui
 
-import android.arch.lifecycle.LifecycleOwner
-import android.arch.lifecycle.LifecycleRegistry
-import android.arch.lifecycle.LifecycleRegistryOwner
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 
 import org.jetbrains.anko.AnkoLogger
@@ -16,11 +12,9 @@ import gitlin.kothub.github.api.data.Notifications
 import kotlinx.android.synthetic.main.toolbar.*
 import kotlinx.android.synthetic.main.activity_notifs.*
 import gitlin.kothub.github.api.*
+import gitlin.kothub.utilities.LifecycleAppCompatActivity
 
-class NotificationActivity : AppCompatActivity(), AnkoLogger, LifecycleRegistryOwner {
-
-    private val registry = LifecycleRegistry(this)
-    override fun getLifecycle() = registry
+class NotificationActivity : LifecycleAppCompatActivity(), AnkoLogger {
 
     lateinit var drawer: AppDrawer
 
