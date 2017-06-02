@@ -28,6 +28,6 @@
     <string name="title_activity_issues">IssuesActivity</string>
     <string name="profile_intent_login">PROFILE_NAME</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_pinned_repositories">Pinned repositories</string>
+    <string name="title_organizations">Organizations</string>
 </resources>

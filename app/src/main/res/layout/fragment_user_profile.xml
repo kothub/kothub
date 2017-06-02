@@ -159,7 +159,7 @@ tools:context="gitlin.kothub.ui.UserProfileFragment">
         android:layout_marginRight="@dimen/activity_horizontal_margin"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:layout_marginTop="16dp"
-        android:text="Pinned Repositories"
+        android:text="@string/title_pinned_repositories"
         android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
 
@@ -180,7 +180,7 @@ tools:context="gitlin.kothub.ui.UserProfileFragment">
         android:layout_marginRight="@dimen/activity_horizontal_margin"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:layout_marginTop="16dp"
-        android:text="Organizations"
+        android:text="@string/title_organizations"
         android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
     <android.support.v7.widget.RecyclerView

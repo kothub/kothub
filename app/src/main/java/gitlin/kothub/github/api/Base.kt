@@ -1,12 +1,10 @@
 package gitlin.kothub.github.api
 
-import android.util.Log
 import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.core.FuelError
 import com.github.kittinunf.fuel.core.Request
 import com.github.kittinunf.result.Result
 import com.github.salomonbrys.kotson.get
-import com.github.salomonbrys.kotson.obj
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
@@ -62,7 +60,7 @@ fun header(query: String): Request {
 fun get(query: String, callback: (FuelError?, String?) -> Unit): Request {
 
     return header(query)
-            .responseString { request, response, result ->
+            .responseString { _, _, result ->
                 when (result) {
                     is Result.Failure -> callback(result.error, null)
                     is Result.Success -> callback(null, result.value)

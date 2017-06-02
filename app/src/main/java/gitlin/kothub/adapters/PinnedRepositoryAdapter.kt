@@ -7,6 +7,8 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.TextView
 import gitlin.kothub.R
 import gitlin.kothub.github.api.data.PinnedRepository
 import gitlin.kothub.utilities.value
@@ -55,11 +57,11 @@ class PinnedRepositoryAdapter(
 
 
     class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
-        val name = view.repository
-        val description = view.description
-        val languageName = view.languageName
-        val languageColor = view.languageColorShape
-        val stargazers = view.stargazers
-        val forks = view.forks
+        val name: TextView = view.repository
+        val description: TextView = view.description
+        val languageName: TextView = view.languageName
+        val languageColor: LinearLayout = view.languageColorShape
+        val stargazers: TextView = view.stargazers
+        val forks: TextView = view.forks
     }
 }

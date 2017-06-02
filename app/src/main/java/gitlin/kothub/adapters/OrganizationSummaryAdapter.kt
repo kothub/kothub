@@ -1,8 +1,6 @@
 package gitlin.kothub.adapters
 
 import android.content.Context
-import android.graphics.Color
-import android.graphics.drawable.GradientDrawable
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +11,6 @@ import com.squareup.picasso.Picasso
 import gitlin.kothub.R
 import gitlin.kothub.github.api.data.Organization
 import gitlin.kothub.utilities.value
-import kotlinx.android.synthetic.main.activity_profile.*
 import kotlinx.android.synthetic.main.organization_view_list.view.*
 
 class OrganizationSummaryAdapter(
