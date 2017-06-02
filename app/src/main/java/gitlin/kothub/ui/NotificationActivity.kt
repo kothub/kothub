@@ -2,6 +2,7 @@ package gitlin.kothub.ui
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
 
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.debug
@@ -22,6 +23,7 @@ class NotificationActivity : AppCompatActivity(), AnkoLogger {
             if (value != null) {
 
                 notifs.adapter = NotificationAdapter(this, value.notifications)
+                notifs.layoutManager = LinearLayoutManager(this)
             }
         }
 
@@ -33,14 +35,14 @@ class NotificationActivity : AppCompatActivity(), AnkoLogger {
 
         AppDrawer(this, toolbar)
 
-        val progressBar = ProgressBar(this)
-
-        progressBar.layoutParams = AbsListView.LayoutParams(AbsListView.LayoutParams.WRAP_CONTENT,
-                AbsListView.LayoutParams.WRAP_CONTENT, Gravity.CENTER)
-        progressBar.isIndeterminate = true
-
-        notifs.emptyView = progressBar
-        listLayout.addView(progressBar)
+//        val progressBar = ProgressBar(this)
+//
+//        progressBar.layoutParams = AbsListView.LayoutParams(AbsListView.LayoutParams.WRAP_CONTENT,
+//                AbsListView.LayoutParams.WRAP_CONTENT, Gravity.CENTER)
+//        progressBar.isIndeterminate = true
+//
+//        notifs.emptyView = progressBar
+//        listLayout.addView(progressBar)
         initProfile()
     }
 
