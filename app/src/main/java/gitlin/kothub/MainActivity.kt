@@ -1,9 +1,14 @@
 package gitlin.kothub
 
+import android.app.AlarmManager
+import android.app.PendingIntent
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
+import android.content.IntentFilter
 import android.os.Bundle
-
+import android.os.SystemClock
+import android.support.v4.content.LocalBroadcastManager
+import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import gitlin.kothub.R.layout.activity_main
 import gitlin.kothub.github.LoginActivity
 import gitlin.kothub.github.OAuthValues
@@ -11,8 +16,16 @@ import gitlin.kothub.ui.ActivityLauncher
 import gitlin.kothub.utilities.getOAuthToken
 import kotlinx.android.synthetic.main.toolbar.*
 import org.jetbrains.anko.AnkoLogger
+import gitlin.kothub.receivers.NotificationReceiver
+import gitlin.kothub.services.NotificationService
+import gitlin.kothub.utilities.getAlarmManager
+import org.jetbrains.anko.intentFor
+import java.util.*
+
 
 class MainActivity : AppCompatActivity(), AnkoLogger {
+
+    private lateinit var notificationReceiver: NotificationReceiver
 
     fun initOAuth () {
         OAuthValues.REDIRECT_URL = "oauth://kothub"
@@ -30,6 +43,8 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
         super.onCreate(savedInstanceState)
         setContentView(activity_main)
         setSupportActionBar(toolbar)
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(NotificationReceiver(), NotificationService.filter())
     }
 
     override fun onStart() {
@@ -41,5 +56,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
         } else {
             startActivity(Intent(this, LoginActivity::class.java))
         }
+
+        NotificationService.schedule(applicationContext)
     }
 }

@@ -1,6 +1,5 @@
 package gitlin.kothub.ui
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 
 import org.jetbrains.anko.AnkoLogger
@@ -13,9 +12,11 @@ import gitlin.kothub.github.api.data.Notifications
 import kotlinx.android.synthetic.main.toolbar.*
 import kotlinx.android.synthetic.main.activity_notifs.*
 import gitlin.kothub.github.api.*
+import gitlin.kothub.utilities.LifecycleAppCompatActivity
 
-class NotificationActivity : AppCompatActivity(), AnkoLogger {
+class NotificationActivity : LifecycleAppCompatActivity(), AnkoLogger {
 
+    lateinit var drawer: AppDrawer
 
     var notifications: Notifications? = null
         set(value) {
@@ -31,7 +32,9 @@ class NotificationActivity : AppCompatActivity(), AnkoLogger {
         setContentView(R.layout.activity_notifs)
         setSupportActionBar(toolbar)
 
-        AppDrawer(this, toolbar)
+        drawer = AppDrawer(this, toolbar)
+        lifecycle.addObserver(drawer)
+        drawer.select(drawer.notifs)
 
         val progressBar = ProgressBar(this)
 
