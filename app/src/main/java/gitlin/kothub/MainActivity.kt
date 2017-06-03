@@ -44,10 +44,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
         setContentView(activity_main)
         setSupportActionBar(toolbar)
 
-        val filter = IntentFilter(NotificationService.BROADCAST_ACTION)
-
-        val notificationReceiver = NotificationReceiver
-        LocalBroadcastManager.getInstance(this).registerReceiver(notificationReceiver, filter)
+        LocalBroadcastManager.getInstance(this).registerReceiver(NotificationReceiver(), NotificationService.filter())
     }
 
     override fun onStart() {

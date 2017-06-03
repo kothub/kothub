@@ -3,6 +3,7 @@ package gitlin.kothub.services
 import android.app.Activity
 import android.app.IntentService
 import android.content.Intent
+import android.content.IntentFilter
 import android.support.v4.content.LocalBroadcastManager
 import android.util.Log
 import com.github.kittinunf.fuel.Fuel
@@ -21,6 +22,8 @@ class NotificationService: IntentService("notification-service") {
         val GITHUB_STATUS = "gitlin.kothub.services.STATUS"
 
         val RESULT_CODE = "gitlin.kothub.services.CODE"
+
+        fun filter() = IntentFilter(BROADCAST_ACTION)
     }
 
     override fun onHandleIntent(intent: Intent?) {

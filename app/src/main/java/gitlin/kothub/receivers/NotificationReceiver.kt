@@ -17,17 +17,19 @@ import io.reactivex.Observable
 import io.reactivex.subjects.BehaviorSubject
 
 
-object NotificationReceiver: BroadcastReceiver() {
+class NotificationReceiver: BroadcastReceiver() {
 
-    private val status = BehaviorSubject.createDefault(GithubStatus.GOOD)
+    companion object {
+        private val status = BehaviorSubject.createDefault(GithubStatus.GOOD)
+        fun apiStatus(): Observable<GithubStatus> = status.distinctUntilChanged()
+    }
 
-    fun apiStatus(): Observable<GithubStatus> = status.distinctUntilChanged()
 
     override fun onReceive(context: Context, intent: Intent?) {
         val resultCode = intent?.getIntExtra(RESULT_CODE, RESULT_CANCELED)
         if (resultCode == RESULT_OK) {
             val status = intent.getStringExtra(GITHUB_STATUS)
-            this.status.onNext(GithubStatus.valueOf(status.toUpperCase()))
+            NotificationReceiver.status.onNext(GithubStatus.valueOf(status.toUpperCase()))
         }
     }
 }

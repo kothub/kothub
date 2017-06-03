@@ -3,6 +3,7 @@ package gitlin.kothub.ui
 import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleObserver
 import android.arch.lifecycle.OnLifecycleEvent
+import android.content.BroadcastReceiver
 import android.graphics.Color
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
@@ -13,6 +14,7 @@ import gitlin.kothub.R
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Handler
+import android.support.v4.content.LocalBroadcastManager
 import android.view.View
 import android.widget.ImageView
 import com.mikepenz.materialdrawer.AccountHeader
@@ -28,6 +30,7 @@ import gitlin.kothub.github.api.ApiRateLimit
 import gitlin.kothub.github.api.data.RateLimit
 import gitlin.kothub.receivers.NotificationReceiver
 import gitlin.kothub.services.GithubStatus
+import gitlin.kothub.services.NotificationService
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import org.jetbrains.anko.*
@@ -160,6 +163,8 @@ class AppDrawer(private val activity: AppCompatActivity, toolbar: Toolbar): Life
             }
             .build()
 
+    val statusReceiver = NotificationReceiver()
+
     fun update (item: AbstractDrawerItem<*, *>) {
         drawer.updateItem(item)
     }
@@ -218,7 +223,7 @@ class AppDrawer(private val activity: AppCompatActivity, toolbar: Toolbar): Life
 
 
         drawer.addStickyFooterItem(status)
-
+        LocalBroadcastManager.getInstance(activity).registerReceiver(statusReceiver, NotificationService.filter())
         NotificationReceiver.apiStatus().subscribe({
             when (it) {
                 GithubStatus.GOOD -> status.withBadge(R.string.github_status_good).withBadgeStyle(greenStyle)
@@ -237,6 +242,7 @@ class AppDrawer(private val activity: AppCompatActivity, toolbar: Toolbar): Life
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     fun onDestroy () {
         disposables.dispose()
+        LocalBroadcastManager.getInstance(activity).unregisterReceiver(statusReceiver)
     }
 }
 
