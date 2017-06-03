@@ -1,19 +1,14 @@
 package gitlin.kothub
 
-import android.app.Activity
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-
+import android.support.v7.app.AppCompatActivity
 import gitlin.kothub.R.layout.activity_main
 import gitlin.kothub.github.LoginActivity
 import gitlin.kothub.github.OAuthValues
-import gitlin.kothub.ui.NotificationActivity
 import gitlin.kothub.utilities.getOAuthToken
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.toolbar.*
 import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.debug
 
 class MainActivity : AppCompatActivity(), AnkoLogger {
 
