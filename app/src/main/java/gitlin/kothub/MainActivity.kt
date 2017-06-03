@@ -1,43 +1,25 @@
 package gitlin.kothub
 
-import android.app.AlarmManager
-import android.app.PendingIntent
-import android.content.Intent
-import android.content.IntentFilter
+import android.accounts.Account
+import android.accounts.AccountManager
+import android.accounts.AccountManagerCallback
 import android.os.Bundle
-import android.os.SystemClock
 import android.support.v4.content.LocalBroadcastManager
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
+import android.widget.Toast
 import gitlin.kothub.R.layout.activity_main
-import gitlin.kothub.github.LoginActivity
-import gitlin.kothub.github.OAuthValues
-import gitlin.kothub.ui.ActivityLauncher
-import gitlin.kothub.utilities.getOAuthToken
+import gitlin.kothub.accounts.TokenStore
 import kotlinx.android.synthetic.main.toolbar.*
 import org.jetbrains.anko.AnkoLogger
 import gitlin.kothub.receivers.NotificationReceiver
 import gitlin.kothub.services.NotificationService
-import gitlin.kothub.utilities.getAlarmManager
-import org.jetbrains.anko.intentFor
-import java.util.*
+import org.jetbrains.anko.info
 
 
 class MainActivity : AppCompatActivity(), AnkoLogger {
 
     private lateinit var notificationReceiver: NotificationReceiver
 
-    fun initOAuth () {
-        OAuthValues.REDIRECT_URL = "oauth://kothub"
-        OAuthValues.GITHUB_CLIENT = getString(R.string.github_client)
-        OAuthValues.GITHUB_SECRET = getString(R.string.github_secret)
-
-        val token: String? = getOAuthToken()
-        if (token != null) {
-            OAuthValues.GITHUB_TOKEN = token
-            OAuthValues.isLoggedIn = true
-        }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,14 +31,32 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
 
     override fun onStart() {
         super.onStart()
-        initOAuth()
 
-        if (OAuthValues.isLoggedIn) {
-            ActivityLauncher.startUserProfileActivity(this, "Astalaseven")
-        } else {
-            startActivity(Intent(this, LoginActivity::class.java))
+        val authTokenType = getString(R.string.accountType)
+        val am = AccountManager.get(this)
+        val accounts = am.getAccountsByType(authTokenType)
+
+        if (accounts.size > 0) {
+            val account = accounts[0]
+
+            val token = TokenStore.get(this).getToken()
+            info(token)
+
+        }
+        else {
+
+            am.addAccount(authTokenType, authTokenType, null, null, this, {
+                info("Account created")
+                info(it)
+            }, null)
         }
 
-        NotificationService.schedule(applicationContext)
+       // if (OAuthValues.isLoggedIn) {
+         //   ActivityLauncher.startUserProfileActivity(this, "Astalaseven")
+        //} else {
+         //   startActivity(Intent(this, LoginActivity::class.java))
+        //}
+
+        //NotificationService.schedule(applicationContext)
     }
 }

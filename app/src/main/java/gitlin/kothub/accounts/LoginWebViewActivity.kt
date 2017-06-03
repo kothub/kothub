@@ -1,4 +1,4 @@
-package gitlin.kothub.github
+package gitlin.kothub.accounts
 
 import android.app.Activity
 import android.graphics.Color

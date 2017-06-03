@@ -1,4 +1,4 @@
-package gitlin.kothub.github
+package gitlin.kothub.accounts
 
 import android.app.Activity
 import android.content.Intent
@@ -6,6 +6,7 @@ import android.net.Uri
 import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import gitlin.kothub.accounts.LoginWebViewActivity
 
 
 class LoginWebView(val context: LoginWebViewActivity): WebViewClient() {

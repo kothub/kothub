@@ -1,5 +1,6 @@
 package gitlin.kothub.ui
 
+import android.content.Context
 import android.util.Log
 import gitlin.kothub.github.api.data.DrawerInfo
 import gitlin.kothub.github.api.drawerInfo
@@ -13,17 +14,20 @@ object DrawerData {
 
     fun drawerInfo () = info
 
-    fun fetch () {
+    fun fetch (context: Context) {
         if (!info.hasValue()) {
-            drawerInfo {
-                error, result ->
-                    if (error == null && result != null) {
-                        info.onNext(result)
-                    }
-                    else {
-                        info.onError(error)
-                    }
+            context.drawerInfo().subscribe { result ->
+                info.onNext(result)
             }
+
+            context.drawerInfo().subscribe(
+                {
+                    result -> info.onNext(result)
+                },
+                {
+                    error -> info.onError(error)
+                }
+            )
         }
     }
 }

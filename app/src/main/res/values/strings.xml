@@ -35,4 +35,9 @@
     <string name="github_status_good">Good</string>
     <string name="github_status_minor">Minor outage</string>
     <string name="github_status_major">Major outage</string>
+
+
+    <!-- Account -->
+    <string name="accountType">com.kothub</string>
+    <string name="oct_mark_github_string_login">{oct_mark_github} Login</string>
 </resources>

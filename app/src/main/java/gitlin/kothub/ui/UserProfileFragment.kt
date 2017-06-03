@@ -1,6 +1,7 @@
 package gitlin.kothub.ui
 
 import android.arch.lifecycle.*
+import android.content.Context
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Gravity
@@ -20,6 +21,7 @@ import gitlin.kothub.github.api.userSummary
 import gitlin.kothub.github.api.viewerSummary
 import gitlin.kothub.utilities.get
 import gitlin.kothub.utilities.value
+import io.reactivex.Single
 import kotlinx.android.synthetic.main.fragment_user_profile.*
 import org.jetbrains.anko.AnkoLogger
 
@@ -29,27 +31,30 @@ class UserViewModel: ViewModel() {
     var user: String? = null
 
 
-    fun loadUser() {
+    fun loadUser(context: Context) {
 
         if (summary.value != null) {
             return
         }
 
+        var obs: Single<UserSummary>
+
         if (user == null) {
-            viewerSummary { error, userSummary -> handleResult(error, userSummary) }
+            obs = context.viewerSummary()
         }
         else {
-            userSummary(user!!) { error, userSummary -> handleResult(error, userSummary)}
+            obs = context.userSummary(user!!)
         }
-    }
 
-    private fun handleResult (error: FuelError?, summary: UserSummary?) {
-        if (error != null || summary == null) {
-        } else {
-            this.summary.value = summary
-        }
+        obs.subscribe(
+            {
+                this.summary.value = it
+            },
+            {
+                throw it
+            }
+        )
     }
-
 }
 
 
@@ -61,7 +66,7 @@ class UserProfileFragment : LifecycleFragment(), AnkoLogger {
         super.onCreate(savedInstanceState)
         model = ViewModelProviders.of(activity).get<UserViewModel>()
         model.user = arguments[LOGIN] as? String
-        model.loadUser()
+        model.loadUser(context)
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,

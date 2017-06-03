@@ -236,7 +236,7 @@ class AppDrawer(private val activity: AppCompatActivity, toolbar: Toolbar): Life
             throw it
         }).addTo(disposables)
 
-        DrawerData.fetch()
+        DrawerData.fetch(activity)
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)

@@ -1,12 +1,17 @@
 package gitlin.kothub.github.api
 
+import android.content.Context
 import com.github.kittinunf.fuel.core.FuelError
+import com.github.salomonbrys.kotson.get
+import com.github.salomonbrys.kotson.nullString
 import com.google.gson.JsonArray
 import com.google.gson.JsonParser
+import gitlin.kothub.R.string.login
 import gitlin.kothub.github.api.data.DrawerInfo
 import gitlin.kothub.github.api.data.UserSummary
 import gitlin.kothub.github.api.data.Notifications
 import gitlin.kothub.github.api.dsl.*
+import io.reactivex.Single
 
 
 val userFragment: User.() -> Unit =
@@ -63,21 +68,47 @@ val userSummaryQuery =
             }
         }
 
+val loginQuery = query {
+    viewer {
+        login
+        email
+        avatarUrl
+    }
+}
 
-fun viewerSummary (callback: (FuelError?, UserSummary?) -> Unit) {
-    post(viewerSummaryQuery) { error, result -> callback(error, if (result == null) null else UserSummary(result["viewer"].asJsonObject)) }
+fun Context.getUser(): Single<Triple<String, String?, String>> {
+
+    return post(loginQuery)
+            .map { result ->
+                val viewer = result["viewer"]
+                val login = viewer["login"].asString
+                val email = viewer["email"].nullString
+                val avatarUrl = viewer["avatarUrl"].asString
+
+                Triple(login, email, avatarUrl)
+            }
 }
 
 
-fun userSummary (login: String, callback: (FuelError?, UserSummary?) -> Unit) {
-    post(
-        userSummaryQuery,
-        mapOf("login" to login)
-    ) { error, result -> callback(error, if (result == null) null else UserSummary(result["user"].asJsonObject)) }
+fun Context.viewerSummary (): Single<UserSummary> {
+
+    return post(viewerSummaryQuery)
+            .map {
+                UserSummary(it["viewer"].asJsonObject)
+            }
 }
 
-fun drawerInfo (callback: (FuelError?, DrawerInfo?) -> Unit) {
-    post(
+
+fun Context.userSummary (login: String): Single<UserSummary> {
+
+    return post(userSummaryQuery, mapOf("login" to login))
+            .map {
+                UserSummary(it["user"].asJsonObject)
+            }
+}
+
+fun Context.drawerInfo (): Single<DrawerInfo> {
+    return post(
         query {
             viewer {
                 login
@@ -97,12 +128,13 @@ fun drawerInfo (callback: (FuelError?, DrawerInfo?) -> Unit) {
                 }
             }
         }
-    ) {
-        error, result -> callback(error, if (result == null) null else DrawerInfo(result["viewer"].asJsonObject))
+    )
+    .map {
+        DrawerInfo(it["viewer"].asJsonObject)
     }
 }
 
-fun notifications (callback: (FuelError?, Notifications?) -> Unit) {
+fun Context.notifications (callback: (FuelError?, Notifications?) -> Unit) {
     get("notifications") {
         error, result -> callback(error,
             if (result == null)

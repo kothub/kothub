@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="gitlin.kothub">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
 
     <application
         android:allowBackup="true"
@@ -14,7 +17,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar">
-
         <activity
             android:name=".MainActivity"
             android:noHistory="true">
@@ -24,33 +26,49 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".github.LoginActivity" />
-        <activity android:name=".github.LoginWebViewActivity" />
-        <activity android:name=".ui.ViewerProfileActivity"
-            android:label="@string/title_profile"/>
-        <activity android:name=".ui.UserProfileActivity"
-            android:label="@string/title_profile"/>
+        <activity android:name=".accounts.LoginActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            />
+        <activity android:name=".accounts.LoginWebViewActivity" />
         <activity
-              android:name=".ui.NotificationActivity"
-              android:label="@string/title_notifications"
-              android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar"></activity>
-          <activity
-              android:name=".ui.IssuesActivity"
-              android:label="@string/title_activity_issues"
-              android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar"></activity>
-          <activity
-              android:name=".ui.PullRequestsActivity"
-              android:label="@string/pulls"
-              android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar"></activity>
+            android:name=".ui.ViewerProfileActivity"
+            android:label="@string/title_profile" />
+        <activity
+            android:name=".ui.UserProfileActivity"
+            android:label="@string/title_profile" />
+        <activity
+            android:name=".ui.NotificationActivity"
+            android:label="@string/title_notifications"
+            android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar" />
+        <activity
+            android:name=".ui.IssuesActivity"
+            android:label="@string/title_activity_issues"
+            android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar" />
+        <activity
+            android:name=".ui.PullRequestsActivity"
+            android:label="@string/pulls"
+            android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar" />
 
         <receiver
             android:name=".receivers.NotificationReceiver"
-            android:process=":remote" >
-        </receiver>
+            android:process=":remote"></receiver>
 
         <service
             android:name=".services.NotificationService"
-            android:exported="false"/>
+            android:exported="false" />
+        <service
+            android:name=".accounts.AuthenticatorService">
+
+                <intent-filter>
+                    <action android:name="android.accounts.AccountAuthenticator"></action>
+                </intent-filter>
+
+            <meta-data
+                    android:name="android.accounts.AccountAuthenticator"
+                    android:resource="@xml/authenticator"
+                />
+
+        </service>
     </application>
 
 </manifest>
