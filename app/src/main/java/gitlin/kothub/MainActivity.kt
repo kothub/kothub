@@ -57,16 +57,6 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
             startActivity(Intent(this, LoginActivity::class.java))
         }
 
-        scheduleAlarm()
-    }
-
-
-    fun scheduleAlarm() {
-        val intent = applicationContext.intentFor<NotificationService>()
-        val pendingIntent = PendingIntent.getService(this@MainActivity, 0, intent, 0)
-        val alarm = getAlarmManager()
-        pendingIntent.cancel()
-        alarm.cancel(pendingIntent)
-        alarm.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 60000, pendingIntent)
+        NotificationService.schedule(applicationContext)
     }
 }

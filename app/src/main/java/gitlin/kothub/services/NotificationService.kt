@@ -1,7 +1,10 @@
 package gitlin.kothub.services
 
 import android.app.Activity
+import android.app.AlarmManager
 import android.app.IntentService
+import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.support.v4.content.LocalBroadcastManager
@@ -11,6 +14,8 @@ import com.github.kittinunf.result.Result
 import com.github.salomonbrys.kotson.byString
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
+import gitlin.kothub.utilities.getAlarmManager
+import org.jetbrains.anko.intentFor
 
 
 class NotificationService: IntentService("notification-service") {
@@ -24,27 +29,36 @@ class NotificationService: IntentService("notification-service") {
         val RESULT_CODE = "gitlin.kothub.services.CODE"
 
         fun filter() = IntentFilter(BROADCAST_ACTION)
+
+        fun schedule (applicationContext: Context, delay: Long = 60000) {
+            val intent = applicationContext.intentFor<NotificationService>()
+            val pendingIntent = PendingIntent.getService(applicationContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+            val alarm = applicationContext.getAlarmManager()
+            pendingIntent.cancel()
+            alarm.cancel(pendingIntent)
+            alarm.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), delay, pendingIntent)
+        }
     }
 
     override fun onHandleIntent(intent: Intent?) {
         Log.d("NotificationService", "onHandleIntent")
 
         Fuel.get("https://status.github.com/api/last-message.json")
-                .responseString { request, response, result ->
-                    when (result) {
-                        is Result.Failure -> Log.e("NotificationService", result.error.message)
-                        is Result.Success -> {
-                            val json: JsonObject = JsonParser().parse(result.value).asJsonObject
+            .responseString { request, response, result ->
+                when (result) {
+                    is Result.Failure -> Log.e("NotificationService", result.error.message)
+                    is Result.Success -> {
+                        val json: JsonObject = JsonParser().parse(result.value).asJsonObject
 
-                            val status: Status = Status(json)
-                            if (status.status == GithubStatus.GOOD.status) {
-                                Log.d("NotificationService", Status(json).status)
-                            }
-
-                            broadcast(Status(json).status)
+                        val status: Status = Status(json)
+                        if (status.status == GithubStatus.GOOD.status) {
+                            Log.d("NotificationService", Status(json).status)
                         }
+
+                        broadcast(Status(json).status)
                     }
                 }
+            }
     }
 
     fun broadcast(status: String) {
