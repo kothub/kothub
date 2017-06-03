@@ -1,19 +1,16 @@
 package gitlin.kothub.ui
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-
-import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.debug
-import android.view.Gravity
-import android.widget.*
 import gitlin.kothub.R
 import gitlin.kothub.adapters.NotificationAdapter
 import gitlin.kothub.github.api.data.Notifications
-import kotlinx.android.synthetic.main.toolbar.*
+import gitlin.kothub.github.api.notifications
 import kotlinx.android.synthetic.main.activity_notifs.*
-import gitlin.kothub.github.api.*
+import kotlinx.android.synthetic.main.toolbar.*
+import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.debug
 
 class NotificationActivity : AppCompatActivity(), AnkoLogger {
 
@@ -34,7 +31,7 @@ class NotificationActivity : AppCompatActivity(), AnkoLogger {
         setSupportActionBar(toolbar)
 
         AppDrawer(this, toolbar)
-        
+
         initProfile()
     }
 

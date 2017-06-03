@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.mikepenz.iconics.IconicsDrawable
 import gitlin.kothub.R
 import gitlin.kothub.github.api.data.Notification
 import gitlin.kothub.utilities.value
@@ -25,7 +26,7 @@ class NotificationAdapter(private val context: Context, val notifications: List<
 
         viewHolder.name.value = notif.repository.full_name
         viewHolder.description.value = notif.subject.title
-        viewHolder.reason.value = notif.reason
+        viewHolder.subjectIcon.icon = getSubjectIcon(notif.subject.type)
     }
 
     override fun getItemCount(): Int = notifications.size
@@ -33,6 +34,17 @@ class NotificationAdapter(private val context: Context, val notifications: List<
     class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
         val name = view.repository
         val description = view.subject
-        val reason = view.reason
+        val subjectIcon = view.subjectIcon
+    }
+
+    fun getSubjectIcon(type: String): IconicsDrawable {
+        val subjectType = SubjectType.valueOf(type.toUpperCase())
+
+        return IconicsDrawable(context, subjectType.icon)
+    }
+
+    enum class SubjectType(val icon: String) {
+        ISSUE("oct_issue_opened"),
+        PULLREQUEST("oct_git_pull_request")
     }
 }
