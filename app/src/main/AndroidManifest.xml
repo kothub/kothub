@@ -16,7 +16,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar">
+        android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
             android:noHistory="true">
@@ -26,9 +26,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".accounts.LoginActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"
-            />
+        <activity
+            android:name=".accounts.LoginActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity android:name=".accounts.LoginWebViewActivity" />
         <activity
             android:name=".ui.ViewerProfileActivity"
@@ -39,36 +39,37 @@
         <activity
             android:name=".ui.NotificationActivity"
             android:label="@string/title_notifications"
-            android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar" />
+            />
         <activity
             android:name=".ui.IssuesActivity"
             android:label="@string/title_activity_issues"
-            android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar" />
+            />
         <activity
             android:name=".ui.PullRequestsActivity"
             android:label="@string/pulls"
-            android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar" />
+          />
 
         <receiver
             android:name=".receivers.NotificationReceiver"
-            android:process=":remote"></receiver>
+            android:process=":remote" />
 
         <service
             android:name=".services.NotificationService"
             android:exported="false" />
-        <service
-            android:name=".accounts.AuthenticatorService">
-
-                <intent-filter>
-                    <action android:name="android.accounts.AccountAuthenticator"></action>
-                </intent-filter>
+        <service android:name=".accounts.AuthenticatorService">
+            <intent-filter>
+                <action android:name="android.accounts.AccountAuthenticator" />
+            </intent-filter>
 
             <meta-data
-                    android:name="android.accounts.AccountAuthenticator"
-                    android:resource="@xml/authenticator"
-                />
-
+                android:name="android.accounts.AccountAuthenticator"
+                android:resource="@xml/authenticator" />
         </service>
+
+        <activity
+            android:name=".ui.SettingsActivity"
+            android:label="@string/title_activity_settings"
+           ></activity>
     </application>
 
 </manifest>

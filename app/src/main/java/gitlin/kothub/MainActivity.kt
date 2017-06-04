@@ -13,6 +13,7 @@ import kotlinx.android.synthetic.main.toolbar.*
 import org.jetbrains.anko.AnkoLogger
 import gitlin.kothub.receivers.NotificationReceiver
 import gitlin.kothub.services.NotificationService
+import gitlin.kothub.ui.ActivityLauncher
 import org.jetbrains.anko.info
 
 
@@ -40,6 +41,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
             val account = accounts[0]
             val token = TokenStore.get(this).getToken()
             info(token)
+            ActivityLauncher.startUserProfileActivity(this, "Astalaseven")
 
         }
         else {
@@ -49,12 +51,6 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
                 info(it)
             }, null)
         }
-
-       // if (OAuthValues.isLoggedIn) {
-         //   ActivityLauncher.startUserProfileActivity(this, "Astalaseven")
-        //} else {
-         //   startActivity(Intent(this, LoginActivity::class.java))
-        //}
 
         //NotificationService.schedule(applicationContext)
     }

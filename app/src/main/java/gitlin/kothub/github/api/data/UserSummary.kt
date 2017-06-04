@@ -1,5 +1,6 @@
 package gitlin.kothub.github.api.data
 
+import android.util.Log
 import com.github.salomonbrys.kotson.*
 import com.google.gson.Gson
 import com.google.gson.JsonArray
@@ -52,11 +53,12 @@ class UserSummary (
                 else
                     arrayListOf()
 
+            Log.e("TEST", json.toString())
 
             return UserSummary(
                     avatarUrl = json["avatarUrl"].string,
                     login = json["login"].string,
-                    email = json["email"].string,
+                    email = json["email"].nullString,
                     name = json["name"].nullString,
                     websiteUrl = json["websiteUrl"].nullString,
                     bio = json["bio"].nullString,

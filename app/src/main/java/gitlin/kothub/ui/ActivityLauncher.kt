@@ -1,9 +1,7 @@
 package gitlin.kothub.ui
 import android.content.Context
 import gitlin.kothub.R
-import org.jetbrains.anko.intentFor
-import org.jetbrains.anko.noHistory
-import org.jetbrains.anko.singleTop
+import org.jetbrains.anko.*
 
 
 fun UserProfileActivity.getProfileName (): String? = intent.getStringExtra(getString(R.string.profile_intent_login))
@@ -20,12 +18,12 @@ object ActivityLauncher {
         val key = context.getString(R.string.profile_intent_login)
         val value = name
 
-        val intent = context.intentFor<UserProfileActivity>(key to value).singleTop().noHistory()
+        val intent = context.intentFor<UserProfileActivity>(key to value).singleTop().clearTask()
         context.startActivity(intent)
     }
 
     fun startViewerProfileActivity (context: Context) {
-        val intent = context.intentFor<ViewerProfileActivity>().singleTop().noHistory()
+        val intent = context.intentFor<ViewerProfileActivity>().singleTop().clearTask()
         context.startActivity(intent)
     }
 }

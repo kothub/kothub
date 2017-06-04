@@ -161,6 +161,7 @@ class AppDrawer(private val activity: AppCompatActivity, toolbar: Toolbar): Life
                     issues.identifier -> navigateTo<IssuesActivity>()
                     pulls.identifier -> navigateTo<PullRequestsActivity>()
                     notifs.identifier -> navigateTo<NotificationActivity>()
+                    settings.identifier -> { activity.startActivity(activity.intentFor<SettingsActivity>()); false }
                     else -> false
                 }
             }
