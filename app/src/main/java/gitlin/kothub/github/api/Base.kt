@@ -7,6 +7,7 @@ import com.github.kittinunf.fuel.core.Request
 import com.github.kittinunf.fuel.rx.rx_responseString
 import com.github.kittinunf.result.Result
 import com.github.salomonbrys.kotson.get
+import com.github.salomonbrys.kotson.obj
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
@@ -51,7 +52,7 @@ fun Context.post(query: String, variables: Map<String, Any> = mapOf<String, Any>
         .doAfterSuccess { data ->
             val rate = data["rateLimit"]
             if (!rate.isJsonNull) {
-                ApiRateLimit.updateRate(RateLimit(rate.asJsonObject))
+                ApiRateLimit.updateRate(RateLimit.fromJson(rate.obj))
             }
 
         }

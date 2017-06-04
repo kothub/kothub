@@ -15,6 +15,7 @@
         <item name="android:textColorSecondary">@color/colorSecondaryText</item>
         <item name="android:windowBackground">@color/grey95</item>
         <item name="android:statusBarColor">@color/colorPrimaryDark</item>
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
@@ -25,6 +26,11 @@
     <style name="AppToolbar" parent="ThemeOverlay.AppCompat.ActionBar">
         <item name="android:textColor">@color/colorText</item>
         <item name="android:textColorPrimary">@color/colorText</item>
+    </style>
+
+
+    <style name="PreferencesTheme" parent="@style/PreferenceFixTheme">
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
     </style>
 
 </resources>

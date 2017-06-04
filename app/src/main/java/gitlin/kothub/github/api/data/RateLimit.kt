@@ -1,13 +1,28 @@
 package gitlin.kothub.github.api.data
 
-import com.github.salomonbrys.kotson.byInt
-import com.github.salomonbrys.kotson.byString
-import com.google.gson.JsonObject
+import com.github.salomonbrys.kotson.fromJson
+import com.google.gson.*
 
 
-data class RateLimit(private val json: JsonObject) {
-    val remaining: Int by json.byInt
-    val cost: Int by json.byInt
-    val limit: Int by json.byInt
-    val resetAt: String? by json.byString
+data class RateLimit(
+        val remaining: Int,
+        val cost: Int,
+        val limit: Int,
+        val resetAt: String
+) {
+
+    companion object: Deserializer<RateLimit> {
+
+        private val gson = Gson()
+
+        override fun fromJson(json: JsonArray): List<RateLimit> {
+            return json.map {
+                fromJson(it.asJsonObject)
+            }
+        }
+
+        override fun fromJson(json: JsonObject): RateLimit {
+            return gson.fromJson<RateLimit>(json)
+        }
+    }
 }

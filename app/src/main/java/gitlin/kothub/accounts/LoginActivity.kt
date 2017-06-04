@@ -78,14 +78,16 @@ class LoginActivity: AccountAuthenticatorActivity(), AnkoLogger {
 
     private fun onToken(token: String) {
 
-        getUser().subscribe { (login, email, avatarUrl) ->
-            val account = Account(login, getString(R.string.accountType))
+        getUser().subscribe { result ->
+
+            val account = Account(result.login, getString(R.string.accountType))
             val data = Bundle()
 
             with(data) {
-                putString("USER_PICTURE", avatarUrl)
-                putString("USER_EMAIL", email)
-                putString("USER_NAME", login)
+                putString(USER_PICTURE, result.avatarUrl)
+                putString(USER_EMAIL, result.email)
+                putString(USER_LOGIN, result.login)
+                putString(USER_NAME, result.name)
             }
 
             accountManager.addAccountExplicitly(account, null, data)

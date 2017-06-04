@@ -1,26 +1,20 @@
 package gitlin.kothub.ui
 
 import android.content.Context
-import android.util.Log
 import gitlin.kothub.github.api.data.DrawerInfo
-import gitlin.kothub.github.api.drawerInfo
+import gitlin.kothub.github.api.totalIssues
 import io.reactivex.subjects.BehaviorSubject
-import org.jetbrains.anko.AnkoLogger
 
 
 object DrawerData {
 
     val info: BehaviorSubject<DrawerInfo> = BehaviorSubject.create()
 
-    fun drawerInfo () = info
+    fun totalIssues() = info
 
-    fun fetch (context: Context) {
-        if (!info.hasValue()) {
-            context.drawerInfo().subscribe { result ->
-                info.onNext(result)
-            }
-
-            context.drawerInfo().subscribe(
+    fun fetch (context: Context, update: Boolean = false) {
+        if (!info.hasValue() || update) {
+            context.totalIssues().subscribe(
                 {
                     result -> info.onNext(result)
                 },

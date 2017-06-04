@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="Notifications">
+
+        <ListPreference
+            android:defaultValue="1"
+            android:entries="@android:array/organizationTypes"
+            android:entryValues="@android:array/imProtocols"
+            android:key="list_preference_1"
+            android:title="List preference" />
+    </PreferenceCategory>
+</PreferenceScreen>

@@ -38,7 +38,6 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
 
         if (accounts.size > 0) {
             val account = accounts[0]
-
             val token = TokenStore.get(this).getToken()
             info(token)
 

@@ -4,10 +4,13 @@ import android.content.Context
 import com.github.kittinunf.fuel.core.FuelError
 import com.github.salomonbrys.kotson.get
 import com.github.salomonbrys.kotson.nullString
+import com.github.salomonbrys.kotson.obj
+import com.github.salomonbrys.kotson.string
 import com.google.gson.JsonArray
 import com.google.gson.JsonParser
 import gitlin.kothub.R.string.login
 import gitlin.kothub.github.api.data.DrawerInfo
+import gitlin.kothub.github.api.data.LoginData
 import gitlin.kothub.github.api.data.UserSummary
 import gitlin.kothub.github.api.data.Notifications
 import gitlin.kothub.github.api.dsl.*
@@ -73,19 +76,15 @@ val loginQuery = query {
         login
         email
         avatarUrl
+        name
     }
 }
 
-fun Context.getUser(): Single<Triple<String, String?, String>> {
+fun Context.getUser(): Single<LoginData> {
 
     return post(loginQuery)
             .map { result ->
-                val viewer = result["viewer"]
-                val login = viewer["login"].asString
-                val email = viewer["email"].nullString
-                val avatarUrl = viewer["avatarUrl"].asString
-
-                Triple(login, email, avatarUrl)
+                LoginData.fromJson(result["viewer"].obj)
             }
 }
 
@@ -93,28 +92,20 @@ fun Context.getUser(): Single<Triple<String, String?, String>> {
 fun Context.viewerSummary (): Single<UserSummary> {
 
     return post(viewerSummaryQuery)
-            .map {
-                UserSummary(it["viewer"].asJsonObject)
-            }
+            .map { UserSummary.fromJson(it["viewer"].obj) }
 }
 
 
 fun Context.userSummary (login: String): Single<UserSummary> {
 
     return post(userSummaryQuery, mapOf("login" to login))
-            .map {
-                UserSummary(it["user"].asJsonObject)
-            }
+            .map { UserSummary.fromJson(it["user"].obj) }
 }
 
-fun Context.drawerInfo (): Single<DrawerInfo> {
+fun Context.totalIssues(): Single<DrawerInfo> {
     return post(
         query {
             viewer {
-                login
-                email
-                avatarUrl
-                name
                 repositories(first = value(30)) {
                     pageInfo {
                         hasNextPage
@@ -129,9 +120,7 @@ fun Context.drawerInfo (): Single<DrawerInfo> {
             }
         }
     )
-    .map {
-        DrawerInfo(it["viewer"].asJsonObject)
-    }
+    .map { DrawerInfo.fromJson(it["viewer"].obj) }
 }
 
 fun Context.notifications (callback: (FuelError?, Notifications?) -> Unit) {

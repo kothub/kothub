@@ -3,7 +3,6 @@ package gitlin.kothub.ui
 import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleObserver
 import android.arch.lifecycle.OnLifecycleEvent
-import android.content.BroadcastReceiver
 import android.graphics.Color
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
@@ -26,6 +25,10 @@ import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader
 import com.mikepenz.materialdrawer.util.DrawerImageLoader
 import com.mikepenz.octicons_typeface_library.Octicons
 import com.squareup.picasso.Picasso
+import gitlin.kothub.accounts.getUserEmail
+import gitlin.kothub.accounts.getUserLogin
+import gitlin.kothub.accounts.getUserName
+import gitlin.kothub.accounts.getUserPicture
 import gitlin.kothub.github.api.ApiRateLimit
 import gitlin.kothub.github.api.data.RateLimit
 import gitlin.kothub.receivers.NotificationReceiver
@@ -199,18 +202,22 @@ class AppDrawer(private val activity: AppCompatActivity, toolbar: Toolbar): Life
             }
         })
 
-        DrawerData.drawerInfo().subscribe {
+        val login = getUserLogin(activity)
+        val email = getUserEmail(activity)
+        val avatarUrl = getUserPicture(activity)
 
-            profile.withName(it.login).withEmail(it.email).withIcon(it.avatarUrl)
 
-            if (it.email.isNullOrBlank()) {
-                profile.withEmail(it.name)
-            }
+        profile.withName(login).withEmail(email).withIcon(avatarUrl)
 
+        if (email.isNullOrBlank()) {
+            profile.withEmail(getUserName(activity))
+        }
+
+        header.updateProfile(profile)
+
+        DrawerData.totalIssues().subscribe {
             issues.withBadge("${it.issues}")
-
             drawer.updateItem(issues)
-            header.updateProfile(profile)
         }.addTo(disposables)
 
 
