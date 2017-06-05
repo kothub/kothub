@@ -20,7 +20,7 @@ import io.reactivex.subjects.BehaviorSubject
 class NotificationReceiver: BroadcastReceiver() {
 
     companion object {
-        private val status = BehaviorSubject.createDefault(GithubStatus.GOOD)
+        private val status = BehaviorSubject.createDefault(GithubStatus.UNKNOWN)
         fun apiStatus(): Observable<GithubStatus> = status.distinctUntilChanged()
     }
 

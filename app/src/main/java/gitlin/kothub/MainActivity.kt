@@ -38,6 +38,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
         val accounts = am.getAccountsByType(authTokenType)
 
         if (accounts.size > 0) {
+            NotificationService.schedule(applicationContext)
             ActivityLauncher.startUserProfileActivity(this, "Astalaseven")
         }
         else {
@@ -47,6 +48,5 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
             }, null)
         }
 
-        //NotificationService.schedule(applicationContext)
     }
 }

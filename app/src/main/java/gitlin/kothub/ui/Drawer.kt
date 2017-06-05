@@ -236,6 +236,7 @@ class AppDrawer(private val activity: AppCompatActivity, toolbar: Toolbar): Life
         LocalBroadcastManager.getInstance(activity).registerReceiver(statusReceiver, NotificationService.filter())
         NotificationReceiver.apiStatus().subscribe({
             when (it) {
+                GithubStatus.UNKNOWN -> status.withBadge("Unknown").withBadgeStyle(blueStyle)
                 GithubStatus.GOOD -> status.withBadge(R.string.github_status_good).withBadgeStyle(greenStyle)
                 GithubStatus.MINOR -> status.withBadge(R.string.github_status_minor).withBadgeStyle(yellowStyle)
                 GithubStatus.MAJOR -> status.withBadge(R.string.github_status_major).withBadgeStyle(redStyle)
