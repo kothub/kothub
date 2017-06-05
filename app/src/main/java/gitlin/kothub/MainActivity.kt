@@ -38,14 +38,9 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
         val accounts = am.getAccountsByType(authTokenType)
 
         if (accounts.size > 0) {
-            val account = accounts[0]
-            val token = TokenStore.get(this).getToken()
-            info(token)
             ActivityLauncher.startUserProfileActivity(this, "Astalaseven")
-
         }
         else {
-
             am.addAccount(authTokenType, authTokenType, null, null, this, {
                 info("Account created")
                 info(it)

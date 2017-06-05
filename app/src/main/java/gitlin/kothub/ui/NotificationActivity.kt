@@ -48,14 +48,25 @@ class NotificationActivity : LifecycleAppCompatActivity(), AnkoLogger {
     }
 
     fun initProfile() {
-        notifications { error, notifs ->
-            if (error != null || notifs == null) {
-                debug("ERROR")
-                debug(error?.response?.httpResponseMessage ?: "NO ERROR??")
-            } else {
-                debug(notifs)
-                this.notifications = notifs
-            }
-        }
+        getService<ViewerService>()
+                .notifications()
+                .subscribe(
+                        {
+                            this.notifications = it
+                        },
+                        {
+
+                        }
+                )
+
+//        notifications { error, notifs ->
+//            if (error != null || notifs == null) {
+//                debug("ERROR")
+//                debug(error?.response?.httpResponseMessage ?: "NO ERROR??")
+//            } else {
+//                debug(notifs)
+//                this.notifications = notifs
+//            }
+//        }
     }
 }

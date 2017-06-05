@@ -6,24 +6,24 @@ import android.net.Uri
 import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import gitlin.kothub.accounts.LoginWebViewActivity
 
 
 class LoginWebView(val context: LoginWebViewActivity): WebViewClient() {
 
 
+    @SuppressWarnings("deprecated")
     override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
-        val result = shouldOverrideUrlLoading(view, Uri.parse(url))
+        val result = shouldOverrideUrlLoading(Uri.parse(url))
         return if (result) result else super.shouldOverrideUrlLoading(view, url)
     }
 
     override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?): Boolean {
 
-        val result = shouldOverrideUrlLoading(view, request?.url)
+        val result = shouldOverrideUrlLoading(request?.url)
         return if (result) result else super.shouldOverrideUrlLoading(view, request)
     }
 
-    fun shouldOverrideUrlLoading(view: WebView?, url: Uri?): Boolean {
+    fun shouldOverrideUrlLoading(url: Uri?): Boolean {
         if (url != null) {
             if (url.scheme == "oauth" && url.host == "kothub") {
                 val intent = Intent()

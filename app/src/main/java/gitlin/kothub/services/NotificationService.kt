@@ -44,7 +44,7 @@ class NotificationService: IntentService("notification-service") {
         Log.d("NotificationService", "onHandleIntent")
 
         Fuel.get("https://status.github.com/api/last-message.json")
-            .responseString { request, response, result ->
+            .responseString { _, _, result ->
                 when (result) {
                     is Result.Failure -> Log.e("NotificationService", result.error.message)
                     is Result.Success -> {

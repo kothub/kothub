@@ -9,16 +9,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import com.github.kittinunf.fuel.core.FuelError
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper
 import com.squareup.picasso.Picasso
 
 import gitlin.kothub.R
 import gitlin.kothub.adapters.OrganizationSummaryAdapter
 import gitlin.kothub.adapters.PinnedRepositoryAdapter
+import gitlin.kothub.github.api.ViewerService
 import gitlin.kothub.github.api.data.UserSummary
-import gitlin.kothub.github.api.userSummary
-import gitlin.kothub.github.api.viewerSummary
+import gitlin.kothub.github.api.getService
 import gitlin.kothub.utilities.get
 import gitlin.kothub.utilities.value
 import io.reactivex.Single
@@ -40,10 +39,10 @@ class UserViewModel: ViewModel() {
         var obs: Single<UserSummary>
 
         if (user == null) {
-            obs = context.viewerSummary()
+            obs = context.getService<ViewerService>().viewerSummary()
         }
         else {
-            obs = context.userSummary(user!!)
+            obs = context.getService<ViewerService>().userSummary(user!!)
         }
 
         obs.subscribe(

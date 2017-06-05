@@ -1,8 +1,9 @@
 package gitlin.kothub.ui
 
 import android.content.Context
+import gitlin.kothub.github.api.ViewerService
 import gitlin.kothub.github.api.data.DrawerInfo
-import gitlin.kothub.github.api.totalIssues
+import gitlin.kothub.github.api.getService
 import io.reactivex.subjects.BehaviorSubject
 
 
@@ -14,7 +15,10 @@ object DrawerData {
 
     fun fetch (context: Context, update: Boolean = false) {
         if (!info.hasValue() || update) {
-            context.totalIssues().subscribe(
+            context
+            .getService<ViewerService>()
+            .totalIssues()
+            .subscribe(
                 {
                     result -> info.onNext(result)
                 },

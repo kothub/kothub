@@ -2,10 +2,7 @@ package gitlin.kothub.github.api
 
 import android.content.Context
 import com.github.kittinunf.fuel.core.FuelError
-import com.github.salomonbrys.kotson.get
-import com.github.salomonbrys.kotson.nullString
-import com.github.salomonbrys.kotson.obj
-import com.github.salomonbrys.kotson.string
+import com.github.salomonbrys.kotson.*
 import com.google.gson.JsonArray
 import com.google.gson.JsonParser
 import gitlin.kothub.R.string.login
@@ -17,120 +14,133 @@ import gitlin.kothub.github.api.dsl.*
 import io.reactivex.Single
 
 
-val userFragment: User.() -> Unit =
-    createFragment {
-        avatarUrl
-        login
-        bio
-        company
-        location
-        followers { totalCount }
-        following { totalCount }
-        starredRepositories { totalCount }
-        repositories { totalCount }
-        name
-        websiteUrl
-        url
-        pinnedRepositories(value(6)) {
-            nodes {
-                name
-                description
-                stargazers { totalCount }
-                forks { totalCount }
-                primaryLanguage {
-                    color
-                    name
-                }
-            }
-        }
-    }
 
+class ViewerService(context: Context): ApiService(context) {
 
-val userOrganizationsFragment: User.() -> Unit =
-    createFragment {
-        organizations(first = value(10)) {
-            nodes {
-                name
+    companion object {
+        val userFragment: GFragment<User> by lazy {
+            createFragment<User> {
                 avatarUrl
-            }
-        }
-    }
-
-val viewerSummaryQuery =
-        query {
-            viewer {
-                fragment(userFragment)
-                fragment(userOrganizationsFragment)
-            }
-        }
-
-val userSummaryQuery =
-        query(Type.STRING("login")) {
-            user(login = variable("login")) {
-                fragment(userFragment)
-            }
-        }
-
-val loginQuery = query {
-    viewer {
-        login
-        email
-        avatarUrl
-        name
-    }
-}
-
-fun Context.getUser(): Single<LoginData> {
-
-    return post(loginQuery)
-            .map { result ->
-                LoginData.fromJson(result["viewer"].obj)
-            }
-}
-
-
-fun Context.viewerSummary (): Single<UserSummary> {
-
-    return post(viewerSummaryQuery)
-            .map { UserSummary.fromJson(it["viewer"].obj) }
-}
-
-
-fun Context.userSummary (login: String): Single<UserSummary> {
-
-    return post(userSummaryQuery, mapOf("login" to login))
-            .map { UserSummary.fromJson(it["user"].obj) }
-}
-
-fun Context.totalIssues(): Single<DrawerInfo> {
-    return post(
-        query {
-            viewer {
-                repositories(first = value(30)) {
-                    pageInfo {
-                        hasNextPage
-                        endCursor
-                    }
+                login
+                bio
+                company
+                location
+                followers { totalCount }
+                following { totalCount }
+                starredRepositories { totalCount }
+                repositories { totalCount }
+                name
+                websiteUrl
+                url
+                pinnedRepositories(value(6)) {
                     nodes {
-                        issues(states = value(IssueState.OPEN)) {
-                            totalCount
+                        name
+                        description
+                        stargazers { totalCount }
+                        forks { totalCount }
+                        primaryLanguage {
+                            color
+                            name
                         }
                     }
                 }
             }
         }
-    )
-    .map { DrawerInfo.fromJson(it["viewer"].obj) }
-}
 
-fun Context.notifications (callback: (FuelError?, Notifications?) -> Unit) {
-    get("notifications") {
-        error, result -> callback(error,
-            if (result == null)
-                null
-            else {
-                val json: JsonArray = JsonParser().parse(result).asJsonArray
-                Notifications(json)
-            })
+
+        val userOrganizationsFragment: GFragment<User> by lazy {
+            createFragment<User> {
+                organizations(first = value(10)) {
+                    nodes {
+                        name
+                        avatarUrl
+                    }
+                }
+            }
+        }
+
+        val viewerSummaryQuery by lazy {
+            query {
+                viewer {
+                    fragment(userFragment)
+                    fragment(userOrganizationsFragment)
+                }
+            }
+        }
+
+
+        val userSummaryQuery by lazy {
+            query(Type.STRING("login")) {
+                user(login = variable("login")) {
+                    fragment(userFragment)
+                }
+            }
+        }
+
+        val loginQuery by lazy {
+            query {
+                viewer {
+                    login
+                    email
+                    avatarUrl
+                    name
+                }
+            }
+        }
+
+        val drawerInfoQuery by lazy {
+            query {
+                viewer {
+                    repositories(first = value(30)) {
+                        pageInfo {
+                            hasNextPage
+                            endCursor
+                        }
+                        nodes {
+                            issues(states = value(IssueState.OPEN)) {
+                                totalCount
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+    fun getUser (): Single<LoginData> {
+
+        return query(loginQuery) {
+            it.map {
+                LoginData.fromJson(it["viewer"].obj)
+            }
+        }
+    }
+
+
+    fun viewerSummary (): Single<UserSummary> {
+        return query(viewerSummaryQuery) {
+            it.map { UserSummary.fromJson(it["viewer"].obj) }
+        }
+    }
+
+    fun userSummary (login: String): Single<UserSummary> {
+        return query(userSummaryQuery, mapOf("login" to login)) {
+            it.map { UserSummary.fromJson(it["user"].obj )}
+        }
+    }
+
+    fun totalIssues(): Single<DrawerInfo> {
+        return query(drawerInfoQuery) {
+            it.map { DrawerInfo.fromJson(it["viewer"].obj) }
+        }
+    }
+
+    fun notifications (): Single<Notifications> {
+        return get("notifications") {
+            it.map { Notifications(it.array) }
+        }
     }
 }
+
+

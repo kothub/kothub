@@ -7,11 +7,10 @@ import android.accounts.AccountManager
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.view.View
 import gitlin.kothub.ui.ViewerProfileActivity
 import gitlin.kothub.R
-import gitlin.kothub.github.api.getUser
-import kotlinx.android.synthetic.main.activity_login.*
+import gitlin.kothub.github.api.ViewerService
+import gitlin.kothub.github.api.getService
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 import org.jetbrains.anko.intentFor
@@ -78,16 +77,18 @@ class LoginActivity: AccountAuthenticatorActivity(), AnkoLogger {
 
     private fun onToken(token: String) {
 
-        getUser().subscribe { result ->
+        getService<ViewerService>()
+        .getUser()
+        .subscribe { user ->
 
-            val account = Account(result.login, getString(R.string.accountType))
+            val account = Account(user.login, getString(R.string.accountType))
             val data = Bundle()
 
             with(data) {
-                putString(USER_PICTURE, result.avatarUrl)
-                putString(USER_EMAIL, result.email)
-                putString(USER_LOGIN, result.login)
-                putString(USER_NAME, result.name)
+                putString(USER_PICTURE, user.avatarUrl)
+                putString(USER_EMAIL, user.email)
+                putString(USER_LOGIN, user.login)
+                putString(USER_NAME, user.name)
             }
 
             accountManager.addAccountExplicitly(account, null, data)
@@ -107,7 +108,7 @@ class LoginActivity: AccountAuthenticatorActivity(), AnkoLogger {
         }
     }
 
-    fun onLoginClick (view: View) {
+    fun onLoginClick() {
         openWebView()
     }
 }

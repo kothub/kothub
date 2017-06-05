@@ -39,7 +39,7 @@ import io.reactivex.rxkotlin.addTo
 import org.jetbrains.anko.*
 import java.text.SimpleDateFormat
 
-inline fun BadgeStyle.whiteText () = this.withTextColor(Color.WHITE)!!
+fun BadgeStyle.whiteText () = this.withTextColor(Color.WHITE)!!
 
 class ProfileImageListener(val onClick: () -> Unit): AccountHeader.OnAccountHeaderProfileImageListener {
     override fun onProfileImageClick(p0: View?, p1: IProfile<*>?, p2: Boolean): Boolean {
@@ -107,16 +107,18 @@ class AppDrawer(private val activity: AppCompatActivity, toolbar: Toolbar): Life
                 if (currentRateLimit == null) {
                     false
                 }
+                else {
 
-                val date = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'").parse(currentRateLimit?.resetAt)
-                val hour = SimpleDateFormat("HH:mm").format(date)
+                    val date = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'").parse(currentRateLimit?.resetAt)
+                    val hour = SimpleDateFormat("HH:mm").format(date)
 
-                activity.alert("The rate limit is the number of points remaining on your API account. " +
-                               "It resets every hour. If you somehow reach zero, you will not be able to use the application until $hour GMT+00:00") {
-                    okButton {  }
-                }.show()
+                    activity.alert("The rate limit is the number of points remaining on your API account. " +
+                                   "It resets every hour. If you somehow reach zero, you will not be able to use the application until $hour GMT+00:00") {
+                        okButton {  }
+                    }.show()
 
-                true
+                    true
+                }
             }
 
 
