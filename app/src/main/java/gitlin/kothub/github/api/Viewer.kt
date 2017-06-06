@@ -35,6 +35,9 @@ class ViewerService(context: Context): ApiService(context) {
                 pinnedRepositories(value(6)) {
                     nodes {
                         name
+                        owner {
+                            login
+                        }
                         description
                         stargazers { totalCount }
                         forks { totalCount }

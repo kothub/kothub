@@ -38,16 +38,13 @@
             android:label="@string/title_profile" />
         <activity
             android:name=".ui.NotificationActivity"
-            android:label="@string/title_notifications"
-            />
+            android:label="@string/title_notifications" />
         <activity
             android:name=".ui.issues.IssuesActivity"
-            android:label="@string/title_activity_issues"
-            />
+            android:label="@string/title_activity_issues" />
         <activity
             android:name=".ui.pulls.PullRequestsActivity"
-            android:label="@string/pulls"
-          />
+            android:label="@string/pulls" />
 
         <receiver
             android:name=".receivers.NotificationReceiver"
@@ -68,8 +65,11 @@
 
         <activity
             android:name=".ui.settings.SettingsActivity"
-            android:label="@string/title_activity_settings"
-           ></activity>
+            android:label="@string/title_activity_settings" />
+        <activity
+            android:name=".ui.repo.RepositoryActivity"
+            android:label="@string/title_activity_repository"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

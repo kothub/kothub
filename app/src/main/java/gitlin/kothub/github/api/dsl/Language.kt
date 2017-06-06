@@ -12,22 +12,22 @@ class Language(override val level: Int): Element {
     val name: Unit get() = addField("name")
 
 }
-
-class LanguageEdges(override val level: Int): Edges(level) {
-    fun node (body: Language.() -> Unit) {
-        val language = Language(nextLevel())
-        language.body()
-        addField(Node(fields = language.fields))
-    }
-}
-
-
-class LanguageConnection(override val level: Int) : Connection<Language>(level) {
-    fun edges (body: LanguageEdges.() -> Unit) {
-        val edges = LanguageEdges(nextLevel())
-        edges.body()
-        addField(Node("edges", edges.fields))
-    }
-}
+//
+//class LanguageEdges(override val level: Int): Edges(level) {
+//    fun node (body: Language.() -> Unit) {
+//        val language = Language(nextLevel())
+//        language.body()
+//        addField(Node(fields = language.fields))
+//    }
+//}
+//
+//
+//class LanguageConnection(override val level: Int) : Connection<Language>(level) {
+//    fun edges (body: LanguageEdges.() -> Unit) {
+//        val edges = LanguageEdges(nextLevel())
+//        edges.body()
+//        addField(Node("edges", edges.fields))
+//    }
+//}
 
 

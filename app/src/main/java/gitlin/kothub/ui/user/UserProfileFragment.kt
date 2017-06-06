@@ -69,9 +69,9 @@ class UserProfileFragment : LifecycleFragment(), AnkoLogger {
         model.loadUser(context)
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        return inflater!!.inflate(R.layout.fragment_user_profile, container, false)
+        return inflater.inflate(R.layout.fragment_user_profile, container, false)
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {

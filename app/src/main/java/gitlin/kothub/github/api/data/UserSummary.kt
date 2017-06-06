@@ -90,6 +90,7 @@ data class Organization(val name: String, val avatarUrl: String) {
 
 
 data class PinnedRepository(
+        val owner: String,
         val name: String,
         val description: String?,
         val stargazers: Int,
@@ -112,7 +113,8 @@ data class PinnedRepository(
                     description = json["description"].nullString,
                     stargazers = json["stargazers"]["totalCount"].int,
                     forks = json["forks"]["totalCount"].int,
-                    language = language
+                    language = language,
+                    owner = json["owner"]["login"].string
             )
         }
     }

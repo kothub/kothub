@@ -1,5 +1,7 @@
 package gitlin.kothub.github.api.dsl
 
+import kotlin.reflect.full.primaryConstructor
+
 @DslMarker
 annotation class ElementMarker
 
@@ -18,4 +20,12 @@ interface Element {
     fun addField(field: String) {
         addField(Field(field))
     }
+
+}
+
+inline fun <reified T : Element> Element.on (body: T.() -> Unit) {
+    val constructor = T::class.primaryConstructor
+    val t = constructor!!.call(nextLevel())
+    t.body()
+    addField(Node("... on ${T::class.simpleName}", t.fields))
 }
