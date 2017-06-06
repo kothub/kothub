@@ -1,7 +1,8 @@
-package gitlin.kothub.ui
+package gitlin.kothub.ui.pulls
 
 import android.os.Bundle
 import gitlin.kothub.R
+import gitlin.kothub.ui.drawer.AppDrawer
 import gitlin.kothub.utilities.LifecycleAppCompatActivity
 import kotlinx.android.synthetic.main.toolbar.*
 
@@ -14,7 +15,6 @@ class PullRequestsActivity : LifecycleAppCompatActivity() {
         setContentView(R.layout.activity_pull_requests)
         setSupportActionBar(toolbar)
         drawer = AppDrawer(this, toolbar)
-        lifecycle.addObserver(drawer)
         drawer.select(drawer.pulls)
     }
 }

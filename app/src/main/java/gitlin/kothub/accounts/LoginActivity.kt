@@ -7,10 +7,10 @@ import android.accounts.AccountManager
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import gitlin.kothub.ui.ViewerProfileActivity
 import gitlin.kothub.R
 import gitlin.kothub.github.api.ViewerService
 import gitlin.kothub.github.api.getService
+import gitlin.kothub.ui.user.UserProfileActivity
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 import org.jetbrains.anko.intentFor
@@ -103,7 +103,7 @@ class LoginActivity: AccountAuthenticatorActivity(), AnkoLogger {
 
             setAccountAuthenticatorResult(result)
 
-            startActivity(intentFor<ViewerProfileActivity>())
+            startActivity(intentFor<UserProfileActivity>())
             finish()
         }
     }

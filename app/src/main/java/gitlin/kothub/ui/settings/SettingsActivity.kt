@@ -1,4 +1,4 @@
-package gitlin.kothub.ui
+package gitlin.kothub.ui.settings
 
 
 import android.os.Bundle
@@ -23,7 +23,6 @@ class SettingsActivity : AppCompatActivity() {
         createFragment(savedInstanceState, R.id.preferences_placeholder) {
             SettingsFragment()
         }
-
 
         //drawer = AppDrawer(this, toolbar)
        // lifecycle.addObserver(drawer)

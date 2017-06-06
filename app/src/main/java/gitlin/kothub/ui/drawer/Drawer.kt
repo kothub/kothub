@@ -1,22 +1,16 @@
-package gitlin.kothub.ui
+package gitlin.kothub.ui.drawer
 
-import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleObserver
 import android.arch.lifecycle.OnLifecycleEvent
-import android.graphics.Color
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.Toolbar
-import com.mikepenz.google_material_typeface_library.GoogleMaterial
-import com.mikepenz.materialdrawer.AccountHeaderBuilder
-import com.mikepenz.materialdrawer.DrawerBuilder
-import gitlin.kothub.R
 import android.graphics.drawable.Drawable
 import android.net.Uri
-import android.os.Handler
 import android.support.v4.content.LocalBroadcastManager
-import android.view.View
+import android.support.v7.widget.Toolbar
 import android.widget.ImageView
+import com.mikepenz.google_material_typeface_library.GoogleMaterial
 import com.mikepenz.materialdrawer.AccountHeader
+import com.mikepenz.materialdrawer.AccountHeaderBuilder
+import com.mikepenz.materialdrawer.DrawerBuilder
 import com.mikepenz.materialdrawer.holder.BadgeStyle
 import com.mikepenz.materialdrawer.model.*
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
@@ -25,6 +19,7 @@ import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader
 import com.mikepenz.materialdrawer.util.DrawerImageLoader
 import com.mikepenz.octicons_typeface_library.Octicons
 import com.squareup.picasso.Picasso
+import gitlin.kothub.R
 import gitlin.kothub.accounts.getUserEmail
 import gitlin.kothub.accounts.getUserLogin
 import gitlin.kothub.accounts.getUserName
@@ -34,20 +29,24 @@ import gitlin.kothub.github.api.data.RateLimit
 import gitlin.kothub.receivers.NotificationReceiver
 import gitlin.kothub.services.GithubStatus
 import gitlin.kothub.services.NotificationService
-import io.reactivex.disposables.CompositeDisposable
+import gitlin.kothub.ui.ActivityLauncher
+import gitlin.kothub.ui.NotificationActivity
+import gitlin.kothub.ui.issues.IssuesActivity
+import gitlin.kothub.ui.pulls.PullRequestsActivity
+import gitlin.kothub.ui.settings.SettingsActivity
+import gitlin.kothub.utilities.LifecycleAppCompatActivity
 import io.reactivex.rxkotlin.addTo
 import org.jetbrains.anko.*
-import java.text.SimpleDateFormat
 
-fun BadgeStyle.whiteText () = this.withTextColor(Color.WHITE)!!
+fun BadgeStyle.whiteText () = this.withTextColor(android.graphics.Color.WHITE)!!
 
 class ProfileImageListener(val onClick: () -> Unit): AccountHeader.OnAccountHeaderProfileImageListener {
-    override fun onProfileImageClick(p0: View?, p1: IProfile<*>?, p2: Boolean): Boolean {
+    override fun onProfileImageClick(p0: android.view.View?, p1:IProfile<*>?, p2: Boolean): Boolean {
         onClick()
         return false
     }
 
-    override fun onProfileImageLongClick(p0: View?, p1: IProfile<*>?, p2: Boolean) = false
+    override fun onProfileImageLongClick(p0: android.view.View?, p1: IProfile<*>?, p2: Boolean) = false
 }
 
 
@@ -61,11 +60,16 @@ val yellowStyle = BadgeStyle().whiteText().withColorRes(R.color.md_yellow_900)
 val blueStyle = BadgeStyle().whiteText().withColorRes(R.color.md_blue_600)
 val greenStyle = BadgeStyle().whiteText().withColorRes(R.color.md_green_600)
 
-class AppDrawer(private val activity: AppCompatActivity, toolbar: Toolbar): LifecycleObserver, AnkoLogger {
+class AppDrawer(private val activity: LifecycleAppCompatActivity, toolbar: Toolbar): LifecycleObserver, AnkoLogger {
+
+
+    init {
+        activity.lifecycle.addObserver(this)
+    }
 
     private var id = 0L
     private var currentRateLimit: RateLimit? = null
-    private var disposables = CompositeDisposable()
+    private var disposables = io.reactivex.disposables.CompositeDisposable()
 
     val profile: ProfileDrawerItem = ProfileDrawerItem().withIdentifier(id++)
 
@@ -109,8 +113,8 @@ class AppDrawer(private val activity: AppCompatActivity, toolbar: Toolbar): Life
                 }
                 else {
 
-                    val date = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'").parse(currentRateLimit?.resetAt)
-                    val hour = SimpleDateFormat("HH:mm").format(date)
+                    val date = java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'").parse(currentRateLimit?.resetAt)
+                    val hour = java.text.SimpleDateFormat("HH:mm").format(date)
 
                     activity.alert("The rate limit is the number of points remaining on your API account. " +
                                    "It resets every hour. If you somehow reach zero, you will not be able to use the application until $hour GMT+00:00") {
@@ -143,8 +147,8 @@ class AppDrawer(private val activity: AppCompatActivity, toolbar: Toolbar): Life
             .withAlternativeProfileHeaderSwitching(false)
             .addProfiles(profile)
             .withProfileImageClick {
-                Handler().postDelayed({
-                   ActivityLauncher.startViewerProfileActivity(activity)
+                android.os.Handler().postDelayed({
+                    ActivityLauncher.startViewerProfileActivity(activity)
                 }, 300)
             }
             .build()
@@ -192,7 +196,7 @@ class AppDrawer(private val activity: AppCompatActivity, toolbar: Toolbar): Life
     }
 
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
+    @android.arch.lifecycle.OnLifecycleEvent(android.arch.lifecycle.Lifecycle.Event.ON_CREATE)
     fun onCreate() {
 
         DrawerImageLoader.init(object : AbstractDrawerImageLoader() {
@@ -224,7 +228,7 @@ class AppDrawer(private val activity: AppCompatActivity, toolbar: Toolbar): Life
         }.addTo(disposables)
 
 
-        ApiRateLimit.observable().subscribe {
+       ApiRateLimit.observable().subscribe {
 
             this.currentRateLimit = it
             rate.withBadge("${it.remaining}/${it.limit}")
@@ -233,8 +237,8 @@ class AppDrawer(private val activity: AppCompatActivity, toolbar: Toolbar): Life
 
 
         drawer.addStickyFooterItem(status)
-        LocalBroadcastManager.getInstance(activity).registerReceiver(statusReceiver, NotificationService.filter())
-        NotificationReceiver.apiStatus().subscribe({
+        LocalBroadcastManager.getInstance(activity).registerReceiver(statusReceiver, NotificationService.Companion.filter())
+        NotificationReceiver.Companion.apiStatus().subscribe({
             when (it) {
                 GithubStatus.UNKNOWN -> status.withBadge("Unknown").withBadgeStyle(blueStyle)
                 GithubStatus.GOOD -> status.withBadge(R.string.github_status_good).withBadgeStyle(greenStyle)
@@ -250,10 +254,10 @@ class AppDrawer(private val activity: AppCompatActivity, toolbar: Toolbar): Life
         DrawerData.fetch(activity)
     }
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+    @OnLifecycleEvent(android.arch.lifecycle.Lifecycle.Event.ON_DESTROY)
     fun onDestroy () {
         disposables.dispose()
-        LocalBroadcastManager.getInstance(activity).unregisterReceiver(statusReceiver)
+        android.support.v4.content.LocalBroadcastManager.getInstance(activity).unregisterReceiver(statusReceiver)
     }
 }
 

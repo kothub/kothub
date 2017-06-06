@@ -1,4 +1,4 @@
-package gitlin.kothub.ui
+package gitlin.kothub.ui.drawer
 
 import android.content.Context
 import gitlin.kothub.github.api.ViewerService

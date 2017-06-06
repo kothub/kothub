@@ -1,12 +1,8 @@
-package gitlin.kothub.ui
+package gitlin.kothub.ui.issues
 
 import android.os.Bundle
-import android.app.Activity
-import android.arch.lifecycle.LifecycleRegistry
-import android.arch.lifecycle.LifecycleRegistryOwner
-import android.support.v7.app.AppCompatActivity
 import gitlin.kothub.R
-import gitlin.kothub.ui.AppDrawer
+import gitlin.kothub.ui.drawer.AppDrawer
 import gitlin.kothub.utilities.LifecycleAppCompatActivity
 import kotlinx.android.synthetic.main.toolbar.*
 
@@ -19,7 +15,6 @@ class IssuesActivity : LifecycleAppCompatActivity() {
         setContentView(R.layout.activity_issues)
         setSupportActionBar(toolbar)
         drawer = AppDrawer(this, toolbar)
-        lifecycle.addObserver(drawer)
         drawer.select(drawer.issues)
     }
 }

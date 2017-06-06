@@ -1,4 +1,4 @@
-package gitlin.kothub.ui
+package gitlin.kothub.ui.user
 
 import android.arch.lifecycle.*
 import android.content.Context
@@ -23,6 +23,7 @@ import gitlin.kothub.utilities.value
 import io.reactivex.Single
 import kotlinx.android.synthetic.main.fragment_user_profile.*
 import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.info
 
 class UserViewModel: ViewModel() {
 
@@ -30,9 +31,9 @@ class UserViewModel: ViewModel() {
     var user: String? = null
 
 
-    fun loadUser(context: Context) {
+    fun loadUser(context: Context, update: Boolean = false) {
 
-        if (summary.value != null) {
+        if (summary.value != null && !update) {
             return
         }
 
@@ -75,9 +76,6 @@ class UserProfileFragment : LifecycleFragment(), AnkoLogger {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (model.user != null) {
-            organizationsTitle.visibility = TextView.INVISIBLE
-        }
     }
 
     private fun updateView (summary: UserSummary) {
@@ -91,31 +89,45 @@ class UserProfileFragment : LifecycleFragment(), AnkoLogger {
 
         Picasso.with(imageView.context).load(summary.avatarUrl).into(imageView)
 
-        val snap = GravitySnapHelper(Gravity.START)
-        snap.attachToRecyclerView(pinned)
-        pinned.setHasFixedSize(true)
         pinned.adapter = PinnedRepositoryAdapter(context, summary.pinnedRepositories)
-        pinned.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
-        if (model.user == null) {
-            val snapOrg = GravitySnapHelper(Gravity.START)
-            snapOrg.attachToRecyclerView(organizations)
-            organizations.setHasFixedSize(true)
-            organizations.adapter = OrganizationSummaryAdapter(context, summary.organizations)
-            organizations.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        }
+        organizationsTitle.visibility =
+            if (summary.organizations.isEmpty()) {
+                TextView.INVISIBLE
+            }
+            else {
+                TextView.VISIBLE
+            }
+
+        organizations.adapter = OrganizationSummaryAdapter(context, summary.organizations)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         model.summary.observe(this, Observer { if (it != null) updateView(it) })
+
+        val snapPinned = GravitySnapHelper(Gravity.START)
+        snapPinned.attachToRecyclerView(pinned)
+        pinned.setHasFixedSize(true)
+        pinned.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+
+        val snapOrg = GravitySnapHelper(Gravity.START)
+        snapOrg.attachToRecyclerView(organizations)
+        organizations.setHasFixedSize(true)
+        organizations.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
     }
 
-    companion object {
+    fun updateUser(login: String?) {
+        model.user = login
+        model.loadUser(context, update = true)
+    }
+
+    companion object: AnkoLogger {
 
         val LOGIN: String = "LOGIN"
 
         fun newInstance(login: String? = null): UserProfileFragment {
+            info(login)
             val fragment = UserProfileFragment()
             val args = Bundle()
             args.putString(LOGIN, login)

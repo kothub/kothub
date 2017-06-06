@@ -3,7 +3,6 @@ package gitlin.kothub.ui
 import android.os.Bundle
 
 import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.debug
 import android.view.Gravity
 import android.widget.*
 import gitlin.kothub.R
@@ -12,6 +11,7 @@ import gitlin.kothub.github.api.data.Notifications
 import kotlinx.android.synthetic.main.toolbar.*
 import kotlinx.android.synthetic.main.activity_notifs.*
 import gitlin.kothub.github.api.*
+import gitlin.kothub.ui.drawer.AppDrawer
 import gitlin.kothub.utilities.LifecycleAppCompatActivity
 
 class NotificationActivity : LifecycleAppCompatActivity(), AnkoLogger {

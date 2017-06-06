@@ -34,18 +34,18 @@
             android:name=".ui.ViewerProfileActivity"
             android:label="@string/title_profile" />
         <activity
-            android:name=".ui.UserProfileActivity"
+            android:name=".ui.user.UserProfileActivity"
             android:label="@string/title_profile" />
         <activity
             android:name=".ui.NotificationActivity"
             android:label="@string/title_notifications"
             />
         <activity
-            android:name=".ui.IssuesActivity"
+            android:name=".ui.issues.IssuesActivity"
             android:label="@string/title_activity_issues"
             />
         <activity
-            android:name=".ui.PullRequestsActivity"
+            android:name=".ui.pulls.PullRequestsActivity"
             android:label="@string/pulls"
           />
 
@@ -67,7 +67,7 @@
         </service>
 
         <activity
-            android:name=".ui.SettingsActivity"
+            android:name=".ui.settings.SettingsActivity"
             android:label="@string/title_activity_settings"
            ></activity>
     </application>
