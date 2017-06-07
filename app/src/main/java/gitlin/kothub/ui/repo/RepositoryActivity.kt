@@ -1,68 +1,132 @@
 package gitlin.kothub.ui.repo
 
 
+import android.arch.lifecycle.MutableLiveData
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModel
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
-import android.support.v7.app.AppCompatActivity
+import com.squareup.picasso.Picasso
 
 import gitlin.kothub.R
-import gitlin.kothub.ui.drawer.AppDrawer
+import gitlin.kothub.accounts.getUserPicture
+import gitlin.kothub.github.api.RepositoryService
+import gitlin.kothub.github.api.data.RepositorySummary
+import gitlin.kothub.github.api.getService
 import gitlin.kothub.utilities.LifecycleAppCompatActivity
+import gitlin.kothub.utilities.get
+import gitlin.kothub.utilities.value
 import kotlinx.android.synthetic.main.activity_repository.*
-import kotlinx.android.synthetic.main.toolbar.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
+
+
+class RepositoryViewModel: ViewModel() {
+
+    val repo = MutableLiveData<RepositorySummary>()
+
+
+    fun loadRepository(context: Context, owner: String, name: String) {
+
+        if (repo.value != null) {
+            return
+        }
+
+        context
+            .getService<RepositoryService>()
+            .repository(owner, name)
+            .subscribe(
+            {
+                this.repo.value = it
+            },
+            {
+                throw it
+            }
+        )
+    }
+}
 
 class RepositoryActivity : LifecycleAppCompatActivity(), AnkoLogger {
 
     private var pagerAdapter: RepositoryPagerAdapter? = null
 
+    lateinit var model: RepositoryViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_repository)
-     //   setSupportActionBar(toolbar)
+        setSupportActionBar(toolbar)
+
+        model = ViewModelProviders.of(this).get<RepositoryViewModel>()
 
         val owner = intent.getStringExtra("owner")
         val name = intent.getStringExtra("name")
 
-        toolbar.title = "$owner/$name"
+        model.loadRepository(this, owner, name)
 
-        val drawer = AppDrawer(this, toolbar)
+        model.repo.observe(this, Observer {
+            if (it != null) updateView(it)
+        })
 
-        pagerAdapter = RepositoryPagerAdapter(supportFragmentManager, this)
-        viewpager.adapter = pagerAdapter
 
-        repository_tabs.setupWithViewPager(viewpager)
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        toolbar.setNavigationOnClickListener {
+            finish()
+        }
+
+        collapsing_toolbar.title = " "
+        collapsing_toolbar.setExpandedTitleColor(resources.getColor(android.R.color.transparent))
+        var scrollRange = -1
+        var showTitle = false
+        app_bar_layout.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
+
+            if (scrollRange + verticalOffset == 0) {
+                val sizeInPixel = this.resources.getDimensionPixelSize(R.dimen.toolbar_elevation);
+                toolbar.elevation = sizeInPixel.toFloat()
+            }
+            else {
+                toolbar.elevation = 0f
+            }
+
+            if (scrollRange == -1) {
+                scrollRange = appBarLayout.totalScrollRange
+            }
+            if (scrollRange + verticalOffset < 100) {
+                collapsing_toolbar.title = "$owner/$name"
+                showTitle = true
+            } else if(showTitle) {
+                collapsing_toolbar.title = " " // carefull there should a space between double quote otherwise it wont work
+                toolbar.elevation = 0f
+                showTitle = false
+            }
+        }
+
 
         info(owner)
         info(name)
 
 
-        // When swiping between different sections, select the corresponding
-        // tab. We can also use ActionBar.Tab#select() to do this if we have
-        // a reference to the Tab.
-//        viewpager.setOnPageChangeListener(object : ViewPager.SimpleOnPageChangeListener() {
-//            override fun onPageSelected(position: Int) {
-//                actionBar.setSelectedNavigationItem(position)
-//            }
-//        })
 
-        // For each of the sections in the app, add a tab to the action bar.
-//        for (i in 0..pagerAdapter!!.count - 1) {
-//            // Create a tab with text corresponding to the page title defined by
-//            // the adapter. Also specify this Activity object, which implements
-//            // the TabListener interface, as the callback (listener) for when
-//            // this tab is selected.
-//            actionBar.addTab(
-//                    actionBar.newTab()
-//                            .setText(pagerAdapter!!.getPageTitle(i))
-//                            .setTabListener(this))
-//        }
+    }
 
+
+    private fun updateView (repo: RepositorySummary) {
+
+        nameWithOwner.text = repo.nameWithOwner
+        Picasso.with(ownerPicture.context).load(repo.ownerAvatarUrl).into(ownerPicture)
+
+        if (repo.language != null) {
+            languageName.text = repo.language.name
+            languageColor.color = Color.parseColor(repo.language.color)
+        }
+
+        stargazers.value = repo.stargazers
+        forks.value = repo.forks
     }
 
     inner class RepositoryPagerAdapter(val fm: FragmentManager, context: Context) : FragmentPagerAdapter(fm) {

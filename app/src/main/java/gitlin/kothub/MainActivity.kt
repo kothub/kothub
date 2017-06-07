@@ -9,6 +9,8 @@ import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
 import gitlin.kothub.R.layout.activity_main
 import gitlin.kothub.accounts.TokenStore
+import gitlin.kothub.accounts.USER_LOGIN
+import gitlin.kothub.accounts.getUserLogin
 import kotlinx.android.synthetic.main.toolbar.*
 import org.jetbrains.anko.AnkoLogger
 import gitlin.kothub.receivers.NotificationReceiver

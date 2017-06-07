@@ -1,7 +1,11 @@
 package gitlin.kothub.github.api
 
 import android.content.Context
+import com.github.salomonbrys.kotson.obj
+import com.google.gson.JsonObject
+import gitlin.kothub.github.api.data.RepositorySummary
 import gitlin.kothub.github.api.dsl.*
+import io.reactivex.Single
 
 
 class RepositoryService(context: Context): ApiService(context) {
@@ -47,6 +51,14 @@ class RepositoryService(context: Context): ApiService(context) {
                 }
             }
 
+        }
+    }
+
+
+    fun repository (owner: String, name: String): Single<RepositorySummary> {
+
+        return query(summary, mapOf("owner" to owner, "name" to name)) {
+            it.map { RepositorySummary.fromJson(it["repository"].obj) }
         }
     }
 }

@@ -7,6 +7,7 @@ import android.accounts.AccountManager
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.View
 import gitlin.kothub.R
 import gitlin.kothub.github.api.ViewerService
 import gitlin.kothub.github.api.getService
@@ -108,7 +109,7 @@ class LoginActivity: AccountAuthenticatorActivity(), AnkoLogger {
         }
     }
 
-    fun onLoginClick() {
+    fun onLoginClick(view: View) {
         openWebView()
     }
 }

@@ -31,9 +31,6 @@
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity android:name=".accounts.LoginWebViewActivity" />
         <activity
-            android:name=".ui.ViewerProfileActivity"
-            android:label="@string/title_profile" />
-        <activity
             android:name=".ui.user.UserProfileActivity"
             android:label="@string/title_profile" />
         <activity
@@ -53,6 +50,7 @@
         <service
             android:name=".services.NotificationService"
             android:exported="false" />
+
         <service android:name=".accounts.AuthenticatorService">
             <intent-filter>
                 <action android:name="android.accounts.AccountAuthenticator" />

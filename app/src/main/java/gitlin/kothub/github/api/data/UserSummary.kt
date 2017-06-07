@@ -53,8 +53,6 @@ class UserSummary (
                 else
                     arrayListOf()
 
-            Log.e("TEST", json.toString())
-
             return UserSummary(
                     avatarUrl = json["avatarUrl"].string,
                     login = json["login"].string,

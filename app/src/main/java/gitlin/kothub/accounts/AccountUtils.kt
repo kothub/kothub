@@ -3,6 +3,7 @@ package gitlin.kothub.accounts
 import android.accounts.Account
 import android.accounts.AccountManager
 import android.content.Context
+import gitlin.kothub.R
 
 
 const val USER_PICTURE = "USER_PICTURE"
@@ -13,11 +14,14 @@ const val USER_NAME = "USER_NAME"
 
 fun getAccount (context: Context): Account? {
     val am = AccountManager.get(context)
-    if (am.accounts.size == 0) {
+    val authTokenType = context.getString(R.string.accountType)
+    val accounts = am.getAccountsByType(authTokenType)
+
+    if (accounts.size == 0) {
         return null
     }
     else {
-        return am.accounts[0]
+        return accounts[0]
     }
 }
 
