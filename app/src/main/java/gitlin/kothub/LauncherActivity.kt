@@ -19,7 +19,7 @@ import gitlin.kothub.ui.ActivityLauncher
 import org.jetbrains.anko.info
 
 
-class MainActivity : AppCompatActivity(), AnkoLogger {
+class LauncherActivity : AppCompatActivity(), AnkoLogger {
 
     private lateinit var notificationReceiver: NotificationReceiver
 

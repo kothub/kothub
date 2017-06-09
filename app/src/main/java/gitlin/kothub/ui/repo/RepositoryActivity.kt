@@ -17,13 +17,11 @@ import com.mikepenz.iconics.IconicsDrawable
 import com.squareup.picasso.Picasso
 
 import gitlin.kothub.R
-import gitlin.kothub.accounts.getUserPicture
 import gitlin.kothub.github.api.RepositoryService
 import gitlin.kothub.github.api.data.RepositorySummary
 import gitlin.kothub.github.api.getService
-import gitlin.kothub.utilities.LifecycleAppCompatActivity
+import gitlin.kothub.ui.LifecycleAppCompatActivity
 import gitlin.kothub.utilities.get
-import gitlin.kothub.utilities.markdown.formatReadme
 import gitlin.kothub.utilities.markdown.renderMarkdown
 import gitlin.kothub.utilities.value
 import kotlinx.android.synthetic.main.activity_repository.*

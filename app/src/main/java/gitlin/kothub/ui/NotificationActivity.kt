@@ -12,7 +12,6 @@ import kotlinx.android.synthetic.main.toolbar.*
 import kotlinx.android.synthetic.main.activity_notifs.*
 import gitlin.kothub.github.api.*
 import gitlin.kothub.ui.drawer.AppDrawer
-import gitlin.kothub.utilities.LifecycleAppCompatActivity
 
 class NotificationActivity : LifecycleAppCompatActivity(), AnkoLogger {
 

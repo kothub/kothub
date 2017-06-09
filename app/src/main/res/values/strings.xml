@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Kothub</string>
+    <string name="search_hint">Search for users, repositories, etc.</string>
     <string name="oauth_github_token">oauth_github_token</string>
     <string name="login">Login</string>
     <string name="github_preferences_file">github_preferences_files</string>
@@ -12,6 +13,7 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_settings">Settings</string>
+    <string name="action_search">Search</string>
     <string name="settings">Settings</string>
     <string name="feed">Feed</string>
     <string name="issues">Issues</string>
@@ -129,4 +131,5 @@ Fusce cras, tincidunt nec senectus sollicitudin gravida, nec vestibulum morbi, m
 
 Amet non, amet amet diam quam. Sociis quis, bibendum vitae, et at laudantium odio, at sit, eros doloribus. Aut tellus amet quis fusce justo pellentesque, cras eget in malesuada tellus voluptates eu. Sit vitae integer mi suspendisse est mi, ante interdum sodales sodales, amet varius donec inceptos sed, purus suscipit, purus donec. Enim tempus pellentesque, convallis pede, a sodales vel. Pellentesque morbi libero suspendisse, at varius vitae gravida condimentum, ipsum hendrerit ac et tincidunt, et massa ullamcorper ante. Lectus rutrum dignissim arcu, ligula ut.
     </string>
+    <string name="title_activity_search">SearchActivity</string>
 </resources>

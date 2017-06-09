@@ -3,7 +3,7 @@ package gitlin.kothub.ui.issues
 import android.os.Bundle
 import gitlin.kothub.R
 import gitlin.kothub.ui.drawer.AppDrawer
-import gitlin.kothub.utilities.LifecycleAppCompatActivity
+import gitlin.kothub.ui.LifecycleAppCompatActivity
 import kotlinx.android.synthetic.main.toolbar.*
 
 class IssuesActivity : LifecycleAppCompatActivity() {

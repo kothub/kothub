@@ -7,7 +7,7 @@ import gitlin.kothub.R
 import gitlin.kothub.ui.drawer.AppDrawer
 import gitlin.kothub.ui.getProfileName
 import kotlinx.android.synthetic.main.toolbar.*
-import gitlin.kothub.utilities.LifecycleAppCompatActivity
+import gitlin.kothub.ui.LifecycleAppCompatActivity
 import gitlin.kothub.utilities.createFragment
 
 

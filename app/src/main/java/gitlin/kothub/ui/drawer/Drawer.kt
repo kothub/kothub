@@ -34,7 +34,7 @@ import gitlin.kothub.ui.NotificationActivity
 import gitlin.kothub.ui.issues.IssuesActivity
 import gitlin.kothub.ui.pulls.PullRequestsActivity
 import gitlin.kothub.ui.settings.SettingsActivity
-import gitlin.kothub.utilities.LifecycleAppCompatActivity
+import gitlin.kothub.ui.LifecycleAppCompatActivity
 import io.reactivex.rxkotlin.addTo
 import org.jetbrains.anko.*
 
