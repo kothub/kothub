@@ -100,11 +100,12 @@
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginStart="248dp"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintEnd_toStartOf="@+id/stargazers" />
+                app:layout_constraintEnd_toStartOf="@+id/stargazers"
+                app:layout_constraintHorizontal_chainStyle="packed" />
 
             <TextView
                 android:id="@+id/stargazers"
-                android:layout_width="wrap_content"
+                android:layout_width="27dp"
                 android:layout_height="wrap_content"
                 android:textSize="16dip"
                 tools:text="140"
@@ -132,7 +133,7 @@
 
             <TextView
                 android:id="@+id/forks"
-                android:layout_width="wrap_content"
+                android:layout_width="27dp"
                 android:layout_height="wrap_content"
                 android:textSize="16dip"
                 tools:text="168"
@@ -205,7 +206,7 @@
         style="@style/FabStyle"
         app:layout_anchor="@id/app_bar_layout"
         app:layout_anchorGravity="bottom|right|end"
-        app:srcCompat="@android:drawable/ic_menu_share" />
+        android:background="@drawable/ripple"/>
 
 
 </android.support.design.widget.CoordinatorLayout>

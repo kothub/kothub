@@ -12,6 +12,8 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import android.text.method.LinkMovementMethod
+import com.mikepenz.google_material_typeface_library.GoogleMaterial
+import com.mikepenz.iconics.IconicsDrawable
 import com.squareup.picasso.Picasso
 
 import gitlin.kothub.R
@@ -81,6 +83,10 @@ class RepositoryActivity : LifecycleAppCompatActivity(), AnkoLogger {
         toolbar.setNavigationOnClickListener {
             finish()
         }
+
+        fab.setImageDrawable(
+                IconicsDrawable(this).icon(GoogleMaterial.Icon.gmd_share).color(Color.WHITE)
+        )
 
         collapsing_toolbar.title = " "
         collapsing_toolbar.setExpandedTitleColor(resources.getColor(android.R.color.transparent))
