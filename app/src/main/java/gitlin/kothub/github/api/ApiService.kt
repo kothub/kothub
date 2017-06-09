@@ -1,6 +1,7 @@
 package gitlin.kothub.github.api
 
 import android.content.Context
+import android.util.Log
 import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.core.FuelError
 import com.github.kittinunf.fuel.core.Request
@@ -38,25 +39,37 @@ abstract class ApiService(val context: Context) {
      * Base query for API v4
      */
     fun baseQuery(query: String, variables: Map<String, Any> = mapOf<String, Any>()): Single<JsonObject> {
+
         val jsonVariables = gson.toJson(variables)
+        Log.i("Post JSON Variables", jsonVariables)
 
         val token = TokenStore.get(context).getToken()
+
+        Log.i("Query", query)
+        Log.i("Post TOKEN", token)
 
         return Fuel.post("https://api.github.com/graphql")
                 .header(Pair("Authorization", "Bearer $token"))
                 .body("{ \"query\": \"$query\", \"variables\": $jsonVariables }")
                 .rx_responseString()
                 .subscribeOn(Schedulers.io())
-                .map { (_, result) ->
+                .map { (response, result) ->
 
                     val (body) = result
+
+                    if (response.httpStatusCode >= 400) {
+                        throw GithubApiException(String(response.data), response.httpStatusCode)
+                    }
+
+                    Log.i("Post BODY", response.httpStatusCode.toString())
+                    Log.i("Post BODY", String(response.data))
 
                     val json = parser.parse(body)
                     val data = json["data"]
 
                     if (data.isJsonNull) {
                         val errors = json["errors"].asJsonArray.map { it["message"].asString }
-                        throw GithubApiException(errors)
+                        throw GithubApiException(errors, response.httpStatusCode)
                     }
 
                     data.asJsonObject

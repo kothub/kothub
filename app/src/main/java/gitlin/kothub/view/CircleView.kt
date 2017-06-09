@@ -3,13 +3,15 @@ package gitlin.kothub.view
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint
+import android.support.v7.widget.AppCompatImageView
 import android.util.AttributeSet
 import android.view.View
 import gitlin.kothub.R
 
-class CircleView(context: Context, val attrs: AttributeSet) : View(context, attrs) {
+class CircleView(context: Context, val attrs: AttributeSet?) : View(context, attrs) {
 
     constructor(context: Context, attrs: AttributeSet, defStyle: Int): this(context, attrs)
+    constructor(context: Context): this(context, null)
 
     var color: Int = android.R.color.black
     var radius = 10
@@ -35,6 +37,7 @@ class CircleView(context: Context, val attrs: AttributeSet) : View(context, attr
         fillPaint.color = color
         return fillPaint
     }
+
 
 
     override fun onDraw(canvas: Canvas) {

@@ -50,7 +50,6 @@
         <service
             android:name=".services.NotificationService"
             android:exported="false" />
-
         <service android:name=".accounts.AuthenticatorService">
             <intent-filter>
                 <action android:name="android.accounts.AccountAuthenticator" />
@@ -67,7 +66,13 @@
         <activity
             android:name=".ui.repo.RepositoryActivity"
             android:label="@string/title_activity_repository"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
+        <activity android:name=".ui.repo.FileActivity">
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"></action>
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

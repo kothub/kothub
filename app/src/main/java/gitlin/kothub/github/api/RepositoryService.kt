@@ -33,17 +33,17 @@ class RepositoryService(context: Context): ApiService(context) {
                     viewerHasStarred
                     viewerCanSubscribe
                     pushedAt
-                    obj(alias = "READMEMD", expression = "master:README.md") {
+                    obj(alias = "READMEMD", expression = value("master:README.md")) {
                         on<Blob> {
                             text
                         }
                     }
-                    obj(alias = "README", expression = "master:README") {
+                    obj(alias = "README", expression = value("master:README")) {
                         on<Blob> {
                             text
                         }
                     }
-                    obj(alias = "READMETXT", expression = "master:README.txt") {
+                    obj(alias = "READMETXT", expression = value("master:README.txt")) {
                         on<Blob> {
                             text
                         }

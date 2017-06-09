@@ -33,7 +33,7 @@ class Node(name: String = "node", val fields: MutableList<Field>, val variables:
             val value: Any? = variable.value
             return when (value) {
                 null -> null
-                is String -> "$key: \"$value\""
+                is String -> "$key: \\\"$value\\\""
                 else -> "$key: $value"
             }
         }

@@ -11,6 +11,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
+import android.text.method.LinkMovementMethod
 import com.squareup.picasso.Picasso
 
 import gitlin.kothub.R
@@ -20,6 +21,8 @@ import gitlin.kothub.github.api.data.RepositorySummary
 import gitlin.kothub.github.api.getService
 import gitlin.kothub.utilities.LifecycleAppCompatActivity
 import gitlin.kothub.utilities.get
+import gitlin.kothub.utilities.markdown.formatReadme
+import gitlin.kothub.utilities.markdown.renderMarkdown
 import gitlin.kothub.utilities.value
 import kotlinx.android.synthetic.main.activity_repository.*
 import org.jetbrains.anko.AnkoLogger
@@ -127,6 +130,11 @@ class RepositoryActivity : LifecycleAppCompatActivity(), AnkoLogger {
 
         stargazers.value = repo.stargazers
         forks.value = repo.forks
+
+        val html = renderMarkdown(this, repo.readme, repo.nameWithOwner, "master")
+
+        readme.text = html
+        readme.movementMethod = LinkMovementMethod.getInstance()
     }
 
     inner class RepositoryPagerAdapter(val fm: FragmentManager, context: Context) : FragmentPagerAdapter(fm) {

@@ -67,10 +67,11 @@ class RepositorySummary (
                     if (json["primaryLanguage"].isJsonNull) null
                     else gson.fromJson<Language>(json["primaryLanguage"].obj)
 
+            Log.i("Repo", json.toString())
 
-            val readmemd = json["READMEMD"].nullString
-            val readme = json["README"].nullString
-            val readmetxt = json["READMETXT"].nullString
+            val readmemd: String? = if (json["READMEMD"].isJsonNull) null else json["READMEMD"]["text"].string
+            val readme: String? = if (json["README"].isJsonNull) null else json["README"]["text"].string
+            val readmetxt: String? = if (json["READMETXT"].isJsonNull) null else json["READMETXT"]["text"].string
 
             val finalReadme = readmemd ?: readme ?: readmetxt ?: ""
 

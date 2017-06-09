@@ -58,11 +58,11 @@ class Repository(override val level: Int): Element {
         addField(Node("primaryLanguage", language.fields))
     }
 
-    fun obj(alias: String, expression: String, body: GitObject.() -> Unit) {
+    fun obj(alias: String, expression: Variable<String>, body: GitObject.() -> Unit) {
 
         val gitobject = GitObject(nextLevel())
         gitobject.body()
-        addField(Node("$alias: object", gitobject.fields))
+        addField(Node("$alias: object", gitobject.fields, variables("expression" to expression)))
     }
 }
 //
