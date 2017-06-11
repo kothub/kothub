@@ -6,39 +6,22 @@ import com.google.gson.Gson
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 
-/*
-query(Type.STRING("owner"), Type.STRING("name")) {
-                repository(owner = variable("owner"), name = variable("name")) {
-                    watchers { totalCount }
-                    stargazers { totalCount }
-                    forks { totalCount }
-                    license
-                    primaryLanguage {
-                        color
-                        name
-                    }
-                    viewerHasStarred
-                    viewerCanSubscribe
-                    pushedAt
-                    obj(alias = "READMEMD", expression = "master:README.md") {
-                        on<Blob> {
-                            text
-                        }
-                    }
-                    obj(alias = "README", expression = "master:README") {
-                        on<Blob> {
-                            text
-                        }
-                    }
-                    obj(alias = "READMETXT", expression = "master:README.txt") {
-                        on<Blob> {
-                            text
-                        }
-                    }
-                }
-            }
- */
+class RepositoryReadme(
+    val value: String
+) {
+    companion object: Deserializer<RepositoryReadme> {
 
+        val gson = Gson()
+
+        override fun fromJson(json: JsonObject): RepositoryReadme {
+            val readmemd: String? = if (json["READMEMD"].isJsonNull) null else json["READMEMD"]["text"].string
+            val readme: String? = if (json["README"].isJsonNull) null else json["README"]["text"].string
+            val readmetxt: String? = if (json["READMETXT"].isJsonNull) null else json["READMETXT"]["text"].string
+
+            return RepositoryReadme(readmemd ?: readme ?: readmetxt ?: "# No README")
+        }
+    }
+}
 
 class RepositorySummary (
         val ownerAvatarUrl: String,
@@ -52,8 +35,7 @@ class RepositorySummary (
         val language: Language?,
         val viewHasStarred: Boolean,
         val viewerCanSubscribe: Boolean,
-        val pushedAt: String?,
-        val readme: String
+        val pushedAt: String?
 ) {
 
 
@@ -67,14 +49,6 @@ class RepositorySummary (
                     if (json["primaryLanguage"].isJsonNull) null
                     else gson.fromJson<Language>(json["primaryLanguage"].obj)
 
-            Log.i("Repo", json.toString())
-
-            val readmemd: String? = if (json["READMEMD"].isJsonNull) null else json["READMEMD"]["text"].string
-            val readme: String? = if (json["README"].isJsonNull) null else json["README"]["text"].string
-            val readmetxt: String? = if (json["READMETXT"].isJsonNull) null else json["READMETXT"]["text"].string
-
-            val finalReadme = readmemd ?: readme ?: readmetxt ?: ""
-
             return RepositorySummary(
                     ownerAvatarUrl = json["owner"]["avatarUrl"].string,
                     ownerLogin = json["owner"]["login"].string,
@@ -87,8 +61,7 @@ class RepositorySummary (
                     language = language,
                     viewerCanSubscribe = json["viewerCanSubscribe"].bool,
                     viewHasStarred = json["viewerHasStarred"].bool,
-                    pushedAt = json["pushedAt"].nullString,
-                    readme = finalReadme
+                    pushedAt = json["pushedAt"].nullString
             )
         }
     }

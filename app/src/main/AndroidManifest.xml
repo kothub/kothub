@@ -65,7 +65,6 @@
             android:label="@string/title_activity_settings" />
         <activity
             android:name=".ui.repo.RepositoryActivity"
-            android:label="@string/title_activity_repository"
             android:theme="@style/AppTheme" />
         <activity android:name=".ui.repo.FileActivity">
             <intent-filter>
