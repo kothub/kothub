@@ -29,15 +29,6 @@ open class LifecycleAppCompatActivity: AppCompatActivity(), LifecycleRegistryOwn
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         IconicsMenuInflatorUtil.inflate(menuInflater, this, R.menu.base_menu, menu)
-
-//        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
-//        val menuItem = menu.findItem(R.id.action_search)
-//
-//        val searchView = MenuItemCompat.getActionView(menuItem) as SearchView
-//
-//        searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName))
-//        searchView.setIconifiedByDefault(false)
-
         return true
     }
 

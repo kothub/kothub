@@ -5,6 +5,7 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.text.Spanned
 import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
 import android.view.View
@@ -13,9 +14,8 @@ import com.squareup.picasso.Picasso
 import gitlin.kothub.R
 import gitlin.kothub.github.api.data.RepositoryReadme
 import gitlin.kothub.github.api.data.RepositorySummary
-import gitlin.kothub.utilities.get
+import gitlin.kothub.utilities.*
 import gitlin.kothub.utilities.markdown.renderMarkdown
-import gitlin.kothub.utilities.value
 import kotlinx.android.synthetic.main.fragment_repository.*
 import kotlinx.android.synthetic.main.repository_header.*
 import org.jetbrains.anko.AnkoLogger
@@ -35,12 +35,22 @@ class RepositoryFragment : LifecycleFragment(), AnkoLogger {
         model.loadReadme(context)
     }
 
+    override fun onResume() {
+        super.onResume()
+        model = ViewModelProviders.of(activity).get<RepositoryViewModel>()
+    }
+
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_repository, container, false)
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
         model.readme.observe(this, Observer {
             if (it != null) updateView(it)
         })
@@ -48,15 +58,8 @@ class RepositoryFragment : LifecycleFragment(), AnkoLogger {
         readme.movementMethod = LinkMovementMethod.getInstance()
     }
 
-    private fun updateView (repo: RepositoryReadme) {
-
-        doAsync {
-            val html = renderMarkdown(context, repo.value, model.nameWithOwner, "master")
-
-            uiThread {
-               readme.text = html
-            }
-        }
+    private fun updateView (repo: Spanned) {
+        readme.text = repo
     }
 
     companion object {

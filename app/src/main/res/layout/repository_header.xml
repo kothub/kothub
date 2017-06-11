@@ -1,153 +1,136 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="right"
+    android:padding="10dp"
+    tools:layout_editor_absoluteX="0dp"
     tools:layout_editor_absoluteY="25dp"
-    tools:layout_editor_absoluteX="0dp">
+    tools:showIn="@layout/activity_repository">
 
-    <!--<de.hdodenhof.circleimageview.CircleImageView-->
-        <!--android:id="@+id/ownerPicture"-->
-        <!--android:layout_width="42dp"-->
-        <!--android:layout_height="42dp"-->
-        <!--android:adjustViewBounds="false"-->
-        <!--android:cropToPadding="false"-->
-        <!--app:civ_border_color="#FF000000"-->
-        <!--app:civ_border_width="2dp"-->
-        <!--app:layout_constraintStart_toStartOf="parent"-->
-        <!--android:layout_marginStart="16dp"-->
-        <!--app:layout_constraintTop_toTopOf="parent"-->
-        <!--android:layout_marginTop="0dp"-->
-        <!--app:layout_constraintEnd_toStartOf="@+id/nameWithOwner"-->
-        <!--android:layout_marginEnd="8dp"-->
-        <!--app:layout_constraintHorizontal_chainStyle="packed"-->
-        <!--app:layout_constraintHorizontal_bias="0.0" />-->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="15dp"
+        android:orientation="vertical">
+
+        <com.mikepenz.iconics.view.IconicsImageView
+            android:id="@+id/watchersIcon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center_horizontal"
+            app:iiv_color="@color/grey95"
+            app:iiv_icon="oct_eye"
+            app:layout_constraintBottom_toTopOf="@+id/watchers"
+            app:layout_constraintEnd_toEndOf="@+id/watchers"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@+id/watchers"
+            tools:layout_editor_absoluteX="164dp"
+            tools:layout_editor_absoluteY="8dp" />
+
+        <TextView
+            android:id="@+id/watchers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="5dp"
+            android:textSize="16dip"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintTop_toBottomOf="@+id/watchersIcon"
+            tools:layout_editor_absoluteX="161dp"
+            tools:layout_editor_absoluteY="50dp"
+            tools:text="140"></TextView>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="15dp"
+        android:orientation="vertical">
+
+        <com.mikepenz.iconics.view.IconicsImageView
+            android:id="@+id/stargazersIcon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center_horizontal"
+            app:iiv_color="@color/grey95"
+            app:iiv_icon="oct_star"
+            app:layout_constraintBottom_toTopOf="@+id/stargazers"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintVertical_chainStyle="spread"
+            tools:layout_editor_absoluteX="222dp"
+            tools:layout_editor_absoluteY="8dp" />
+
+
+        <TextView
+            android:id="@+id/stargazers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="5dp"
+            android:textSize="16dip"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintTop_toBottomOf="@+id/stargazersIcon"
+            tools:layout_editor_absoluteX="222dp"
+            tools:layout_editor_absoluteY="54dp"
+            tools:text="140"></TextView>
+    </LinearLayout>
+
 
     <!--<TextView-->
-        <!--android:id="@+id/nameWithOwner"-->
-        <!--android:layout_width="266dp"-->
-        <!--android:layout_height="31dp"-->
-        <!--android:layout_marginEnd="8dp"-->
-        <!--android:layout_marginStart="8dp"-->
-        <!--android:layout_marginTop="6dp"-->
-        <!--android:textAppearance="@style/TextAppearance.AppCompat.Large"-->
-        <!--android:textSize="18sp"-->
-        <!--app:layout_constraintEnd_toEndOf="parent"-->
-        <!--app:layout_constraintStart_toEndOf="@+id/ownerPicture"-->
-        <!--app:layout_constraintTop_toTopOf="parent" />-->
+    <!--android:id="@+id/languageName"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:textSize="14sp"-->
+    <!--tools:text="Typescript"-->
+    <!--app:layout_constraintStart_toStartOf="parent"-->
+    <!--android:layout_marginStart="16dp"-->
+    <!--app:layout_constraintTop_toTopOf="@+id/guideline"-->
+    <!--android:layout_marginTop="8dp"-->
+    <!--app:layout_constraintHorizontal_chainStyle="packed"-->
+    <!--app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--android:layout_marginBottom="16dp"></TextView>-->
 
-
-    <com.mikepenz.iconics.view.IconicsImageView
-        android:id="@+id/watchersIcon"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        app:iiv_color="@android:color/white"
-        app:iiv_icon="oct_eye"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintTop_toTopOf="@+id/guideline"
-        android:layout_marginTop="8dp"
-        app:layout_constraintStart_toEndOf="@+id/languageName"
-        app:layout_constraintHorizontal_bias="0.92"
-        app:layout_constraintEnd_toStartOf="@+id/watchers"
-        android:layout_marginEnd="8dp" />
-
-
-
-    <TextView
-        android:id="@+id/watchers"
-        android:layout_width="27dp"
-        android:layout_height="wrap_content"
-        android:textSize="16dip"
-        tools:text="140"
-        tools:layout_editor_absoluteX="214dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toTopOf="@+id/guideline"
-        app:layout_constraintStart_toEndOf="@+id/watchersIcon"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintEnd_toStartOf="@+id/stargazersIcon"></TextView>
-
-
-
-    <TextView
-        android:id="@+id/languageName"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="14sp"
-        tools:text="Typescript"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginStart="16dp"
-        app:layout_constraintTop_toTopOf="@+id/guideline"
-        android:layout_marginTop="8dp"
-        app:layout_constraintHorizontal_chainStyle="packed"></TextView>
+        android:layout_marginRight="15dp"
+        android:orientation="vertical">
 
-    <com.mikepenz.iconics.view.IconicsImageView
-        android:id="@+id/stargazersIcon"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginTop="8dp"
-        app:iiv_color="@android:color/white"
-        app:iiv_icon="oct_star"
-        app:layout_constraintTop_toTopOf="@+id/guideline"
-        app:layout_constraintStart_toEndOf="@+id/watchers"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintEnd_toStartOf="@+id/stargazers"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp" />
+        <com.mikepenz.iconics.view.IconicsImageView
+            android:id="@+id/forksIcon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center_horizontal"
+            app:iiv_icon="oct_repo_forked"
+            app:iiv_color="@color/grey95"
+            app:layout_constraintBottom_toTopOf="@+id/forks"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:layout_editor_absoluteX="292dp" />
 
-
-
-    <TextView
-    android:id="@+id/stargazers"
-    android:layout_width="27dp"
-    android:layout_height="wrap_content"
-    android:textSize="16dip"
-    tools:text="140"
-    app:layout_constraintEnd_toStartOf="@+id/forksIcon"
-    android:layout_marginEnd="8dp"
-    app:layout_constraintStart_toEndOf="@+id/stargazersIcon"
-    app:layout_constraintHorizontal_bias="0.5"
-    app:layout_constraintTop_toTopOf="@+id/guideline"
-    android:layout_marginTop="8dp"></TextView>
-
-<com.mikepenz.iconics.view.IconicsImageView
-    android:id="@+id/forksIcon"
-    android:layout_width="24dp"
-    android:layout_height="24dp"
-    app:iiv_color="@android:color/white"
-    app:iiv_icon="oct_repo_forked"
-    app:layout_constraintEnd_toStartOf="@+id/forks"
-    android:layout_marginEnd="8dp"
-    app:layout_constraintStart_toEndOf="@+id/stargazers"
-    app:layout_constraintHorizontal_bias="0.5"
-    app:layout_constraintTop_toTopOf="@+id/guideline"
-    android:layout_marginTop="8dp" />
-
-<TextView
-    android:id="@+id/forks"
-    android:layout_width="27dp"
-    android:layout_height="wrap_content"
-    android:textSize="16dip"
-    tools:text="168"
-    app:layout_constraintEnd_toEndOf="parent"
-    android:layout_marginEnd="8dp"
-    app:layout_constraintStart_toEndOf="@+id/forksIcon"
-    app:layout_constraintHorizontal_bias="0.5"
-    app:layout_constraintTop_toTopOf="@+id/guideline"
-    android:layout_marginTop="8dp"
-    app:layout_constraintBottom_toBottomOf="parent"
-    android:layout_marginBottom="8dp"></TextView>
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="2dp" />
+        <TextView
+            android:id="@+id/forks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="5dp"
+            android:textSize="16dip"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintTop_toBottomOf="@+id/forksIcon"
+            tools:layout_editor_absoluteX="285dp"
+            tools:layout_editor_absoluteY="16dp"
+            tools:text="168"></TextView>
+    </LinearLayout>
 
 
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>
 
 

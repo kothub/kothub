@@ -11,6 +11,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
+import android.text.Spanned
 import android.text.method.LinkMovementMethod
 import com.mikepenz.google_material_typeface_library.GoogleMaterial
 import com.mikepenz.iconics.IconicsDrawable
@@ -35,7 +36,7 @@ import org.jetbrains.anko.info
 class RepositoryViewModel(): ViewModel() {
 
     val repo = MutableLiveData<RepositorySummary>()
-    val readme = MutableLiveData<RepositoryReadme>()
+    val readme = MutableLiveData<Spanned>()
 
     lateinit var owner: String
     lateinit var name: String
@@ -122,11 +123,12 @@ class RepositoryActivity : LifecycleAppCompatActivity(), AnkoLogger {
 
     private fun updateHeaderView (repo: RepositorySummary) {
 
-        nameWithOwner.text = repo.nameWithOwner
+        repoOwner.text = repo.ownerLogin
+        repoName.text = repo.name
         Picasso.with(ownerPicture.context).load(repo.ownerAvatarUrl).into(ownerPicture)
 
         if (repo.language != null) {
-            languageName.text = repo.language.name
+//            languageName.text = repo.language.name
 //            languageColor.color = Color.parseColor(repo.language.color)
         }
 

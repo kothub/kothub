@@ -1,11 +1,13 @@
 package gitlin.kothub.github.api
 
 import android.content.Context
+import android.text.Spanned
 import com.github.salomonbrys.kotson.obj
 import com.google.gson.JsonObject
 import gitlin.kothub.github.api.data.RepositoryReadme
 import gitlin.kothub.github.api.data.RepositorySummary
 import gitlin.kothub.github.api.dsl.*
+import gitlin.kothub.utilities.markdown.renderMarkdown
 import io.reactivex.Single
 
 
@@ -22,6 +24,7 @@ class RepositoryService(context: Context): ApiService(context) {
                         login
                         avatarUrl
                     }
+                    name
                     description
                     watchers { totalCount }
                     stargazers { totalCount }
@@ -85,10 +88,13 @@ class RepositoryService(context: Context): ApiService(context) {
         }
     }
 
-    fun readme(owner: String, name: String): Single<RepositoryReadme> {
+    fun readme(owner: String, name: String): Single<Spanned?> {
 
         return query(README, mapOf("owner" to owner, "name" to name)) {
             it.map { RepositoryReadme.fromJson(it["repository"].obj) }
+            .map {
+                renderMarkdown(context, it.value, "$owner/$name", "master")
+            }
         }
     }
 }
