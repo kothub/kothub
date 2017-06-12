@@ -28,7 +28,7 @@ class NotificationActivity : LifecycleAppCompatActivity(), AnkoLogger {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_notifs)
         setSupportActionBar(toolbar)
-        initDrawer(this, toolbar)
+        initDrawer(toolbar)
 
         val progressBar = ProgressBar(this)
 

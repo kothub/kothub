@@ -11,7 +11,7 @@ class PullRequestsActivity : LifecycleAppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pull_requests)
         setSupportActionBar(toolbar)
-        initDrawer(this, toolbar)
+        initDrawer(toolbar)
     }
 
     override fun onResume() {

@@ -25,8 +25,8 @@ open class LifecycleAppCompatActivity: AppCompatActivity(), LifecycleRegistryOwn
 
     override fun getLifecycle(): LifecycleRegistry = registry
 
-    protected fun initDrawer (context: LifecycleAppCompatActivity, toolbar: Toolbar) {
-        this.drawer = AppDrawer(context, toolbar)
+    protected fun initDrawer (toolbar: Toolbar) {
+        this.drawer = AppDrawer(this, toolbar)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

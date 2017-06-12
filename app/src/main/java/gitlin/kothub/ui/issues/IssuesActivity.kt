@@ -11,7 +11,7 @@ class IssuesActivity : LifecycleAppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_issues)
         setSupportActionBar(toolbar)
-        initDrawer(this, toolbar)
+        initDrawer(toolbar)
     }
 
     override fun onResume() {

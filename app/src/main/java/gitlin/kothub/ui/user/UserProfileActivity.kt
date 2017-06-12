@@ -19,7 +19,7 @@ class UserProfileActivity : LifecycleAppCompatActivity(), AnkoLogger {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
         setSupportActionBar(toolbar)
-        initDrawer(this, toolbar)
+        initDrawer(toolbar)
 
         this.fragment = UserProfileFragment.newInstance(getProfileName(intent))
         createFragment(savedInstanceState, R.id.user_profile_fragment) {
