@@ -41,6 +41,7 @@ import gitlin.kothub.ui.settings.SettingsActivity
 import gitlin.kothub.utilities.delay
 import io.reactivex.rxkotlin.addTo
 import org.jetbrains.anko.*
+import java.text.SimpleDateFormat
 
 
 class ProfileImageListener(val onClick: () -> Unit): AccountHeader.OnAccountHeaderProfileImageListener {
@@ -137,11 +138,12 @@ class AppDrawer(private val activity: LifecycleAppCompatActivity, val toolbar: T
                     }
                     else {
 
-                        val date = java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'").parse(currentRateLimit?.resetAt)
-                        val hour = java.text.SimpleDateFormat("HH:mm").format(date)
+                        val date = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'").parse(currentRateLimit?.resetAt)
+                        val hour = SimpleDateFormat("HH:mm").format(date)
 
-                        activity.alert("The rate limit is the number of points remaining on your API account. " +
-                                       "It resets every hour. If you reach zero, you will not be able to use the application until $hour GMT+00:00") {
+                        val message = String.format(activity.getString(R.string.github_rate_message), hour)
+
+                        activity.alert(message) {
                             okButton {  }
                         }.show()
 

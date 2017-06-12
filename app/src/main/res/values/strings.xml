@@ -40,6 +40,10 @@
     <string name="github_status_minor">Minor outage</string>
     <string name="github_status_major">Major outage</string>
 
+    <string name="github_rate_message">
+        The rate limit is the number of points remaining on your API account.
+        It resets every hour. If you reach zero, you will not be able to use the application until %1$s GMT+00:00.
+    </string>
 
     <!-- Account -->
     <string name="accountType">com.kothub</string>
@@ -70,6 +74,8 @@
         <item>0</item>
         <item>-1</item>
     </string-array>
+
+
 
     <!-- Example settings for Data & Sync -->
     <string name="pref_header_data_sync">Data &amp; sync</string>
