@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Kothub</string>
+    <string name="search_hint">Search for users, repositories, etc.</string>
     <string name="oauth_github_token">oauth_github_token</string>
     <string name="login">Login</string>
     <string name="github_preferences_file">github_preferences_files</string>
@@ -12,6 +13,7 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_settings">Settings</string>
+    <string name="action_search">Search</string>
     <string name="settings">Settings</string>
     <string name="feed">Feed</string>
     <string name="issues">Issues</string>
@@ -35,4 +37,105 @@
     <string name="github_status_good">Good</string>
     <string name="github_status_minor">Minor outage</string>
     <string name="github_status_major">Major outage</string>
+
+
+    <!-- Account -->
+    <string name="accountType">com.kothub</string>
+    <string name="oct_mark_github_string_login">{oct_mark_github} Login</string>
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Strings related to Settings -->
+
+    <!-- Example General settings -->
+    <string name="pref_header_general">General</string>
+
+    <string name="pref_title_social_recommendations">Enable social recommendations</string>
+    <string name="pref_description_social_recommendations">Recommendations for people to contact
+        based on your message history
+    </string>
+
+    <string name="pref_title_display_name">Display name</string>
+    <string name="pref_default_display_name">John Smith</string>
+
+    <string name="pref_title_add_friends_to_messages">Add friends to messages</string>
+    <string-array name="pref_example_list_titles">
+        <item>Always</item>
+        <item>When possible</item>
+        <item>Never</item>
+    </string-array>
+    <string-array name="pref_example_list_values">
+        <item>1</item>
+        <item>0</item>
+        <item>-1</item>
+    </string-array>
+
+    <!-- Example settings for Data & Sync -->
+    <string name="pref_header_data_sync">Data &amp; sync</string>
+
+    <string name="pref_title_sync_frequency">Sync frequency</string>
+    <string-array name="pref_sync_frequency_titles">
+        <item>15 minutes</item>
+        <item>30 minutes</item>
+        <item>1 hour</item>
+        <item>3 hours</item>
+        <item>6 hours</item>
+        <item>Never</item>
+    </string-array>
+    <string-array name="pref_sync_frequency_values">
+        <item>15</item>
+        <item>30</item>
+        <item>60</item>
+        <item>180</item>
+        <item>360</item>
+        <item>-1</item>
+    </string-array>
+
+    <string-array name="list_preference_entries">
+        <item>Entry 1</item>
+        <item>Entry 2</item>
+        <item>Entry 3</item>
+    </string-array>
+
+    <string-array name="list_preference_entry_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+    <string-array name="multi_select_list_preference_default_value" />
+
+    <string name="pref_title_system_sync_settings">System sync settings</string>
+
+    <!-- Example settings for Notifications -->
+    <string name="pref_header_notifications">Notifications</string>
+
+    <string name="pref_title_new_message_notifications">New message notifications</string>
+
+    <string name="pref_title_ringtone">Ringtone</string>
+    <string name="pref_ringtone_silent">Silent</string>
+
+    <string name="pref_title_vibrate">Vibrate</string>
+    <string name="title_activity_repository">Repository</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="tab_text_3">Tab 3</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+
+
+    <string name="lorem_ipsum">
+         Lorem ipsum dolor sit amet, ornare lectus, faucibus dui luctus mauris donec urna et, nulla hymenaeos. Dui porttitor rhoncus morbi ullamcorper mattis. Molestie blandit per tellus vestibulum, eu duis risus pellentesque augue, et tortor mollis mi maecenas volutpat. Vitae feugiat mi. Sem bibendum ornare quam ac, diam aliquam, praesent eu tempus placerat, proin nec commodo rhoncus curabitur per ultricies.
+
+Nec wisi sem turpis proin velit ut, integer vivamus mauris nulla nulla elit vehicula, dicta elit nisl sunt fames nec, libero vivamus auctor tempor libero, senectus posuere. Pretium pede vitae aliquam auctor, risus egestas. Suspendisse pulvinar lorem ac orci, integer mus laoreet ornare in. Venenatis erat wisi quam integer egestas nam, adipiscing lacus ullamcorper nibh, sapien ac. Blandit dui eget, eget ut sapien, mi mollis sit imperdiet quis sed vitae. Orci pede nisl pellentesque, amet accumsan, venenatis tincidunt, egestas ut quisque, et dapibus praesent quis. Tortor faucibus in fringilla ornare lorem vel, erat ut. Lacus maecenas vestibulum elementum montes sed mauris. Arcu arcu dolor suspendisse, dui est lectus libero mi, eu ut amet per enim nunc, vestibulum vivamus magnis nunc a. Ac magna amet libero ornare eget neque. Maecenas vestibulum pellentesque, sollicitudin leo, pulvinar non mauris. Est aute ipsum nulla, tellus luctus sem sit in, at luctus, sed lobortis potenti enim ut bibendum venenatis, ornare id cum mi sed dui.
+
+Fusce cras, tincidunt nec senectus sollicitudin gravida, nec vestibulum morbi, morbi cursus. Quam mauris, a a commodo, sem pretium posuere, iaculis diam cras volutpat pulvinar. Fringilla nec quam, libero porta vestibulum sapien et maecenas sed, vitae maecenas ac et, cursus ut ac magna nec, a vitae nulla et eleifend platea turpis. Consectetuer duis ac, in tempus dignissim. Dui libero dui luctus, mus dolor donec metus, beatae enim a nec ac dictum in.
+
+Amet non, amet amet diam quam. Sociis quis, bibendum vitae, et at laudantium odio, at sit, eros doloribus. Aut tellus amet quis fusce justo pellentesque, cras eget in malesuada tellus voluptates eu. Sit vitae integer mi suspendisse est mi, ante interdum sodales sodales, amet varius donec inceptos sed, purus suscipit, purus donec. Enim tempus pellentesque, convallis pede, a sodales vel. Pellentesque morbi libero suspendisse, at varius vitae gravida condimentum, ipsum hendrerit ac et tincidunt, et massa ullamcorper ante. Lectus rutrum dignissim arcu, ligula ut.
+    </string>
+    <string name="title_activity_search">SearchActivity</string>
+
+    <string name="repo_tab_home">Home</string>
+    <string name="repo_tab_code">Code</string>
+    <string name="repo_tab_issues">Issues</string>
+    <string name="repo_tab_pr">Pull Requests</string>
+    <string name="repo_tab_pr_short">PR</string>
 </resources>

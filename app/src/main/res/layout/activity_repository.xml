@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/coordinator"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="gitlin.kothub.ui.repo.RepositoryActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppToolbar">
+
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:minHeight="0dp"
+            android:contentInsetLeft="0dp"
+            android:contentInsetStart="0dp"
+            app:contentInsetLeft="0dp"
+            app:contentInsetStart="0dp"
+            android:contentInsetRight="0dp"
+            android:contentInsetEnd="0dp"
+            app:contentInsetRight="0dp"
+            app:contentInsetEnd="0dp"
+            app:contentInsetStartWithNavigation="0dp"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:layout_scrollFlags="scroll|enterAlwaysCollapsed">
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/ownerPicture"
+                    android:layout_width="46dp"
+                    android:layout_height="46dp"
+                    android:adjustViewBounds="false"
+                    android:cropToPadding="false"
+                    app:civ_border_color="#FF000000"
+                    app:civ_border_width="2dp"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginTop="8dp" />
+
+                <TextView
+                    android:id="@+id/repoOwner"
+                    android:layout_width="266dp"
+                    android:layout_height="33dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+                    app:layout_constraintStart_toEndOf="@+id/ownerPicture"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="fknop" />
+
+                <TextView
+                    android:id="@+id/repoName"
+                    android:layout_width="266dp"
+                    android:layout_height="33dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="24dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
+                    android:textColor="@color/colorSecondaryText"
+                    app:layout_constraintStart_toEndOf="@+id/ownerPicture"
+                    app:layout_constraintTop_toTopOf="@+id/repoOwner"
+                    tools:text="angular-pipes" />
+
+            </android.support.constraint.ConstraintLayout>
+
+        </android.support.v7.widget.Toolbar>
+
+        <include
+            layout="@layout/repository_header"
+            android:id="@+id/repository_header_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="0dp"
+            app:layout_scrollFlags="scroll|enterAlwaysCollapsed"
+            />
+
+
+        <android.support.design.widget.TabLayout
+                android:id="@+id/repository_tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:tabGravity="fill"
+                app:tabMode="fixed"
+                app:tabTextColor="@color/white"
+                app:layout_scrollFlags="scroll|snap|enterAlways"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                />
+
+
+</android.support.design.widget.AppBarLayout>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            />
+
+
+
+    <!--<android.support.design.widget.FloatingActionButton-->
+        <!--android:id="@+id/fab"-->
+        <!--style="@style/FabStyle"-->
+        <!--app:layout_anchor="@id/viewpager"-->
+        <!--app:layout_anchorGravity="bottom|end"-->
+        <!--android:background="@drawable/ripple"-->
+        <!--app:layout_behavior="@string/appbar_scrolling_view_behavior"-->
+
+        <!--/>-->
+
+
+</android.support.design.widget.CoordinatorLayout>

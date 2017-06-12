@@ -34,7 +34,7 @@ class NotificationService: IntentService("notification-service") {
             val intent = applicationContext.intentFor<NotificationService>()
             val pendingIntent = PendingIntent.getService(applicationContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
             val alarm = applicationContext.getAlarmManager()
-            pendingIntent.cancel()
+
             alarm.cancel(pendingIntent)
             alarm.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), delay, pendingIntent)
         }
@@ -44,13 +44,14 @@ class NotificationService: IntentService("notification-service") {
         Log.d("NotificationService", "onHandleIntent")
 
         Fuel.get("https://status.github.com/api/last-message.json")
-            .responseString { request, response, result ->
+            .responseString { _, _, result ->
                 when (result) {
                     is Result.Failure -> Log.e("NotificationService", result.error.message)
                     is Result.Success -> {
                         val json: JsonObject = JsonParser().parse(result.value).asJsonObject
 
                         val status: Status = Status(json)
+                        Log.d("NotificationService", Status(json).status)
                         if (status.status == GithubStatus.GOOD.status) {
                             Log.d("NotificationService", Status(json).status)
                         }
@@ -79,6 +80,7 @@ data class Status(private val json: JsonObject) {
 }
 
 enum class GithubStatus(val status: String) {
+    UNKNOWN("unknown"),
     GOOD("good"),
     MINOR("minor"),
     MAJOR("major");

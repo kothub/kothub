@@ -1,5 +1,7 @@
 package gitlin.kothub.github.api.dsl
 
+import kotlin.reflect.full.primaryConstructor
+
 
 class PageInfo(override val level: Int): Element {
     override val fields = arrayListOf<Field>()
@@ -18,7 +20,7 @@ class PageInfo(override val level: Int): Element {
 
 }
 
-abstract class Connection<out T>(override val level: Int) : Element {
+open class Connection<out T>(override val level: Int) : Element {
 
     override val fields = arrayListOf<Field>()
 
@@ -44,9 +46,16 @@ abstract class Connection<out T>(override val level: Int) : Element {
     }
 }
 
-//inline fun <reified T: Element> Connection<T>.edges (body: Edges2<T>.() -> Unit) {
-//    val edges = Edges2<T>(nextLevel())
-//    edges.body()
-//    addField(Node("edges", edges.fields))
-//}
-//
+inline fun <reified T: Element> Connection<T>.edges (body: Edges<T>.() -> Unit) {
+    val edges = Edges<T>(nextLevel())
+    edges.body()
+    addField(Node("edges", edges.fields))
+}
+
+inline fun <reified T: Element> Connection<T>.nodes (body: T.() -> Unit) {
+    val constructor = T::class.primaryConstructor
+    val t = constructor!!.call(nextLevel())
+    t.body()
+    addField(Node("nodes", t.fields))
+}
+

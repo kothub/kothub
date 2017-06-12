@@ -5,7 +5,7 @@
 	android:layout_height="match_parent"
 	android:orientation="vertical"
 	android:background="@color/grey95"
-	tools:context="gitlin.kothub.ui.ViewerProfileActivity">
+	tools:context="gitlin.kothub.ui.user.UserProfileActivity">
 
 	<include layout="@layout/toolbar"/>
 

@@ -72,7 +72,7 @@ class Query(val variablesDeclarations: List<String>, withRateLimit: Boolean = tr
 
 fun query (vararg variables: String = arrayOf(), withRateLimit: Boolean = true, body: Query.() -> Unit): String {
 
-    val query = Query(variables.toList())
+    val query = Query(variables.toList(), withRateLimit)
     query.body()
     return query.toString()
 }

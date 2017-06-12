@@ -1,0 +1,16 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="gitlin.kothub.ui.LifecycleAppCompatActivity">
+
+    <item
+        android:id="@+id/action_search"
+        android:orderInCategory="100"
+        android:title="@string/action_search"
+        app:showAsAction="ifRoom"
+        app:actionViewClass="android.support.v7.widget.SearchView"
+        app:iiv_color="@color/md_white_1000"
+        app:iiv_icon="@string/gmd_search"
+        app:iiv_size="22dp"
+        />
+</menu>
