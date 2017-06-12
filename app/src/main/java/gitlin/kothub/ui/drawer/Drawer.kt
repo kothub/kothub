@@ -2,6 +2,7 @@ package gitlin.kothub.ui.drawer
 
 import android.arch.lifecycle.LifecycleObserver
 import android.arch.lifecycle.OnLifecycleEvent
+import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.support.v4.content.LocalBroadcastManager
@@ -38,7 +39,7 @@ import gitlin.kothub.ui.settings.SettingsActivity
 import io.reactivex.rxkotlin.addTo
 import org.jetbrains.anko.*
 
-fun BadgeStyle.whiteText () = this.withTextColor(android.graphics.Color.WHITE)!!
+fun BadgeStyle.whiteText () = this.withTextColor(Color.WHITE)!!
 
 class ProfileImageListener(val onClick: () -> Unit): AccountHeader.OnAccountHeaderProfileImageListener {
     override fun onProfileImageClick(p0: android.view.View?, p1:IProfile<*>?, p2: Boolean): Boolean {

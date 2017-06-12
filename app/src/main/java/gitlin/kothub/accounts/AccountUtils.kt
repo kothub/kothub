@@ -17,7 +17,7 @@ fun getAccount (context: Context): Account? {
     val authTokenType = context.getString(R.string.accountType)
     val accounts = am.getAccountsByType(authTokenType)
 
-    if (accounts.size == 0) {
+    if (accounts.isEmpty()) {
         return null
     }
     else {

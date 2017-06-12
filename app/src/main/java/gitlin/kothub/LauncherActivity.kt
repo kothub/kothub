@@ -33,7 +33,7 @@ class LauncherActivity : AppCompatActivity(), AnkoLogger {
         val am = AccountManager.get(this)
         val accounts = am.getAccountsByType(authTokenType)
 
-        if (accounts.size > 0) {
+        if (accounts.isNotEmpty()) {
             NotificationService.schedule(applicationContext)
             ActivityLauncher.startUserProfileActivity(this, "Astalaseven")
         }
