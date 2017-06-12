@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import gitlin.kothub.R
 import gitlin.kothub.ui.LifecycleAppCompatActivity
-import gitlin.kothub.ui.drawer.AppDrawer
 import gitlin.kothub.ui.getProfileName
 import gitlin.kothub.utilities.createFragment
 import kotlinx.android.synthetic.main.toolbar.*
@@ -13,7 +12,6 @@ import org.jetbrains.anko.AnkoLogger
 
 class UserProfileActivity : LifecycleAppCompatActivity(), AnkoLogger {
 
-    lateinit var drawer: AppDrawer
     lateinit var fragment: UserProfileFragment
 
 
@@ -21,13 +19,12 @@ class UserProfileActivity : LifecycleAppCompatActivity(), AnkoLogger {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
         setSupportActionBar(toolbar)
+        initDrawer(this, toolbar)
 
         this.fragment = UserProfileFragment.newInstance(getProfileName(intent))
         createFragment(savedInstanceState, R.id.user_profile_fragment) {
             fragment
         }
-
-        drawer = AppDrawer(this, toolbar)
     }
 
     override fun onNewIntent(intent: Intent) {
