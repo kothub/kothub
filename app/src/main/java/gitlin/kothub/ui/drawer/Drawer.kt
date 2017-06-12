@@ -39,6 +39,7 @@ import gitlin.kothub.ui.issues.IssuesActivity
 import gitlin.kothub.ui.pulls.PullRequestsActivity
 import gitlin.kothub.ui.settings.SettingsActivity
 import gitlin.kothub.utilities.delay
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import org.jetbrains.anko.*
 import java.text.SimpleDateFormat
@@ -78,7 +79,7 @@ class AppDrawer(private val activity: LifecycleAppCompatActivity, val toolbar: T
 
     private var id = 0L
     private var currentRateLimit: RateLimit? = null
-    private var disposables = io.reactivex.disposables.CompositeDisposable()
+    private var disposables = CompositeDisposable()
 
 
     lateinit var profile: ProfileDrawerItem
