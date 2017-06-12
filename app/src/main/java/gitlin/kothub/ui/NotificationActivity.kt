@@ -9,14 +9,11 @@ import gitlin.kothub.adapters.NotificationAdapter
 import gitlin.kothub.github.api.UserService
 import gitlin.kothub.github.api.data.Notifications
 import gitlin.kothub.github.api.getService
-import gitlin.kothub.ui.drawer.AppDrawer
 import kotlinx.android.synthetic.main.activity_notifs.*
 import kotlinx.android.synthetic.main.toolbar.*
 import org.jetbrains.anko.AnkoLogger
 
 class NotificationActivity : LifecycleAppCompatActivity(), AnkoLogger {
-
-    lateinit var drawer: AppDrawer
 
     var notifications: Notifications? = null
         set(value) {
@@ -31,10 +28,7 @@ class NotificationActivity : LifecycleAppCompatActivity(), AnkoLogger {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_notifs)
         setSupportActionBar(toolbar)
-
-        drawer = AppDrawer(this, toolbar)
-        lifecycle.addObserver(drawer)
-        drawer.select(drawer.notifs)
+        initDrawer(toolbar)
 
         val progressBar = ProgressBar(this)
 
@@ -45,6 +39,11 @@ class NotificationActivity : LifecycleAppCompatActivity(), AnkoLogger {
         notifs.emptyView = progressBar
         listLayout.addView(progressBar)
         initProfile()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        drawer.select(drawer.notifs)
     }
 
     fun initProfile() {
@@ -58,15 +57,5 @@ class NotificationActivity : LifecycleAppCompatActivity(), AnkoLogger {
 
                         }
                 )
-
-//        notifications { error, notifs ->
-//            if (error != null || notifs == null) {
-//                debug("ERROR")
-//                debug(error?.response?.httpResponseMessage ?: "NO ERROR??")
-//            } else {
-//                debug(notifs)
-//                this.notifications = notifs
-//            }
-//        }
     }
 }
