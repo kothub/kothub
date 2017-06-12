@@ -3,7 +3,9 @@ import android.content.Context
 import android.content.Intent
 import gitlin.kothub.R
 import gitlin.kothub.ui.user.UserProfileActivity
-import org.jetbrains.anko.*
+import org.jetbrains.anko.clearTask
+import org.jetbrains.anko.intentFor
+import org.jetbrains.anko.singleTop
 
 
 fun UserProfileActivity.getProfileName (intent: Intent): String? = intent.getStringExtra(getString(R.string.profile_intent_login))

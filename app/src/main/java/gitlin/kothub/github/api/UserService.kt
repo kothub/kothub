@@ -1,21 +1,17 @@
 package gitlin.kothub.github.api
 
 import android.content.Context
-import com.github.kittinunf.fuel.core.FuelError
-import com.github.salomonbrys.kotson.*
-import com.google.gson.JsonArray
-import com.google.gson.JsonParser
-import gitlin.kothub.R.string.login
+import com.github.salomonbrys.kotson.array
+import com.github.salomonbrys.kotson.obj
 import gitlin.kothub.github.api.data.DrawerInfo
 import gitlin.kothub.github.api.data.LoginData
-import gitlin.kothub.github.api.data.UserSummary
 import gitlin.kothub.github.api.data.Notifications
+import gitlin.kothub.github.api.data.UserSummary
 import gitlin.kothub.github.api.dsl.*
 import io.reactivex.Single
 
 
-
-class ViewerService(context: Context): ApiService(context) {
+class UserService(context: Context): ApiService(context) {
 
     companion object {
         val userFragment: GFragment<User> by lazy {

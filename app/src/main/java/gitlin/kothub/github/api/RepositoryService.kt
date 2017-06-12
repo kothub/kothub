@@ -3,7 +3,6 @@ package gitlin.kothub.github.api
 import android.content.Context
 import android.text.Spanned
 import com.github.salomonbrys.kotson.obj
-import com.google.gson.JsonObject
 import gitlin.kothub.github.api.data.RepositoryReadme
 import gitlin.kothub.github.api.data.RepositorySummary
 import gitlin.kothub.github.api.dsl.*

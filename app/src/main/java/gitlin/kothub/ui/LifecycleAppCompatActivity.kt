@@ -1,22 +1,13 @@
 package gitlin.kothub.ui
 
-import android.app.SearchManager
 import android.arch.lifecycle.LifecycleRegistry
 import android.arch.lifecycle.LifecycleRegistryOwner
-import android.content.Context
-import android.graphics.Color
-import android.support.v4.view.MenuItemCompat
-import android.support.v4.widget.SearchViewCompat
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.SearchView
 import android.view.Menu
 import android.view.MenuItem
-import com.mikepenz.google_material_typeface_library.GoogleMaterial
-import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.iconics.utils.IconicsMenuInflatorUtil
 import gitlin.kothub.R
 import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.info
 
 /**
  * Temporary class until lifecycles are implemented in AppCompatActivity

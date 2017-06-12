@@ -2,8 +2,8 @@ package gitlin.kothub.ui.pulls
 
 import android.os.Bundle
 import gitlin.kothub.R
-import gitlin.kothub.ui.drawer.AppDrawer
 import gitlin.kothub.ui.LifecycleAppCompatActivity
+import gitlin.kothub.ui.drawer.AppDrawer
 import kotlinx.android.synthetic.main.toolbar.*
 
 class PullRequestsActivity : LifecycleAppCompatActivity() {

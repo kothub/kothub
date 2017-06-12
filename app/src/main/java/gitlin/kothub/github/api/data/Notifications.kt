@@ -1,9 +1,9 @@
 package gitlin.kothub.github.api.data
 
-import com.github.salomonbrys.kotson.*
-import com.google.gson.*
-
-import gitlin.kothub.utilities.*
+import com.github.salomonbrys.kotson.byBool
+import com.github.salomonbrys.kotson.byString
+import com.google.gson.JsonArray
+import com.google.gson.JsonObject
 
 data class Notifications(private val json: JsonArray) {
     val notifications: List<Notification> = json.map { Notification(it.asJsonObject) }

@@ -19,18 +19,13 @@ class SettingsActivity : AppCompatActivity() {
             finish()
         }
 
-
         createFragment(savedInstanceState, R.id.preferences_placeholder) {
             SettingsFragment()
         }
-
-        //drawer = AppDrawer(this, toolbar)
-       // lifecycle.addObserver(drawer)
     }
 
     override fun onResume() {
         super.onResume()
-        //drawer.select(drawer.profile)
     }
 }
 

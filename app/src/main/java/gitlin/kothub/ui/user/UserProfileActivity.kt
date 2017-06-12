@@ -2,13 +2,13 @@ package gitlin.kothub.ui.user
 
 import android.content.Intent
 import android.os.Bundle
-import org.jetbrains.anko.AnkoLogger
 import gitlin.kothub.R
+import gitlin.kothub.ui.LifecycleAppCompatActivity
 import gitlin.kothub.ui.drawer.AppDrawer
 import gitlin.kothub.ui.getProfileName
-import kotlinx.android.synthetic.main.toolbar.*
-import gitlin.kothub.ui.LifecycleAppCompatActivity
 import gitlin.kothub.utilities.createFragment
+import kotlinx.android.synthetic.main.toolbar.*
+import org.jetbrains.anko.AnkoLogger
 
 
 class UserProfileActivity : LifecycleAppCompatActivity(), AnkoLogger {

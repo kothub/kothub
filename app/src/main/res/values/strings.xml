@@ -132,4 +132,10 @@ Fusce cras, tincidunt nec senectus sollicitudin gravida, nec vestibulum morbi, m
 Amet non, amet amet diam quam. Sociis quis, bibendum vitae, et at laudantium odio, at sit, eros doloribus. Aut tellus amet quis fusce justo pellentesque, cras eget in malesuada tellus voluptates eu. Sit vitae integer mi suspendisse est mi, ante interdum sodales sodales, amet varius donec inceptos sed, purus suscipit, purus donec. Enim tempus pellentesque, convallis pede, a sodales vel. Pellentesque morbi libero suspendisse, at varius vitae gravida condimentum, ipsum hendrerit ac et tincidunt, et massa ullamcorper ante. Lectus rutrum dignissim arcu, ligula ut.
     </string>
     <string name="title_activity_search">SearchActivity</string>
+
+    <string name="repo_tab_home">Home</string>
+    <string name="repo_tab_code">Code</string>
+    <string name="repo_tab_issues">Issues</string>
+    <string name="repo_tab_pr">Pull Requests</string>
+    <string name="repo_tab_pr_short">PR</string>
 </resources>

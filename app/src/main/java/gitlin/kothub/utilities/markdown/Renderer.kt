@@ -5,7 +5,6 @@ import android.os.Build
 import android.text.Html
 import android.text.Spanned
 import android.util.Log
-import android.widget.TextView
 import org.intellij.markdown.flavours.gfm.GFMFlavourDescriptor
 import org.intellij.markdown.html.HtmlGenerator
 import org.intellij.markdown.parser.MarkdownParser

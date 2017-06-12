@@ -30,11 +30,11 @@ import gitlin.kothub.receivers.NotificationReceiver
 import gitlin.kothub.services.GithubStatus
 import gitlin.kothub.services.NotificationService
 import gitlin.kothub.ui.ActivityLauncher
+import gitlin.kothub.ui.LifecycleAppCompatActivity
 import gitlin.kothub.ui.NotificationActivity
 import gitlin.kothub.ui.issues.IssuesActivity
 import gitlin.kothub.ui.pulls.PullRequestsActivity
 import gitlin.kothub.ui.settings.SettingsActivity
-import gitlin.kothub.ui.LifecycleAppCompatActivity
 import io.reactivex.rxkotlin.addTo
 import org.jetbrains.anko.*
 
@@ -116,8 +116,10 @@ class AppDrawer(private val activity: LifecycleAppCompatActivity, toolbar: Toolb
                     val date = java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'").parse(currentRateLimit?.resetAt)
                     val hour = java.text.SimpleDateFormat("HH:mm").format(date)
 
+
+
                     activity.alert("The rate limit is the number of points remaining on your API account. " +
-                                   "It resets every hour. If you somehow reach zero, you will not be able to use the application until $hour GMT+00:00") {
+                                   "It resets every hour. If you reach zero, you will not be able to use the application until $hour GMT+00:00") {
                         okButton {  }
                     }.show()
 

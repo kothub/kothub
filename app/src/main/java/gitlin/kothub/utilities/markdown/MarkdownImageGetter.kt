@@ -5,16 +5,13 @@ import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
-import android.text.Html
-import android.util.Log
-import com.github.kittinunf.fuel.Fuel
-import com.squareup.picasso.OkHttpDownloader
-import com.squareup.picasso.Picasso
-import gitlin.kothub.R
-import android.os.AsyncTask.execute
 import android.os.AsyncTask
+import android.text.Html
 import android.text.Html.ImageGetter
+import android.util.Log
 import android.view.View
+import com.github.kittinunf.fuel.Fuel
+import gitlin.kothub.R
 import java.io.InputStream
 
 

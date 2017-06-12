@@ -65,27 +65,3 @@ class Repository(override val level: Int): Element {
         addField(Node("$alias: object", gitobject.fields, variables("expression" to expression)))
     }
 }
-//
-//class RepositoryConnection(override val level: Int) : Connection<Repository>(level) {
-//    fun edges (body: RepositoryEdge.() -> Unit) {
-//        val edges = RepositoryEdge(nextLevel())
-//        edges.body()
-//        addField(Node("edges", edges.fields))
-//    }
-//
-//    fun nodes (body: Repository.() -> Unit) {
-//        val repo = Repository(nextLevel())
-//        repo.body()
-//        addField(Node("nodes", repo.fields))
-//    }
-//
-//}
-//
-//
-//class RepositoryEdge(override val level: Int): Edges(level) {
-//    fun node (body: Repository.() -> Unit) {
-//        val repo = Repository(nextLevel())
-//        repo.body()
-//        addField(Node(fields = repo.fields))
-//    }
-//}

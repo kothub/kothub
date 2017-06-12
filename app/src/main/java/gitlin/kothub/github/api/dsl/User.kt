@@ -122,21 +122,3 @@ class User(override val level: Int): ActorFields {
     }
 }
 
-//
-//class UserConnection(override val level: Int) : Connection<User>(level) {
-//    fun edges (body: UserEdge.() -> Unit) {
-//        val edges = UserEdge(nextLevel())
-//        edges.body()
-//        addField(Node("edges", edges.fields))
-//    }
-//}
-//
-//
-//class UserEdge(override val level: Int): Edges(level) {
-//    fun node (body: User.() -> Unit) {
-//        val issue = User(nextLevel())
-//        issue.body()
-//        addField(Node(fields = issue.fields))
-//    }
-//}
-//

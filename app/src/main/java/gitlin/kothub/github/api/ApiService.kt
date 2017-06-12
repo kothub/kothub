@@ -3,12 +3,8 @@ package gitlin.kothub.github.api
 import android.content.Context
 import android.util.Log
 import com.github.kittinunf.fuel.Fuel
-import com.github.kittinunf.fuel.core.FuelError
-import com.github.kittinunf.fuel.core.Request
-import com.github.kittinunf.fuel.core.Response
 import com.github.kittinunf.fuel.rx.rx_responseString
 import com.github.kittinunf.fuel.rx.rx_string
-import com.github.kittinunf.result.Result
 import com.github.salomonbrys.kotson.get
 import com.github.salomonbrys.kotson.obj
 import com.google.gson.GsonBuilder

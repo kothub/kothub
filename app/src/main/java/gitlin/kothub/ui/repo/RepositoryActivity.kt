@@ -6,31 +6,23 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
-import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import android.text.Spanned
-import android.text.method.LinkMovementMethod
-import com.mikepenz.google_material_typeface_library.GoogleMaterial
-import com.mikepenz.iconics.IconicsDrawable
 import com.squareup.picasso.Picasso
-
 import gitlin.kothub.R
 import gitlin.kothub.github.api.RepositoryService
-import gitlin.kothub.github.api.data.RepositoryReadme
 import gitlin.kothub.github.api.data.RepositorySummary
 import gitlin.kothub.github.api.getService
 import gitlin.kothub.ui.LifecycleAppCompatActivity
 import gitlin.kothub.utilities.get
-import gitlin.kothub.utilities.markdown.renderMarkdown
 import gitlin.kothub.utilities.noTitle
 import gitlin.kothub.utilities.value
 import kotlinx.android.synthetic.main.activity_repository.*
 import kotlinx.android.synthetic.main.repository_header.*
 import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.info
 
 
 class RepositoryViewModel(): ViewModel() {
@@ -113,12 +105,6 @@ class RepositoryActivity : LifecycleAppCompatActivity(), AnkoLogger {
         toolbar.setNavigationOnClickListener {
             finish()
         }
-
-
-
-//        fab.setImageDrawable(
-//                IconicsDrawable(this).icon(GoogleMaterial.Icon.gmd_share).color(Color.WHITE)
-//        )
     }
 
     private fun updateHeaderView (repo: RepositorySummary) {
@@ -126,11 +112,6 @@ class RepositoryActivity : LifecycleAppCompatActivity(), AnkoLogger {
         repoOwner.text = repo.ownerLogin
         repoName.text = repo.name
         Picasso.with(ownerPicture.context).load(repo.ownerAvatarUrl).into(ownerPicture)
-
-        if (repo.language != null) {
-//            languageName.text = repo.language.name
-//            languageColor.color = Color.parseColor(repo.language.color)
-        }
 
         watchers.value = repo.watchers
         stargazers.value = repo.stargazers
@@ -147,10 +128,10 @@ class RepositoryActivity : LifecycleAppCompatActivity(), AnkoLogger {
 
         override fun getPageTitle(position: Int): CharSequence? {
             return when (position) {
-                0 -> "Home"
-                1 -> "Files"
-                2 -> "Issues"
-                3 -> "Pull Requests"
+                0 -> getString(R.string.repo_tab_home)
+                1 -> getString(R.string.repo_tab_code)
+                2 -> getString(R.string.repo_tab_issues)
+                3 -> getString(R.string.repo_tab_pr)
                 else -> null
             }
         }

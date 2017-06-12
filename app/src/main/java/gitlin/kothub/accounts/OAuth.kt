@@ -1,10 +1,7 @@
 package gitlin.kothub.accounts
 
-import android.util.Log
 import com.github.kittinunf.fuel.Fuel
-import com.github.kittinunf.fuel.android.extension.responseJson
 import com.github.kittinunf.fuel.rx.rx_string
-import com.github.kittinunf.result.Result
 import com.github.salomonbrys.kotson.get
 import com.google.gson.JsonParser
 import io.reactivex.Single

@@ -9,7 +9,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import gitlin.kothub.R
-import gitlin.kothub.github.api.ViewerService
+import gitlin.kothub.github.api.UserService
 import gitlin.kothub.github.api.getService
 import gitlin.kothub.ui.user.UserProfileActivity
 import org.jetbrains.anko.AnkoLogger
@@ -78,7 +78,7 @@ class LoginActivity: AccountAuthenticatorActivity(), AnkoLogger {
 
     private fun onToken(token: String) {
 
-        getService<ViewerService>()
+        getService<UserService>()
         .getUser()
         .subscribe { user ->
 

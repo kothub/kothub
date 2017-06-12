@@ -1,21 +1,15 @@
 package gitlin.kothub
 
-import android.accounts.Account
 import android.accounts.AccountManager
-import android.accounts.AccountManagerCallback
 import android.os.Bundle
 import android.support.v4.content.LocalBroadcastManager
 import android.support.v7.app.AppCompatActivity
-import android.widget.Toast
 import gitlin.kothub.R.layout.activity_main
-import gitlin.kothub.accounts.TokenStore
-import gitlin.kothub.accounts.USER_LOGIN
-import gitlin.kothub.accounts.getUserLogin
-import kotlinx.android.synthetic.main.toolbar.*
-import org.jetbrains.anko.AnkoLogger
 import gitlin.kothub.receivers.NotificationReceiver
 import gitlin.kothub.services.NotificationService
 import gitlin.kothub.ui.ActivityLauncher
+import kotlinx.android.synthetic.main.toolbar.*
+import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 
 

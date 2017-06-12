@@ -80,22 +80,7 @@
             tools:layout_editor_absoluteY="54dp"
             tools:text="140"></TextView>
     </LinearLayout>
-
-
-    <!--<TextView-->
-    <!--android:id="@+id/languageName"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:textSize="14sp"-->
-    <!--tools:text="Typescript"-->
-    <!--app:layout_constraintStart_toStartOf="parent"-->
-    <!--android:layout_marginStart="16dp"-->
-    <!--app:layout_constraintTop_toTopOf="@+id/guideline"-->
-    <!--android:layout_marginTop="8dp"-->
-    <!--app:layout_constraintHorizontal_chainStyle="packed"-->
-    <!--app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--android:layout_marginBottom="16dp"></TextView>-->
-
+    
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

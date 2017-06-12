@@ -1,9 +1,7 @@
 package gitlin.kothub.github.api.data
 
-import android.util.Log
 import com.github.salomonbrys.kotson.*
 import com.google.gson.Gson
-import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 
 

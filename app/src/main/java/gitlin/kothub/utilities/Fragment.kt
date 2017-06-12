@@ -14,13 +14,3 @@ inline fun AppCompatActivity.createFragment (savedInstance: Bundle?, placeholder
     }
 }
 
-inline fun AppCompatActivity.removeFragment (tag: String) {
-
-    val ft = supportFragmentManager.beginTransaction()
-    val fragment = supportFragmentManager.findFragmentByTag(tag)
-    if (fragment != null) {
-        Log.i("Fragment", "not null")
-        ft.remove(fragment).commit()
-    }
-//    ft.commit()
-}

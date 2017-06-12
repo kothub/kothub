@@ -15,7 +15,7 @@ import com.squareup.picasso.Picasso
 import gitlin.kothub.R
 import gitlin.kothub.adapters.OrganizationSummaryAdapter
 import gitlin.kothub.adapters.PinnedRepositoryAdapter
-import gitlin.kothub.github.api.ViewerService
+import gitlin.kothub.github.api.UserService
 import gitlin.kothub.github.api.data.UserSummary
 import gitlin.kothub.github.api.getService
 import gitlin.kothub.utilities.get
@@ -40,10 +40,10 @@ class UserViewModel: ViewModel() {
         var obs: Single<UserSummary>
 
         if (user == null) {
-            obs = context.getService<ViewerService>().viewerSummary()
+            obs = context.getService<UserService>().viewerSummary()
         }
         else {
-            obs = context.getService<ViewerService>().userSummary(user!!)
+            obs = context.getService<UserService>().userSummary(user!!)
         }
 
         obs.subscribe(

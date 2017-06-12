@@ -4,25 +4,15 @@ import android.arch.lifecycle.LifecycleFragment
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.text.Spanned
 import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.squareup.picasso.Picasso
 import gitlin.kothub.R
-import gitlin.kothub.github.api.data.RepositoryReadme
-import gitlin.kothub.github.api.data.RepositorySummary
-import gitlin.kothub.utilities.*
-import gitlin.kothub.utilities.markdown.renderMarkdown
+import gitlin.kothub.utilities.get
 import kotlinx.android.synthetic.main.fragment_repository.*
-import kotlinx.android.synthetic.main.repository_header.*
 import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.custom.async
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.info
-import org.jetbrains.anko.uiThread
 
 
 class RepositoryFragment : LifecycleFragment(), AnkoLogger {

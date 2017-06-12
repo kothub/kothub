@@ -1,7 +1,9 @@
 package gitlin.kothub.github.api.data
 
 import com.github.salomonbrys.kotson.fromJson
-import com.google.gson.*
+import com.google.gson.Gson
+import com.google.gson.JsonArray
+import com.google.gson.JsonObject
 
 
 data class RateLimit(
