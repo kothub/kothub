@@ -1,5 +1,9 @@
 package gitlin.kothub.ui
 
+import android.arch.lifecycle.Lifecycle
+import android.arch.lifecycle.LifecycleObserver
+import android.arch.lifecycle.OnLifecycleEvent
+import android.content.BroadcastReceiver
 import android.graphics.Color
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
@@ -10,6 +14,7 @@ import gitlin.kothub.R
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Handler
+import android.support.v4.content.LocalBroadcastManager
 import android.view.View
 import android.widget.ImageView
 import com.mikepenz.materialdrawer.AccountHeader
@@ -21,20 +26,43 @@ import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader
 import com.mikepenz.materialdrawer.util.DrawerImageLoader
 import com.mikepenz.octicons_typeface_library.Octicons
 import com.squareup.picasso.Picasso
-import gitlin.kothub.ProfileActivity
 import gitlin.kothub.github.api.ApiRateLimit
 import gitlin.kothub.github.api.data.RateLimit
+import gitlin.kothub.receivers.NotificationReceiver
+import gitlin.kothub.services.GithubStatus
+import gitlin.kothub.services.NotificationService
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxkotlin.addTo
 import org.jetbrains.anko.*
 import java.text.SimpleDateFormat
 
+inline fun BadgeStyle.whiteText () = this.withTextColor(Color.WHITE)!!
 
-class AppDrawer(private val activity: AppCompatActivity, toolbar: Toolbar): AnkoLogger {
+class ProfileImageListener(val onClick: () -> Unit): AccountHeader.OnAccountHeaderProfileImageListener {
+    override fun onProfileImageClick(p0: View?, p1: IProfile<*>?, p2: Boolean): Boolean {
+        onClick()
+        return false
+    }
 
-    private val redStyle = BadgeStyle().withTextColor(Color.WHITE).withColorRes(R.color.md_red_600)
-    private val blueStyle = BadgeStyle().withTextColor(Color.WHITE).withColorRes(R.color.md_blue_600)
-    private val greenStyle = BadgeStyle().withTextColor(Color.WHITE).withColorRes(R.color.md_green_600)
+    override fun onProfileImageLongClick(p0: View?, p1: IProfile<*>?, p2: Boolean) = false
+}
+
+
+fun AccountHeaderBuilder.withProfileImageClick (onClick: () -> Unit): AccountHeaderBuilder {
+    this.withOnAccountHeaderProfileImageListener(ProfileImageListener(onClick))
+    return this
+}
+
+val redStyle = BadgeStyle().whiteText().withColorRes(R.color.md_red_600)
+val yellowStyle = BadgeStyle().whiteText().withColorRes(R.color.md_yellow_900)
+val blueStyle = BadgeStyle().whiteText().withColorRes(R.color.md_blue_600)
+val greenStyle = BadgeStyle().whiteText().withColorRes(R.color.md_green_600)
+
+class AppDrawer(private val activity: AppCompatActivity, toolbar: Toolbar): LifecycleObserver, AnkoLogger {
+
     private var id = 0L
     private var currentRateLimit: RateLimit? = null
+    private var disposables = CompositeDisposable()
 
     val profile: ProfileDrawerItem = ProfileDrawerItem().withIdentifier(id++)
 
@@ -58,7 +86,7 @@ class AppDrawer(private val activity: AppCompatActivity, toolbar: Toolbar): Anko
             .withIdentifier(id++)
 
     val notifs: PrimaryDrawerItem = PrimaryDrawerItem()
-            .withName(R.string.notifs)
+            .withName(R.string.title_notifications)
             .withBadge("0")
             .withBadgeStyle(blueStyle)
             .withIcon(Octicons.Icon.oct_bell)
@@ -94,18 +122,14 @@ class AppDrawer(private val activity: AppCompatActivity, toolbar: Toolbar): Anko
             .withIcon(GoogleMaterial.Icon.gmd_settings)
             .withIdentifier(id++)
 
+    val status: SecondaryDrawerItem = SecondaryDrawerItem()
+            .withName("GitHub API Status")
+            .withSelectable(false)
+            .withIcon(Octicons.Icon.oct_radio_tower)
+            .withIdentifier(0)
 
-    inner class ProfileImageListener: AccountHeader.OnAccountHeaderProfileImageListener {
-        override fun onProfileImageClick(p0: View?, p1: IProfile<*>?, p2: Boolean): Boolean {
-            Handler().postDelayed({
-                this@AppDrawer.navigateTo<ProfileActivity>()
-            }, 300)
+    val sticky = mutableListOf(status)
 
-            return false
-        }
-
-        override fun onProfileImageLongClick(p0: View?, p1: IProfile<*>?, p2: Boolean) = false
-    }
 
     val header = AccountHeaderBuilder()
             .withActivity(activity)
@@ -113,7 +137,11 @@ class AppDrawer(private val activity: AppCompatActivity, toolbar: Toolbar): Anko
             .withCompactStyle(true)
             .withAlternativeProfileHeaderSwitching(false)
             .addProfiles(profile)
-            .withOnAccountHeaderProfileImageListener(ProfileImageListener())
+            .withProfileImageClick {
+                Handler().postDelayed({
+                   ActivityLauncher.startViewerProfileActivity(activity)
+                }, 300)
+            }
             .build()
 
 
@@ -135,6 +163,8 @@ class AppDrawer(private val activity: AppCompatActivity, toolbar: Toolbar): Anko
             }
             .build()
 
+    val statusReceiver = NotificationReceiver()
+
     fun update (item: AbstractDrawerItem<*, *>) {
         drawer.updateItem(item)
     }
@@ -145,18 +175,19 @@ class AppDrawer(private val activity: AppCompatActivity, toolbar: Toolbar): Anko
 
 
 
-    private inline fun <reified T: Any> navigateTo (): Boolean {
+    private inline fun <reified T: Any> navigateTo (vararg params: Pair<String, Any?>): Boolean {
 
         with(activity) {
-            val intent = intentFor<T>().singleTop().noHistory()
-
+            val intent = intentFor<T>(*params).singleTop().noHistory()
             startActivity(intent)
         }
 
         return false
     }
 
-    init {
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
+    fun onCreate() {
 
         DrawerImageLoader.init(object : AbstractDrawerImageLoader() {
             override fun set(imageView: ImageView, uri: Uri, placeholder: Drawable, tag: String) {
@@ -180,18 +211,38 @@ class AppDrawer(private val activity: AppCompatActivity, toolbar: Toolbar): Anko
 
             drawer.updateItem(issues)
             header.updateProfile(profile)
-        }
+        }.addTo(disposables)
 
 
-        // TODO: unsubscribe
         ApiRateLimit.observable().subscribe {
 
             this.currentRateLimit = it
             rate.withBadge("${it.remaining}/${it.limit}")
             update(rate)
-        }
+        }.addTo(disposables)
+
+
+        drawer.addStickyFooterItem(status)
+        LocalBroadcastManager.getInstance(activity).registerReceiver(statusReceiver, NotificationService.filter())
+        NotificationReceiver.apiStatus().subscribe({
+            when (it) {
+                GithubStatus.GOOD -> status.withBadge(R.string.github_status_good).withBadgeStyle(greenStyle)
+                GithubStatus.MINOR -> status.withBadge(R.string.github_status_minor).withBadgeStyle(yellowStyle)
+                GithubStatus.MAJOR -> status.withBadge(R.string.github_status_major).withBadgeStyle(redStyle)
+            }
+
+            drawer.updateStickyFooterItem(status)
+        }, {
+            throw it
+        }).addTo(disposables)
 
         DrawerData.fetch()
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+    fun onDestroy () {
+        disposables.dispose()
+        LocalBroadcastManager.getInstance(activity).unregisterReceiver(statusReceiver)
     }
 }
 

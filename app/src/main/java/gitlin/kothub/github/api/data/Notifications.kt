@@ -6,7 +6,7 @@ import com.google.gson.*
 import gitlin.kothub.utilities.*
 
 data class Notifications(private val json: JsonArray) {
-    val notifications: MutableList<Notification> = json.map<JsonObject, Notification> { Notification(it) }
+    val notifications: List<Notification> = json.map { Notification(it.asJsonObject) }
 }
 
 data class Notification(private val json: JsonObject) {

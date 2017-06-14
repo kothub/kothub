@@ -15,12 +15,28 @@ class Repository(override val level: Int): Element {
     val name: Unit get() = addField("name")
 
 
-    fun issues(first: Int? = null, states: IssueState? = null, body: IssueConnection.() -> Unit) {
+    fun issues(first: Variable<Int>? = null, states: Variable<IssueState>? = null, body: IssueConnection.() -> Unit) {
         val connection = IssueConnection(nextLevel())
         connection.body()
+        addField(Node("issues", connection.fields, variables("first" to first, "states" to states)))
+    }
 
-        val pagination = paginationData(first)
-        addField(Node("issues${args(pagination, arg("states", states))}", connection.fields))
+    fun stargazers(body: UserConnection.() -> Unit) {
+        val connection = UserConnection(nextLevel())
+        connection.body()
+        addField(Node("stargazers", connection.fields))
+    }
+
+    fun forks(body: UserConnection.() -> Unit) {
+        val connection = UserConnection(nextLevel())
+        connection.body()
+        addField(Node("forks", connection.fields))
+    }
+
+    fun primaryLanguage(body: Language.() -> Unit) {
+        val language = Language(nextLevel())
+        language.body()
+        addField(Node("primaryLanguage", language.fields))
     }
 }
 

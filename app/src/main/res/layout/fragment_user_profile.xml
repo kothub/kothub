@@ -1,0 +1,196 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:materialdesign="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:orientation="vertical"
+android:background="@color/grey95"
+tools:context="gitlin.kothub.ui.UserProfileFragment">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_margin="16dp"
+    android:textAlignment="center">
+
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/imageView"
+        android:layout_width="62dp"
+        android:layout_height="62dp"
+        app:civ_border_width="2dp"
+        app:civ_border_color="#FF000000"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:orientation="vertical"
+        android:paddingLeft="8dp"
+        android:textAlignment="center">
+
+        <TextView
+            android:id="@+id/username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:layout_gravity="top"
+            android:textSize="16sp"
+            android:text="Unknown"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:layout_gravity="bottom"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+</LinearLayout>
+
+<android.support.v7.widget.GridLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp"
+    android:background="@color/white"
+    android:elevation="2dp"
+    app:columnCount="4"
+    app:rowCount="2"
+    app:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/followers"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="0"
+        app:layout_columnWeight="1"
+        app:layout_column="0"
+        app:layout_row="0" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/followers"
+        app:layout_columnWeight="1"
+        app:layout_column="0"
+        app:layout_row="1" />
+
+    <TextView
+        android:id="@+id/stars"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="0"
+        app:layout_columnWeight="1"
+        app:layout_column="1"
+        app:layout_row="0" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/stars"
+        app:layout_columnWeight="1"
+        app:layout_row="1"
+        app:layout_column="1" />
+
+    <TextView
+        android:id="@+id/repos"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="0"
+        app:layout_columnWeight="1"
+        app:layout_column="2"
+        app:layout_row="0" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/repos"
+        app:layout_columnWeight="1"
+        app:layout_column="2"
+        app:layout_row="1" />
+
+    <TextView
+        android:id="@+id/following"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="0"
+        app:layout_columnWeight="1"
+        app:layout_column="3"
+        app:layout_row="0" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/following"
+        app:layout_columnWeight="1"
+        app:layout_column="3"
+        app:layout_row="1" />
+
+</android.support.v7.widget.GridLayout>
+
+<LinearLayout
+    android:id="@+id/listLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/pinnedTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="16dp"
+        android:text="@string/title_pinned_repositories"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/pinned"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="horizontal"
+        android:clipToPadding="false"
+        android:padding="4dp"/>
+
+    <TextView
+        android:id="@+id/organizationsTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="16dp"
+        android:text="@string/title_organizations"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/organizations"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="horizontal"
+        android:clipToPadding="false"
+        android:padding="4dp"/>
+
+</LinearLayout>
+
+</LinearLayout>

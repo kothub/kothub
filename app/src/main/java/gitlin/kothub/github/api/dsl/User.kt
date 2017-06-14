@@ -13,56 +13,57 @@ class User(override val level: Int): ActorFields {
     val websiteUrl: Unit get() = addField("websiteUrl")
     val email: Unit get() = addField("email")
 
-    fun followers(first: Int? = null, body: UserConnection.() -> Unit) {
+    fun followers(first: Variable<Int>? = null, body: UserConnection.() -> Unit) {
+
+        val connection = UserConnection(nextLevel())
+        connection.body()
+        addField(
+            Node(
+                "followers",
+                connection.fields,
+                variables("first" to first)
+            )
+        )
+    }
+
+    fun following(first: Variable<Int>? = null, body: UserConnection.() -> Unit) {
 
         val connection = UserConnection(nextLevel())
         connection.body()
 
-        val pagination = paginationData(first)
         addField(
-            Node("followers${args(pagination)}", connection.fields)
+            Node(
+                "following",
+                connection.fields,
+                variables("first" to first)
+            )
         )
     }
 
-    fun following(first: Int? = null, body: UserConnection.() -> Unit) {
+    fun starredRepositories(first: Variable<Int>? = null, body: UserConnection.() -> Unit) {
 
         val connection = UserConnection(nextLevel())
         connection.body()
-
-        val pagination = paginationData(first)
         addField(
-                Node("following${args(pagination)}", connection.fields)
+            Node("starredRepositories", connection.fields, variables("first" to first))
         )
     }
 
-    fun starredRepositories(first: Int? = null, body: UserConnection.() -> Unit) {
-
-        val connection = UserConnection(nextLevel())
-        connection.body()
-
-        val pagination = paginationData(first)
-        addField(
-                Node("starredRepositories${args(pagination)}", connection.fields)
-        )
-    }
-
-    fun repositories(first: Int? = null, body: RepositoryConnection.() -> Unit) {
+    fun repositories(first: Variable<Int>? = null, body: RepositoryConnection.() -> Unit) {
 
         val connection = RepositoryConnection(nextLevel())
         connection.body()
-
-        val pagination = paginationData(first)
         addField(
-                Node("repositories${args(pagination)}", connection.fields)
+            Node("repositories", connection.fields, variables("first" to first))
         )
     }
 
     fun contributedRepositories (
-            first: Int,
-            after: String? = null,
-            last: Int? = null,
-            before: String? = null,
-            privacy: RepositoryPrivacy? = null,
+            first: Variable<Int>? = null,
+            after: Variable<String>? = null,
+            last: Variable<Int>? = null,
+            before: Variable<String>? = null,
+            privacy: Variable<RepositoryPrivacy>? = null,
             body: RepositoryConnection.() -> Unit
             // TODO: order
             // TODO: affiliations
@@ -70,20 +71,21 @@ class User(override val level: Int): ActorFields {
     ) {
         val connection = RepositoryConnection(nextLevel())
         connection.body()
-
-        val pagination = paginationData(first, after, last, before)
         addField(
-
-            Node("contributedRepositories${args(pagination, arg("privacy", privacy.toString()))}", connection.fields)
+            Node(
+                "contributedRepositories",
+                connection.fields,
+                variables("first" to first, "after" to after, "last" to last, "before" to before, "privacy" to privacy)
+            )
         )
     }
 
     fun pinnedRepositories (
-            first: Int?,
-            after: String? = null,
-            last: Int? = null,
-            before: String? = null,
-            privacy: RepositoryPrivacy? = null,
+            first: Variable<Int>? = null,
+            after: Variable<String>? = null,
+            last: Variable<Int>? = null,
+            before: Variable<String>? = null,
+            privacy: Variable<RepositoryPrivacy>? = null,
             body: RepositoryConnection.() -> Unit
             // TODO: order
             // TODO: affiliations
@@ -92,9 +94,30 @@ class User(override val level: Int): ActorFields {
         val connection = RepositoryConnection(nextLevel())
         connection.body()
 
-        val pagination = paginationData(first, after, last, before)
         addField(
-            Node("pinnedRepositories${args(pagination, arg("privacy", privacy))}", connection.fields)
+            Node(
+                "pinnedRepositories",
+                connection.fields,
+                variables("first" to first, "after" to after, "last" to last, "before" to before, "privacy" to privacy)
+            )
+        )
+    }
+
+    fun organizations (
+            first: Variable<Int>? = null,
+            after: Variable<String>? = null,
+            last: Variable<Int>? = null,
+            before: Variable<String>? = null,
+            body: OrganizationConnection.() -> Unit
+    ) {
+        val connection = OrganizationConnection(nextLevel())
+        connection.body()
+
+        addField(
+            Node(
+                "organizations", connection.fields,
+                variables("first" to first, "after" to after, "last" to last, "before" to before)
+            )
         )
     }
 }
