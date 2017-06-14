@@ -11,6 +11,7 @@ import gitlin.kothub.github.api.data.Notification
 import gitlin.kothub.utilities.value
 import kotlinx.android.synthetic.main.notification_list_view.view.*
 
+
 class NotificationAdapter(private val context: Context, val notifications: List<Notification>): RecyclerView.Adapter<NotificationAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -18,6 +19,7 @@ class NotificationAdapter(private val context: Context, val notifications: List<
         val inflater = LayoutInflater.from(context)
 
         val view = inflater.inflate(R.layout.notification_list_view, parent, false)
+
         return ViewHolder(view)
     }
 

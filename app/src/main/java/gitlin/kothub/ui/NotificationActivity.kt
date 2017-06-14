@@ -1,6 +1,7 @@
 package gitlin.kothub.ui
 
 import android.os.Bundle
+import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import gitlin.kothub.R
 import gitlin.kothub.adapters.NotificationAdapter
@@ -19,9 +20,13 @@ class NotificationActivity : LifecycleAppCompatActivity(), AnkoLogger {
     var notifications: Notifications? = null
         set(value) {
             if (value != null) {
+                val layoutManager = LinearLayoutManager(this)
 
                 notifs.adapter = NotificationAdapter(this, value.notifications)
-                notifs.layoutManager = LinearLayoutManager(this)
+                notifs.layoutManager = layoutManager
+
+                val dividerItemDecoration = DividerItemDecoration(notifs.context, layoutManager.orientation)
+                notifs.addItemDecoration(dividerItemDecoration)
             }
         }
 
