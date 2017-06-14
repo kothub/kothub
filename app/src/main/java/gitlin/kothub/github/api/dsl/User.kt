@@ -13,9 +13,9 @@ class User(override val level: Int): ActorFields {
     val websiteUrl: Unit get() = addField("websiteUrl")
     val email: Unit get() = addField("email")
 
-    fun followers(first: Variable<Int>? = null, body: UserConnection.() -> Unit) {
+    fun followers(first: Variable<Int>? = null, body: Connection<User>.() -> Unit) {
 
-        val connection = UserConnection(nextLevel())
+        val connection = Connection<User>(nextLevel())
         connection.body()
         addField(
             Node(
@@ -26,9 +26,9 @@ class User(override val level: Int): ActorFields {
         )
     }
 
-    fun following(first: Variable<Int>? = null, body: UserConnection.() -> Unit) {
+    fun following(first: Variable<Int>? = null, body: Connection<User>.() -> Unit) {
 
-        val connection = UserConnection(nextLevel())
+        val connection = Connection<User>(nextLevel())
         connection.body()
 
         addField(
@@ -40,18 +40,18 @@ class User(override val level: Int): ActorFields {
         )
     }
 
-    fun starredRepositories(first: Variable<Int>? = null, body: UserConnection.() -> Unit) {
+    fun starredRepositories(first: Variable<Int>? = null, body: Connection<User>.() -> Unit) {
 
-        val connection = UserConnection(nextLevel())
+        val connection = Connection<User>(nextLevel())
         connection.body()
         addField(
             Node("starredRepositories", connection.fields, variables("first" to first))
         )
     }
 
-    fun repositories(first: Variable<Int>? = null, body: RepositoryConnection.() -> Unit) {
+    fun repositories(first: Variable<Int>? = null, body: Connection<Repository>.() -> Unit) {
 
-        val connection = RepositoryConnection(nextLevel())
+        val connection = Connection<Repository>(nextLevel())
         connection.body()
         addField(
             Node("repositories", connection.fields, variables("first" to first))
@@ -64,12 +64,12 @@ class User(override val level: Int): ActorFields {
             last: Variable<Int>? = null,
             before: Variable<String>? = null,
             privacy: Variable<RepositoryPrivacy>? = null,
-            body: RepositoryConnection.() -> Unit
+            body: Connection<Repository>.() -> Unit
             // TODO: order
             // TODO: affiliations
             // TODO: isLocked
     ) {
-        val connection = RepositoryConnection(nextLevel())
+        val connection = Connection<Repository>(nextLevel())
         connection.body()
         addField(
             Node(
@@ -86,12 +86,12 @@ class User(override val level: Int): ActorFields {
             last: Variable<Int>? = null,
             before: Variable<String>? = null,
             privacy: Variable<RepositoryPrivacy>? = null,
-            body: RepositoryConnection.() -> Unit
+            body: Connection<Repository>.() -> Unit
             // TODO: order
             // TODO: affiliations
             // TODO: isLocked
     ) {
-        val connection = RepositoryConnection(nextLevel())
+        val connection = Connection<Repository>(nextLevel())
         connection.body()
 
         addField(
@@ -108,9 +108,9 @@ class User(override val level: Int): ActorFields {
             after: Variable<String>? = null,
             last: Variable<Int>? = null,
             before: Variable<String>? = null,
-            body: OrganizationConnection.() -> Unit
+            body: Connection<Organization>.() -> Unit
     ) {
-        val connection = OrganizationConnection(nextLevel())
+        val connection = Connection<Organization>(nextLevel())
         connection.body()
 
         addField(
@@ -119,24 +119,6 @@ class User(override val level: Int): ActorFields {
                 variables("first" to first, "after" to after, "last" to last, "before" to before)
             )
         )
-    }
-}
-
-
-class UserConnection(override val level: Int) : Connection<User>(level) {
-    fun edges (body: UserEdge.() -> Unit) {
-        val edges = UserEdge(nextLevel())
-        edges.body()
-        addField(Node("edges", edges.fields))
-    }
-}
-
-
-class UserEdge(override val level: Int): Edges(level) {
-    fun node (body: User.() -> Unit) {
-        val issue = User(nextLevel())
-        issue.body()
-        addField(Node(fields = issue.fields))
     }
 }
 

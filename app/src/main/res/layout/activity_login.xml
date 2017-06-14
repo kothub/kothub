@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="gitlin.kothub.github.LoginActivity"
+    tools:context="gitlin.kothub.accounts.LoginActivity"
     android:orientation="vertical">
 
-        <include layout="@layout/toolbar" />
+       <!-- <include layout="@layout/toolbar" />-->
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -22,7 +22,8 @@
                             android:layout_width="100dp"
                             android:layout_height="100dp"
                             android:layout_centerHorizontal="true"
-                            app:iiv_icon="oct_logo_github" />
+                            app:iiv_icon="oct_logo_github"
+                            app:iiv_color="@color/white"/>
                 </RelativeLayout>
 
 
@@ -38,18 +39,21 @@
                     android:layout_alignParentStart="true"
                     android:layout_marginBottom="54dp" />
 
-                <Button
+
+                <com.mikepenz.iconics.view.IconicsButton
                     android:id="@+id/button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
+                    android:text="@string/oct_mark_github_string_login"
                     android:background="@drawable/ripple"
                     android:elevation="2dp"
                     android:onClick="onLoginClick"
-                    android:text="@string/login"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    />
         </RelativeLayout>
 
 

@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,8 +12,10 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import gitlin.kothub.R
 import gitlin.kothub.github.api.data.PinnedRepository
+import gitlin.kothub.ui.repo.RepositoryActivity
 import gitlin.kothub.utilities.value
 import kotlinx.android.synthetic.main.repository_list_view.view.*
+import org.jetbrains.anko.intentFor
 
 class PinnedRepositoryAdapter(
         private val context: Context,
@@ -56,12 +59,32 @@ class PinnedRepositoryAdapter(
     }
 
 
-    class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
+    inner class ViewHolder(view: View): RecyclerView.ViewHolder(view), View.OnClickListener {
         val name: TextView = view.repository
         val description: TextView = view.description
         val languageName: TextView = view.languageName
         val languageColor: LinearLayout = view.languageColorShape
         val stargazers: TextView = view.stargazers
         val forks: TextView = view.forks
+
+
+        init {
+            view.setOnClickListener(this)
+        }
+
+        override fun onClick(v: View) {
+
+            Log.i("ViewHolder", "CLICKED")
+
+            val position = adapterPosition
+            val repo = this@PinnedRepositoryAdapter.repositories[position]
+            val context = this@PinnedRepositoryAdapter.context
+            val intent = context.intentFor<RepositoryActivity>(
+                "name" to repo.name,
+                "owner" to repo.owner
+            )
+
+            context.startActivity(intent)
+        }
     }
 }

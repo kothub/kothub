@@ -5,7 +5,7 @@ android:layout_width="match_parent"
 android:layout_height="match_parent"
 android:orientation="vertical"
 android:background="@color/grey95"
-tools:context="gitlin.kothub.ui.IssuesActivity">
+tools:context="gitlin.kothub.ui.issues.IssuesActivity">
     <include layout="@layout/toolbar"/>
 
     <TextView

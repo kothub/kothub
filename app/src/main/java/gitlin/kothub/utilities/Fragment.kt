@@ -7,8 +7,9 @@ import android.support.v7.app.AppCompatActivity
 
 inline fun AppCompatActivity.createFragment (savedInstance: Bundle?, placeholder: Int, tag: String? = null, body: FragmentTransaction.() -> Fragment) {
     if (savedInstance == null) {
-        val ft = this.supportFragmentManager.beginTransaction()
+        val ft = supportFragmentManager.beginTransaction()
         ft.replace(placeholder, ft.body(), tag)
         ft.commit()
     }
 }
+

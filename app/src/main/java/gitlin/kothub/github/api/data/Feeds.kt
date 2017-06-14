@@ -1,6 +1,6 @@
 package gitlin.kothub.github.api.data
 
-import com.github.salomonbrys.kotson.*
+import com.github.salomonbrys.kotson.byString
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser

@@ -1,7 +1,5 @@
 package gitlin.kothub.github.api.dsl
 
-import android.util.Log
-
 class Node(name: String = "node", val fields: MutableList<Field>, val variables: List<Variable<Any>> = arrayListOf()): Field(name) {
 
     override fun toString(): String {
@@ -33,7 +31,7 @@ class Node(name: String = "node", val fields: MutableList<Field>, val variables:
             val value: Any? = variable.value
             return when (value) {
                 null -> null
-                is String -> "$key: \"$value\""
+                is String -> "$key: \\\"$value\\\""
                 else -> "$key: $value"
             }
         }
