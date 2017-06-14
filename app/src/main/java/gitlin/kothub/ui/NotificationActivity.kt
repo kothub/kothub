@@ -1,9 +1,8 @@
 package gitlin.kothub.ui
 
 import android.os.Bundle
-import android.view.Gravity
-import android.widget.AbsListView
-import android.widget.ProgressBar
+import android.support.v7.widget.DividerItemDecoration
+import android.support.v7.widget.LinearLayoutManager
 import gitlin.kothub.R
 import gitlin.kothub.adapters.NotificationAdapter
 import gitlin.kothub.github.api.UserService
@@ -18,8 +17,13 @@ class NotificationActivity : LifecycleAppCompatActivity(), AnkoLogger {
     var notifications: Notifications? = null
         set(value) {
             if (value != null) {
+                val layoutManager = LinearLayoutManager(this)
 
                 notifs.adapter = NotificationAdapter(this, value.notifications)
+                notifs.layoutManager = layoutManager
+
+                val dividerItemDecoration = DividerItemDecoration(notifs.context, layoutManager.orientation)
+                notifs.addItemDecoration(dividerItemDecoration)
             }
         }
 
@@ -30,14 +34,6 @@ class NotificationActivity : LifecycleAppCompatActivity(), AnkoLogger {
         setSupportActionBar(toolbar)
         initDrawer(toolbar)
 
-        val progressBar = ProgressBar(this)
-
-        progressBar.layoutParams = AbsListView.LayoutParams(AbsListView.LayoutParams.WRAP_CONTENT,
-                AbsListView.LayoutParams.WRAP_CONTENT, Gravity.CENTER)
-        progressBar.isIndeterminate = true
-
-        notifs.emptyView = progressBar
-        listLayout.addView(progressBar)
         initProfile()
     }
 
