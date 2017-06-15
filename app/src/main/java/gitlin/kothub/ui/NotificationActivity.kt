@@ -1,6 +1,7 @@
 package gitlin.kothub.ui
 
 import android.os.Bundle
+import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import gitlin.kothub.R
@@ -12,7 +13,8 @@ import kotlinx.android.synthetic.main.activity_notifs.*
 import kotlinx.android.synthetic.main.toolbar.*
 import org.jetbrains.anko.AnkoLogger
 
-class NotificationActivity : LifecycleAppCompatActivity(), AnkoLogger {
+class NotificationActivity : LifecycleAppCompatActivity(),
+                             AnkoLogger, SwipeRefreshLayout.OnRefreshListener {
 
     var notifications: Notifications? = null
         set(value) {
@@ -34,24 +36,29 @@ class NotificationActivity : LifecycleAppCompatActivity(), AnkoLogger {
         setSupportActionBar(toolbar)
         initDrawer(toolbar)
 
-        initProfile()
+        fetchNotifications()
+
+        refreshLayout.setOnRefreshListener(this)
     }
+
+    override fun onRefresh() {
+        fetchNotifications()
+    }
+
 
     override fun onResume() {
         super.onResume()
         drawer.select(drawer.notifs)
     }
 
-    fun initProfile() {
+    private fun success(notifications: Notifications) {
+        this.notifications = notifications
+        refreshLayout.isRefreshing = false
+    }
+
+    fun fetchNotifications() {
         getService<UserService>()
                 .notifications()
-                .subscribe(
-                        {
-                            this.notifications = it
-                        },
-                        {
-
-                        }
-                )
+                .subscribe(this::success, {})
     }
 }
